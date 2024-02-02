@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "for https://www.youtube.com/watch?v=HD79q6aXjPA",
   "main": "index.js",
-  "type":"module",
+  "type": "module",
   "scripts": {
     "start": "tsx watch src src/index.ts",
     "prisma:generate": "prisma generate",
@@ -11,5 +11,18 @@
     "prisma:migrate:deploy": "prisma migrate deploy --name init --preview-feature"
   },
   "author": "Raipen",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "@prisma/client": "^5.9.1",
+    "dotenv": "^16.4.1",
+    "fastify": "^4.26.0",
+    "fastify-plugin": "^4.5.1",
+    "fastify-schema-to-ts": "^1.0.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.16",
+    "prisma": "^5.9.1",
+    "tsx": "^4.7.0",
+    "typescript": "^5.3.3"
+  }
 }
