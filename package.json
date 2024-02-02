@@ -1,11 +1,15 @@
 {
   "name": "word-memorization",
   "version": "1.0.0",
-  "description": "",
+  "description": "for https://www.youtube.com/watch?v=HD79q6aXjPA",
   "main": "index.js",
+  "type":"module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "tsx watch src src/index.ts",
+    "prisma:generate": "prisma generate",
+    "prisma:migrate:dev": "prisma migrate dev --name init --preview-feature",
+    "prisma:migrate:deploy": "prisma migrate deploy --name init --preview-feature"
   },
-  "author": "",
+  "author": "Raipen",
   "license": "ISC"
 }
