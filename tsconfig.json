@@ -8,7 +8,17 @@
         "esModuleInterop": true,
         "baseUrl": ".",
         "paths": {
-            "@/*": ["src/*"],
+            "@api": ["src/api"],
+            "@config": ["src/config"],
+            "@DTO/*": ["src/DTO/*"],
+            "@loaders": ["src/loaders"],
+            "@services/*": ["src/services/*"],
+            "@utils/*": ["src/utils/*"],
+            "@errors": ["src/errors"],
+            "@errors/*": ["src/errors/*"],
+            "@routes/*": ["src/api/routes/*"],
+            "@hooks/*": ["src/api/hooks/*"],
+            "@server": ["src/server"],
         }
     },
     "include": [
