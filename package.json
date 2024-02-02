@@ -2,7 +2,7 @@
   "name": "word-memorization",
   "version": "1.0.0",
   "description": "for https://www.youtube.com/watch?v=HD79q6aXjPA",
-  "main": "index.js",
+  "main": "src/index.ts",
   "type": "module",
   "scripts": {
     "start": "tsx watch src src/index.ts",
