@@ -1,10 +1,10 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Main from './pages/Main';
 import LoginedRoute from './LoginedRoute';
-import { LoginContext, useLoginValue } from './context/LoginContext';
+import { LoginContext, useInitLoginContext } from './context/LoginContext';
 
 function App() {
-    const value = useLoginValue();
+    const value = useInitLoginContext();
     return (
         <LoginContext.Provider value={value}>
             <BrowserRouter>
