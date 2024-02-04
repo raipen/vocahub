@@ -5,7 +5,7 @@ import { useContext } from 'react';
 import { LoginContext } from '@context/LoginContext';
 import { Button } from '@components/Button';
 
-const HeaderContainer = styled.div`
+const HeaderContainer = styled.header`
   background-color: #f8f9fa;
   padding: 20px max(calc(50% - 600px), 20px);
   width: 100%;

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const FooterContainer = styled.div`
+const FooterContainer = styled.footer`
   background-color: #f8f9fa;
   padding: 20px;
   margin-top: auto;
