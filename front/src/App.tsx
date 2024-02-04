@@ -5,6 +5,7 @@ import Header from '@components/Header';
 import Footer from '@components/Footer';
 import Main from '@pages/Main';
 import Login from '@pages/Login';
+import Signup from '@pages/Signup';
 import MyWordbook from '@pages/MyWordbook';
 import Wordbook from '@pages/Wordbook';
 import Setting from '@pages/Setting';
@@ -22,6 +23,7 @@ function App() {
                 <Routes>
                     <Route path="/" element={<Main />} />
                     <Route path="/login" element={<Login />} />
+                    <Route path="/signup" element={<Signup />} />
                     <Route path="/mywordbook" element={<LoginedRoute element={<MyWordbook />} />} />
                     <Route path="/wordbook" element={<LoginedRoute element={<Wordbook />} />} />
                     <Route path="/setting" element={<LoginedRoute element={<Setting />} />} />
