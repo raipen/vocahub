@@ -3,7 +3,7 @@ import Logo from '@assets/Title.png';
 import { Link } from 'react-router-dom';
 import { useContext } from 'react';
 import { LoginContext } from '@context/LoginContext';
-import { Button } from '@components/Button';
+import { Button } from '@components';
 
 const HeaderContainer = styled.header`
   background-color: #f8f9fa;

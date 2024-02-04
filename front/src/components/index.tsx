@@ -19,3 +19,19 @@ export const Button = styled.button`
         color: white;
     }
 `;
+
+export const MainContainer = styled.main<{ background?: string }>`
+  padding: 20px max(30px, calc(50% - 590px));
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  background-color: ${props => props.background || 'white'};
+`;
+
+export const Input = styled.input`
+  padding: 10px;
+  border: 1px solid #e9ecef;
+  border-radius: 5px;
+  margin: 10px 0;
+  width: 100%;
+`;

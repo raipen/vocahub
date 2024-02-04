@@ -1,8 +1,10 @@
+import { MainContainer } from "@components";
+
 function MyWordbook() {
   return (
-    <div>
+    <MainContainer>
       MyWordbook
-    </div>
+    </MainContainer>
   );
 }
 
