@@ -2,12 +2,12 @@ import { Navigate } from "react-router";
 import React, { useContext } from "react";
 import { LoginContext } from "@context/LoginContext";
 
-const LoginedRoute = ({element}:{element:React.ReactNode}) => {
+function LoginedRoute ({element}:{element:React.ReactElement}) {
     const { isLogined, refresh } = useContext(LoginContext);
 
     if(isLogined === null){
         refresh();
-        return;
+        return <></>;
     }
     
     if(isLogined === false){
