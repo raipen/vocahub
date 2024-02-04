@@ -1,13 +1,13 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { LoginContext, useInitLoginContext } from './context/LoginContext';
+import { LoginContext, useInitLoginContext } from '@context/LoginContext';
 import LoginedRoute from './LoginedRoute';
-import Header from './components/Header';
-import Footer from './components/Footer';
-import Main from './pages/Main';
-import Login from './pages/Login';
-import MyWordbook from './pages/MyWordbook';
-import Wordbook from './pages/Wordbook';
-import Setting from './pages/Setting';
+import Header from '@components/Header';
+import Footer from '@components/Footer';
+import Main from '@pages/Main';
+import Login from '@pages/Login';
+import MyWordbook from '@pages/MyWordbook';
+import Wordbook from '@pages/Wordbook';
+import Setting from '@pages/Setting';
 
 function App() {
     const value = useInitLoginContext();

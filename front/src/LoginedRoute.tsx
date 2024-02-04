@@ -1,6 +1,6 @@
 import { Navigate } from "react-router";
 import React, { useContext } from "react";
-import { LoginContext } from "./context/LoginContext";
+import { LoginContext } from "@context/LoginContext";
 
 const LoginedRoute = ({element}:{element:React.ReactNode}) => {
     const { isLogined, refresh } = useContext(LoginContext);
