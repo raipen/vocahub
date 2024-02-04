@@ -7,7 +7,7 @@ import Main from '@pages/Main';
 import Login from '@pages/Login';
 import Signup from '@pages/Signup';
 import MyWordbook from '@pages/MyWordbook';
-import Wordbook from '@pages/Wordbook';
+import VocaList from '@pages/VocaList';
 import Setting from '@pages/Setting';
 
 function App() {
@@ -25,7 +25,7 @@ function App() {
                     <Route path="/login" element={<Login />} />
                     <Route path="/signup" element={<Signup />} />
                     <Route path="/mywordbook" element={<LoginedRoute element={<MyWordbook />} />} />
-                    <Route path="/wordbook" element={<LoginedRoute element={<Wordbook />} />} />
+                    <Route path="/vocalist" element={<LoginedRoute element={<VocaList />} />} />
                     <Route path="/setting" element={<LoginedRoute element={<Setting />} />} />
                 </Routes>
                 <Footer />

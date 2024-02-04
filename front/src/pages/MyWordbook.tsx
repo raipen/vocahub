@@ -1,4 +1,4 @@
-function Main() {
+function MyWordbook() {
   return (
     <div>
       MyWordbook
@@ -6,4 +6,4 @@ function Main() {
   );
 }
 
-export default Main;
+export default MyWordbook;

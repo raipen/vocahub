@@ -55,7 +55,7 @@ function Header() {
         <Link to="/mywordbook">
           내 단어장
         </Link>
-        <Link to="/wordbook">
+        <Link to="/vocalist">
           가장 최근에 본 단어장
         </Link>
       </WordMenu>
