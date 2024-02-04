@@ -15,6 +15,35 @@ const HeaderContainer = styled.div`
   }
 `;
 
+const WordMenu = styled.div`
+  margin: 0 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  >*{
+    font-size: 100%;
+    line-height: 30px;
+    font-weight: bold;
+    color: #4e4e4e;
+    cursor: pointer;
+    display: inline-flex;
+    padding: 10px;
+    align-items: center;
+    border-radius: 5px;
+    margin: 0 5px;
+    &:hover{
+      background-color: #ff660022;
+      color: var(--main-color);
+    }
+  }
+`;
+
+const UserMenu = styled.div`
+  display: flex;
+  gap: 10px;
+  margin-left: auto;
+`;
+
 function Header() {
   const { isLogined,logout } = useContext(LoginContext);
   return (
@@ -22,7 +51,15 @@ function Header() {
       <Link to="/">
         <img src={Logo} alt="로고" />
       </Link>
-      <div style={{ marginLeft: 'auto', display: 'flex', gap: '10px' }}>
+      <WordMenu>
+        <Link to="/mywordbook">
+          내 단어장
+        </Link>
+        <Link to="/wordbook">
+          가장 최근에 본 단어장
+        </Link>
+      </WordMenu>
+      <UserMenu>
         {
           isLogined === true ? (
             <>
@@ -39,7 +76,7 @@ function Header() {
             ) :
               <Button className="material-icons">hourglass_top</Button>
         }
-      </div>
+      </UserMenu>
     </HeaderContainer>
   );
 }
