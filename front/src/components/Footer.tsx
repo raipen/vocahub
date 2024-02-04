@@ -1,9 +1,19 @@
-function Main() {
+import styled from 'styled-components';
+
+const FooterContainer = styled.div`
+  background-color: #f8f9fa;
+  padding: 20px;
+  margin-top: auto;
+  text-align: center;
+  width: 100%;
+`;
+
+function Footer() {
   return (
-    <div>
+    <FooterContainer>
       Footer
-    </div>
+    </FooterContainer>
   );
 }
 
-export default Main;
+export default Footer;

@@ -11,6 +11,13 @@ html {
   box-sizing: border-box
 }
 
+#root {
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
 :root {
-  --main-color: #2962ff
+  --main-color: #ff6600
 }
