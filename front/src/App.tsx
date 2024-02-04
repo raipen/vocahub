@@ -11,10 +11,14 @@ import Setting from '@pages/Setting';
 
 function App() {
     const value = useInitLoginContext();
+    const { isLogined, refresh } = value;
+    if(isLogined === null){
+        refresh();
+    }
     return (
         <LoginContext.Provider value={value}>
-            <Header />
             <BrowserRouter>
+                <Header />
                 <Routes>
                     <Route path="/" element={<Main />} />
                     <Route path="/login" element={<Login />} />
@@ -22,8 +26,8 @@ function App() {
                     <Route path="/wordbook" element={<LoginedRoute element={<Wordbook />} />} />
                     <Route path="/setting" element={<LoginedRoute element={<Setting />} />} />
                 </Routes>
+                <Footer />
             </BrowserRouter>
-            <Footer />
         </LoginContext.Provider>
     )
 }

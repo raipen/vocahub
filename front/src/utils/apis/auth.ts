@@ -16,6 +16,7 @@ export const requestLogin = ({setIsLogined, setAccessToken}: setLoginContext) =>
 
 export const requestRefresh = ({setIsLogined, setAccessToken}: setLoginContext) => async () => {
   await new Promise((resolve) => setTimeout(resolve, 1000));
+  console.log("refresh");
   setIsLogined(true);
   setAccessToken("access_token");
 }

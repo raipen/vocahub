@@ -27,6 +27,7 @@
       "@hooks/*": ["src/hooks/*"],
       "@utils/*": ["src/utils/*"],
       "@apis/*": ["src/utils/apis/*"],
+      "@assets/*": ["src/assets/*"],
     }
   },
   "include": [

@@ -8,7 +8,8 @@ html {
 }
 
 * {
-  box-sizing: border-box
+  box-sizing: border-box;
+  font-family: Noto Sans KR, sans-serif;
 }
 
 #root {
@@ -20,4 +21,9 @@ html {
 
 :root {
   --main-color: #ff6600
+}
+
+a {
+  text-decoration: none;
+  color: inherit
 }
