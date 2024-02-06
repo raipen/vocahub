@@ -32,6 +32,10 @@ const Wordbook = styled.div`
   margin-bottom: 10px;
   border-top: 1px solid var(--main-color);
   padding: 10px;
+
+  &:first-child {
+    border-top: none;
+  }
   
   &>div:first-child{
     display: flex;

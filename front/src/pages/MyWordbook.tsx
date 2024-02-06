@@ -6,9 +6,9 @@ import WordbookList from "@components/WordbookList";
 import HiddenWordbookList from "@components/HiddenWordbookList";
 
 function MyWordbook() {
-  const [profile, profileLoading, profileError] = useFetchWithRendering(getProfile);
-  const [wordbooks, wordbooksLoading, wordbooksError] = useFetchWithRendering(getWordbookList);
-  const [hiddenWordbooks, hiddenWordbooksLoading, hiddenWordbooksError] = useFetchWithRendering(getHiddenWordbookList);
+  const [profile, profileError] = useFetchWithRendering(getProfile);
+  const [wordbooks, wordbooksError] = useFetchWithRendering(getWordbookList);
+  const [hiddenWordbooks, hiddenWordbooksError] = useFetchWithRendering(getHiddenWordbookList);
   return (
     <MainContainer flexdirection="row">
       <Profile profile={profile || {name: 'Loading', wordbookCount: 0, vocaCount: 0, loginDate: []}} />
