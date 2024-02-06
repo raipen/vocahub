@@ -6,9 +6,9 @@ const data = {
         { id: 2, name: "user2", password: "1234" },
     ],
     wordbook: [
-        { id: 1, userId: 1, name: "wordbook1", createdAt: new Date(new Date().getTime() - 1000 * 60 * 60 * 72).toISOString(), isHidden: false },
-        { id: 2, userId: 1, name: "wordbook2", createdAt: new Date(new Date().getTime() - 1000 * 60 * 60 * 24).toISOString(), isHidden: false },
-        { id: 3, userId: 1, name: "wordbook3", createdAt: new Date(new Date().getTime() - 1000 * 60 * 10).toISOString(), isHidden: false },
+        { id: 1, userId: 1, name: "wordbook1", createdAt: new Date(new Date().getTime() - 1000 * 60 * 60 * 72 + 1000 * 60 * 60 * 9).toISOString(), isHidden: false },
+        { id: 2, userId: 1, name: "wordbook2", createdAt: new Date(new Date().getTime() - 1000 * 60 * 60 * 24 + 1000 * 60 * 60 * 9).toISOString(), isHidden: false },
+        { id: 3, userId: 1, name: "wordbook3", createdAt: new Date(new Date().getTime() - 1000 * 60 * 10 + 1000 * 60 * 60 * 9).toISOString(), isHidden: false },
         { id: 4, userId: 2, name: "day1", createdAt: new Date(new Date().getTime() - 1000 * 60 * 5).toISOString(), isHidden: false },
         { id: 5, userId: 2, name: "day2", createdAt: new Date(new Date().getTime() - 1000 * 60 * 2).toISOString(), isHidden: false },
         { id: 6, userId: 2, name: "day3", createdAt: new Date(new Date().getTime() - 1000 * 60).toISOString(), isHidden: false },
@@ -28,16 +28,16 @@ const data = {
 
 
 export const getProfile = async (accessToken: string) => {
-    return new Promise<{name:String, wordbookCount:Number, vocaCount:Number, loginDate:{date:String, isLogin:Boolean}[]}>((resolve,reject) => {
+    return new Promise<{name:string, wordbookCount:number, vocaCount:number, loginDate:{date:string, count:number}[]}>((resolve,reject) => {
         setTimeout(() => {
             if (accessToken === "access_token") {
                 return reject(new ExpiredAccessTokenError("expired access token"));
             }
             const wordbook = data.wordbook.filter((wordbook) => wordbook.userId === 1&&!wordbook.isHidden);
             const vocaCount = data.voca.filter((voca) => wordbook.some((wordbook) => wordbook.id === voca.bookId)).length;
-            const loginDate = Array.from({length:30},
-                (_,i) => new Date(new Date().getTime() - 1000 * 60 * 60 * 24 * i).toISOString())
-                .map((date) => ({date:date.slice(0,10), isLogin: wordbook.some((wordbook) => wordbook.createdAt.slice(0,10) === date)}));
+            const loginDate = Array.from({length:70},
+                (_,i) => new Date(new Date().getTime() + 1000 * 60 * 60 * 9 - 1000 * 60 * 60 * 24 * i).toISOString().slice(0,10))
+                .map((date) => ({date:date.slice(0,10), count: wordbook.filter((wordbook) => wordbook.createdAt.slice(0,10) === date).length}));
             resolve({
                 name:"user1",
                 wordbookCount:wordbook.length,

@@ -20,11 +20,11 @@ export const Button = styled.button`
     }
 `;
 
-export const MainContainer = styled.main<{ background?: string }>`
+export const MainContainer = styled.main<{ background?: string, flexdirection?: string }>`
   padding: 20px max(30px, calc(50% - 590px));
   width: 100%;
   display: flex;
-  flex-direction: column;
+  flex-direction: ${props => props.flexdirection || 'column'};
   background-color: ${props => props.background || 'white'};
 `;
 

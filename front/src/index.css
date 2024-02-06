@@ -4,7 +4,7 @@ body,
 html {
   font-family: Noto Sans KR, sans-serif;
   margin: 0;
-  padding: 0
+  padding: 0;
 }
 
 * {
@@ -17,10 +17,14 @@ html {
   width: 100%;
   display: flex;
   flex-direction: column;
+  color: var(--text-color);
 }
 
 :root {
-  --main-color: #ff6600
+  --main-color: #ff6600;
+  --text-color: #4e4e4e;
+  --important-text-color: rgb(31, 35, 40);
+  --muted-text-color: rgb(101, 109, 118);
 }
 
 a {
