@@ -1,3 +1,5 @@
+import { ExpiredAccessTokenError } from "@utils/erros";
+
 const data = {
     user: [
         { id: 1, name: "user1", password: "1234" },
@@ -26,11 +28,13 @@ const data = {
 
 
 export const getProfile = async (accessToken: string) => {
-    return new Promise<{name:String, wordbookCount:Number, vocaCount:Number, loginDate:{date:String, isLogin:Boolean}[]}>((resolve) => {
+    return new Promise<{name:String, wordbookCount:Number, vocaCount:Number, loginDate:{date:String, isLogin:Boolean}[]}>((resolve,reject) => {
         setTimeout(() => {
+            if (accessToken === "access_token") {
+                return reject(new ExpiredAccessTokenError("expired access token"));
+            }
             const wordbook = data.wordbook.filter((wordbook) => wordbook.userId === 1&&!wordbook.isHidden);
             const vocaCount = data.voca.filter((voca) => wordbook.some((wordbook) => wordbook.id === voca.bookId)).length;
-            //최근 30일간 로그인 기록
             const loginDate = Array.from({length:30},
                 (_,i) => new Date(new Date().getTime() - 1000 * 60 * 60 * 24 * i).toISOString())
                 .map((date) => ({date:date.slice(0,10), isLogin: wordbook.some((wordbook) => wordbook.createdAt.slice(0,10) === date)}));
