@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 const ProfileContainer = styled.div`
   display: flex;
+  flex-shrink: 0;
   flex-direction: column;
   position: relative;
   width: 200px;
@@ -29,14 +30,18 @@ const ProfileContainer = styled.div`
         color: var(--important-text-color);
     }
   }
+  @media (max-width: 600px) {
+    width: 100%;
+    padding: 10px max(15px, calc(50% - 150px));
+  }
 `;
 
 const LoginDateTable = styled.div`
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
-    width: fit-content;
     height: calc(11px * 7 + 3px * 6);
+    max-width: 300px;
     gap: 3px;
 `;
 
@@ -56,6 +61,7 @@ const LoginDateElement = styled.div<{ background: string }>`
         border-radius: 5px;
         position: absolute;
         transform: translate(-50%, calc(-100% - 5px));
+        padding: 5px;
         &::after {
             content: '';
             position: absolute;
@@ -75,6 +81,7 @@ const LoginDateElement = styled.div<{ background: string }>`
 
 const Month = styled.div`
     margin: 10px 0px 5px 25px;
+    max-width: 270px;
     font-size: 11px;
     display: flex;
     justify-content: space-between;

@@ -49,21 +49,25 @@ export const getProfile = async (accessToken: string) => {
 }
 
 export const getWordbookList = async (accessToken: string) => {
-  return new Promise<(typeof data.wordbook[0]&{wordCount:number})[]>((resolve) => {
+  return new Promise<(typeof data.wordbook[0]&{vocaCount:number})[]>((resolve) => {
     setTimeout(() => {
       resolve(data.wordbook
         .filter((wordbook) => wordbook.userId === 1&&!wordbook.isHidden)
         .sort((a, b) => a.createdAt > b.createdAt ? -1 : 1)
-        .map((wordbook) => ({...wordbook, wordCount: data.voca.filter((voca) => voca.bookId === wordbook.id).length}))
+        .map((wordbook) => ({...wordbook, vocaCount: data.voca.filter((voca) => voca.bookId === wordbook.id).length}))
       );
     }, 1000);
   });
 };
 
 export const getHiddenWordbookList = async (accessToken: string) => {
-  return new Promise<typeof data.wordbook>((resolve) => {
+  return new Promise<(typeof data.wordbook[0]&{vocaCount:number})[]>((resolve) => {
     setTimeout(() => {
-      resolve(data.wordbook.filter((wordbook) => wordbook.userId === 1&&wordbook.isHidden).sort((a, b) => a.createdAt > b.createdAt ? -1 : 1));
+      resolve(data.wordbook
+        .filter((wordbook) => wordbook.userId === 1&&wordbook.isHidden)
+        .sort((a, b) => a.createdAt > b.createdAt ? -1 : 1)
+        .map((wordbook) => ({...wordbook, vocaCount: data.voca.filter((voca) => voca.bookId === wordbook.id).length}))
+      );
     }, 1000);
   });
 };

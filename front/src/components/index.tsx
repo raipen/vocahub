@@ -26,6 +26,8 @@ export const MainContainer = styled.main<{ background?: string, flexdirection?: 
   display: flex;
   flex-direction: ${props => props.flexdirection || 'column'};
   background-color: ${props => props.background || 'white'};
+  gap: 20px;
+  flex-wrap: wrap;
 `;
 
 export const Input = styled.input`
