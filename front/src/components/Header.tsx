@@ -36,6 +36,16 @@ const WordMenu = styled.div`
       color: var(--main-color);
     }
   }
+  @media (max-width: 600px) {
+    display: none;
+  }
+`;
+
+const SmallWordMenu = styled.div`
+  display: none;
+  @media (max-width: 600px) {
+    display: block;
+  }
 `;
 
 const UserMenu = styled.div`
@@ -60,6 +70,11 @@ function Header() {
         </Link>
       </WordMenu>
       <UserMenu>
+        <SmallWordMenu>
+          <Link to="/mywordbook">
+            <Button className="material-icons">menu_book</Button>
+          </Link>
+        </SmallWordMenu>
         {
           isLogined === true ? (
             <>
