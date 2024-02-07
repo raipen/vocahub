@@ -1,103 +1,8 @@
-import styled from 'styled-components';
 import { useState } from 'react';
-
-const WordbookListContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  width: calc(100% - 220px);
-  margin-left: auto;
-  padding: 10px 15px 0;
-  height: 100%;
-  border-bottom: 1px solid var(--main-color);
-  @media (max-width: 600px) {
-    width: 100%;
-  }
-`;
-
-const MyWordbook = styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    font-size: 1.5rem;
-    font-weight: 300;
-    margin-bottom: 10px;
-`;
-
-const Wordbook = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-    align-items: center;
-  margin-bottom: 10px;
-  border-top: 1px solid var(--main-color);
-  padding: 10px;
-
-  &:first-child {
-    border-top: none;
-  }
-  
-  &>div:first-child{
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    font-size: 1rem;
-    font-weight: 300;
-    color: var(--muted-text-color);
-    &>div:first-child {
-        font-size: 1.5rem;
-        font-weight: 600;
-        &>span:last-child {
-            color: var(--main-color);
-            &:hover {
-                text-decoration: underline;
-                cursor: pointer;
-            }
-        }
-        &>.material-icons-sharp{
-            font-size: 1rem;
-            margin-right: 5px;
-        }
-    }
-    &>div:nth-child(2) {
-        display: flex;
-        align-items: center;
-        font-size: 1rem;
-        font-weight: 300;
-        gap: 20px;
-        .material-icons-sharp{
-            font-size: 1rem;
-            margin-right: 5px;
-        }
-    }
-  }
-  &>div:last-child {
-    display: flex;
-    align-items: center;
-    font-weight: 300;
-    color: var(--muted-text-color);
-    user-select: none;
-    cursor: pointer;
-  }
-`;
-
-const Expend = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-  font-size: 1rem;
-  font-weight: 300;
-  color: var(--main-color);
-  padding: 5px 20px;
-  font-weight: 600;
-  border-radius: 5px;
-    cursor: pointer;
-    >span:first-child {
-        font-size: 2rem;
-    }
-`;
+import useFetchUpdate from "@hooks/useFetchUpdate";
+import { showWordbook } from '@utils/apis/wordbookmock';
+import { Link } from 'react-router-dom';
+import { WordbookListContainer, MyWordbook, Wordbook, Expend } from './WordbookListStyle';
 
 function ISOStringToDateString(isoString: string) {
     const date = isoString.split('T')[0];
@@ -114,24 +19,27 @@ function WordbookList({ wordbooks }: {
         vocaCount: number;
     }[]
 }) {
+    const [expend, setExpend] = useState(false);
+    const [showingWordbook, setShowingWordbook] = useState([] as number[]);
+    const [loadingShowWordbook, fetchShowWordbook, errorShowWordbook] = useFetchUpdate(showWordbook);
     return (
         <WordbookListContainer>
-            <MyWordbook>
+            <MyWordbook onClick={() => setExpend(expend => !expend)}>
                 <span>숨긴 단어장</span>
                 <Expend>
                     <span className="material-icons-sharp">
-                        expand_more
+                        {expend ? 'expand_less' : 'expand_more'}
                     </span>
                 </Expend>
             </MyWordbook>
-            {wordbooks.map((wordbook, index) => (
+            {expend&&wordbooks.map((wordbook, index) => (
                 <Wordbook key={index}>
                     <div>
                         <div>
                             <span className="material-icons-sharp">
                                 menu_book
                             </span>
-                            <span>{wordbook.name}</span>
+                            <Link to={`/wordbook/${wordbook.id}`}>{wordbook.name}</Link>
                         </div>
                         <div>
                             <div>
@@ -149,9 +57,24 @@ function WordbookList({ wordbooks }: {
                         </div>
                     </div>
                     <div>
-                        <span className="material-icons-sharp">
-                            visibility_off
-                        </span>
+                        {!showingWordbook.some((id) => id === wordbook.id) && <span className="material-icons-sharp" onClick={async () => {
+                            setShowingWordbook(showingWordbook=>[...showingWordbook, wordbook.id]);
+                            await fetchShowWordbook(wordbook.id);
+                            setShowingWordbook(showingWordbook=>showingWordbook.filter((id) => id !== wordbook.id));
+                            wordbooks.splice(index, 1);
+                        }}>
+                            visibility
+                        </span>}
+                        {loadingShowWordbook && showingWordbook.some((id) => id === wordbook.id) && (
+                            <>
+                                <span className="material-icons-sharp">
+                                    hourglass_bottom
+                                </span>
+                                <span>
+                                    이동 중
+                                </span>
+                            </>
+                        )}
                     </div>
                 </Wordbook>
             ))}

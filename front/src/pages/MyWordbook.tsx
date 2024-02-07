@@ -9,6 +9,7 @@ function MyWordbook() {
   const [profile, profileError] = useFetchWithRendering(getProfile);
   const [wordbooks, wordbooksError] = useFetchWithRendering(getWordbookList);
   const [hiddenWordbooks, hiddenWordbooksError] = useFetchWithRendering(getHiddenWordbookList);
+  console.log("MyWordbook", profile, wordbooks, hiddenWordbooks);
   return (
     <MainContainer flexdirection="row">
       <Profile profile={profile || {name: 'Loading', wordbookCount: 0, vocaCount: 0, loginDate: []}} />

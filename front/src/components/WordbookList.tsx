@@ -1,98 +1,9 @@
-import styled from 'styled-components';
-import { useState } from 'react';
-
-const WordbookListContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  width: calc(100% - 220px);
-  padding: 10px 15px;
-  height: 100%;
-  @media (max-width: 600px) {
-    width: 100%;
-  }
-`;
-
-const MyWordbook = styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    font-size: 1.5rem;
-    font-weight: 300;
-    margin-bottom: 10px;
-`;
-
-const Wordbook = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-    align-items: center;
-  margin-bottom: 10px;
-  border-top: 1px solid var(--main-color);
-  padding: 10px;
-  
-  &>div:first-child{
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    font-size: 1rem;
-    font-weight: 300;
-    color: var(--muted-text-color);
-    &>div:first-child {
-        font-size: 1.5rem;
-        font-weight: 600;
-        &>span:last-child {
-            color: var(--main-color);
-            &:hover {
-                text-decoration: underline;
-                cursor: pointer;
-            }
-        }
-        &>.material-icons-sharp{
-            font-size: 1rem;
-            margin-right: 5px;
-        }
-    }
-    &>div:nth-child(2) {
-        display: flex;
-        align-items: center;
-        font-size: 1rem;
-        font-weight: 300;
-        gap: 20px;
-        .material-icons-sharp{
-            font-size: 1rem;
-            margin-right: 5px;
-        }
-    }
-  }
-  &>div:last-child {
-    display: flex;
-    align-items: center;
-    font-weight: 300;
-    color: var(--muted-text-color);
-    user-select: none;
-    cursor: pointer;
-  }
-`;
-
-const NewWordbook = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-  font-size: 1rem;
-  font-weight: 300;
-  background-color: var(--main-color);
-    color: white;
-  padding: 5px 20px;
-  font-weight: 600;
-  border-radius: 5px;
-    cursor: pointer;
-    >span:first-child {
-        font-size: 1rem;
-    }
-`;
+import { useState, useRef } from "react";
+import useFetchUpdate from "@hooks/useFetchUpdate";
+import { Input } from "@components";
+import { addWordbook, hideWordbook } from '@utils/apis/wordbookmock';
+import { Link } from 'react-router-dom';
+import { WordbookListContainer, MyWordbook, Wordbook, NewButton, CancelButton } from './WordbookListStyle';
 
 function ISOStringToDateString(isoString: string) {
     const date = isoString.split('T')[0];
@@ -109,17 +20,82 @@ function WordbookList({ wordbooks }: {
         vocaCount: number;
     }[]
 }) {
+    const [newWordbook, setNewWordbook] = useState(false);
+    const [hiddingWordbook, setHiddingWordbook] = useState([] as number[]);
+    const [loadingAddWordbook, fetchAddWordbook, errorAddWordbook] = useFetchUpdate(addWordbook);
+    const [loadingHideWordbook, fetchHideWordbook, errorHideWordbook] = useFetchUpdate(hideWordbook);
+    const inputRef = useRef<HTMLInputElement>(null);
     return (
         <WordbookListContainer>
             <MyWordbook>
                 <span>내 단어장</span>
-                <NewWordbook>
+                { newWordbook === false && <NewButton onClick={() => setNewWordbook(true)}>
                     <span className="material-icons-sharp">
                         menu_book
                     </span>
                     <span>New</span>
-                </NewWordbook>
+                </NewButton> }
             </MyWordbook>
+            { newWordbook && (
+            <Wordbook >
+                <div>
+                    <div>
+                        <span className="material-icons-sharp">
+                            menu_book
+                        </span>
+                        <Input placeholder="단어장 이름(ex. 토익 day1)" ref={inputRef} />
+                    </div>
+                    <div>
+                        <div>
+                            <span className="material-icons-sharp">
+                                style
+                            </span>
+                            <span>단어 <b>0</b>개</span>
+                        </div>
+                        <div>
+                            <span className="material-icons-sharp">
+                                event
+                            </span>
+                            <span>{ISOStringToDateString(new Date(new Date().getTime() - new Date().getTimezoneOffset() * 60000).toISOString())}</span>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    {loadingAddWordbook && (
+                        <>
+                            <span className="material-icons-sharp">
+                                hourglass_bottom
+                            </span>
+                            <span>
+                                단어장 생성중
+                            </span>
+                        </>
+                    )}
+                    {loadingAddWordbook === false && (
+                        <>
+                            <NewButton onClick={async () => {
+                                const name = inputRef.current?.value;
+                                if (name) {
+                                    await fetchAddWordbook(name);
+                                    setNewWordbook(false);
+                                }
+                            }}>
+                                <span className="material-icons-sharp">
+                                    add_circle_outline
+                                </span>
+                                <span>추가</span>
+                            </NewButton>
+                            <CancelButton onClick={() => setNewWordbook(false)}>
+                                <span className="material-icons-sharp">
+                                    cancel
+                                </span>
+                                <span>취소</span>
+                            </CancelButton>
+                        </>
+                    )}
+                </div>
+            </Wordbook>
+            )}
             {wordbooks.map((wordbook, index) => (
                 <Wordbook key={index}>
                     <div>
@@ -127,7 +103,7 @@ function WordbookList({ wordbooks }: {
                             <span className="material-icons-sharp">
                                 menu_book
                             </span>
-                            <span>{wordbook.name}</span>
+                            <Link to={`/wordbook/${wordbook.id}`}>{wordbook.name}</Link>
                         </div>
                         <div>
                             <div>
@@ -145,9 +121,24 @@ function WordbookList({ wordbooks }: {
                         </div>
                     </div>
                     <div>
-                        <span className="material-icons-sharp">
+                        {!newWordbook&&!hiddingWordbook.some((id) => id === wordbook.id)&&<span className="material-icons-sharp" onClick={async () => {
+                            setHiddingWordbook(hiddingWordbook=>[...hiddingWordbook, wordbook.id]);
+                            await fetchHideWordbook(wordbook.id);
+                            setHiddingWordbook(hiddingWordbook=>hiddingWordbook.filter((id) => id !== wordbook.id));
+                            wordbooks.splice(index, 1);
+                        }}>
                             visibility_off
-                        </span>
+                        </span>}
+                        {loadingHideWordbook && hiddingWordbook.some((id) => id === wordbook.id) && (
+                        <>
+                            <span className="material-icons-sharp">
+                                hourglass_bottom
+                            </span>
+                            <span>
+                                이동 중
+                            </span>
+                        </>
+                        )}
                     </div>
                 </Wordbook>
             ))}

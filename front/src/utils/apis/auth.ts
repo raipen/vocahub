@@ -20,8 +20,7 @@ export const requestRefresh = ({setIsLogined, setAccessToken}: setLoginContext) 
   setIsLogined(true);
   setAccessToken((prev) => {
     if(prev === "") return "access_token";
-    if(prev === "access_token") return "access_token2";
-    return prev;
+    return prev+"refreshed";
   });
 }
 

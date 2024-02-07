@@ -32,8 +32,11 @@ export const MainContainer = styled.main<{ background?: string, flexdirection?: 
 
 export const Input = styled.input`
   padding: 10px;
-  border: 1px solid #e9ecef;
+  border: 1px solid var(--main-color);
   border-radius: 5px;
   margin: 10px 0;
-  width: 100%;
+  &:focus {
+    outline: none;
+    border: 1px solid var(--main-color);
+  }
 `;
