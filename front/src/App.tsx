@@ -25,7 +25,7 @@ function App() {
                     <Route path="/login" element={<Login />} />
                     <Route path="/signup" element={<Signup />} />
                     <Route path="/mywordbook" element={<LoginedRoute element={<MyWordbook />} />} />
-                    <Route path="/vocalist" element={<LoginedRoute element={<VocaList />} />} />
+                    <Route path="/vocalist/:wordbookId" element={<LoginedRoute element={<VocaList />} />} />
                     <Route path="/setting" element={<LoginedRoute element={<Setting />} />} />
                 </Routes>
                 <Footer />

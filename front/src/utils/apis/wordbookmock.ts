@@ -81,17 +81,24 @@ export const addWordbook = async (accessToken: string, name: string) => {
     });
 };
 
-export const getVocaList = async (accessToken: string, bookId: number) => {
+export const getVocaList = async (accessToken: string, bookId: string | undefined) => {
   return new Promise<typeof data.voca>((resolve, reject) => {
+    if (bookId === undefined) {
+      return reject(new Error("bookId is undefined"));
+    }
+    const parsedBookId = parseInt(bookId);
+    if (isNaN(parsedBookId)) {
+      return reject(new Error("bookId is not a number"));
+    }
     setTimeout(() => {
-        const wordbook = data.wordbook.find((wordbook) => wordbook.id === bookId);
+        const wordbook = data.wordbook.find((wordbook) => wordbook.id === parsedBookId);
         if (wordbook === undefined) {
           reject(new Error("wordbook not found"));
         }
         else if(wordbook.userId !== 1) {
           reject(new Error("permission denied"));
         }
-      resolve(data.voca.filter((voca) => voca.bookId === bookId).sort((a, b) => a.order - b.order));
+      resolve(data.voca.filter((voca) => voca.bookId === parsedBookId).sort((a, b) => a.order - b.order));
     }, 1000);
   });
 };

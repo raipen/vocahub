@@ -1,5 +1,6 @@
 import { MainContainer } from "@components";
 import { getDatasWhenWordbookRender } from "@utils/apis/wordbook";
+import { Navigate } from "react-router-dom";
 import useFetchWithRendering from "@hooks/useFetchWithRendering";
 import Profile from "@components/Profile";
 import WordbookList from "@components/WordbookList";
@@ -7,10 +8,9 @@ import HiddenWordbookList from "@components/HiddenWordbookList";
 
 function MyWordbook() {
   let [datas, Error] = useFetchWithRendering(getDatasWhenWordbookRender);
-  if(Error) return <div>Error</div>;
+  if(Error) return <Navigate to="/error" state={Error} />;
   if(!datas) datas = [{name: 'Loading', wordbookCount: 0, vocaCount: 0, loginDate: []}, [], []];
   const [profile, wordbooks, hiddenWordbooks] = datas;
-  console.log("MyWordbook", profile, wordbooks, hiddenWordbooks);
   return (
     <MainContainer flexdirection="row">
       <Profile profile={profile} />
