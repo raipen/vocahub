@@ -25,7 +25,10 @@ const data = {
         { id: 9, bookId: 3, word: "icecream", meaning: ["아이스크림"], checkCount: 0, testResult:null, order: 3 },
     ]
 }
-
+export const getDatasWhenWordbookRender = async (accessToken:string) => {
+  const [profile, wordbooks, hiddenWordbooks] = await Promise.all([getProfile(accessToken), getWordbookList(accessToken), getHiddenWordbookList(accessToken)]);
+  return [profile, wordbooks, hiddenWordbooks] as const;
+}
 
 export const getProfile = async (accessToken: string) => {
     return new Promise<{name:string, wordbookCount:number, vocaCount:number, loginDate:{date:string, count:number}[]}>((resolve,reject) => {
