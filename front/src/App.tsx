@@ -9,6 +9,7 @@ import Signup from '@pages/Signup';
 import MyWordbook from '@pages/MyWordbook';
 import VocaList from '@pages/VocaList';
 import Setting from '@pages/Setting';
+import Error from '@pages/Error';
 
 function App() {
     const value = useInitLoginContext();
@@ -27,6 +28,8 @@ function App() {
                     <Route path="/mywordbook" element={<LoginedRoute element={<MyWordbook />} />} />
                     <Route path="/vocalist/:wordbookId" element={<LoginedRoute element={<VocaList />} />} />
                     <Route path="/setting" element={<LoginedRoute element={<Setting />} />} />
+                    <Route path="/error" element={<Error />} />
+                    <Route path="*" element={<div>404 Not Found</div>} />
                 </Routes>
                 <Footer />
             </BrowserRouter>

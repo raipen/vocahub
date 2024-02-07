@@ -1,4 +1,4 @@
-import { ExpiredAccessTokenError } from "@utils/erros";
+import { ExpiredAccessTokenError } from "@utils/errors";
 
 const data = {
     user: [
@@ -84,11 +84,11 @@ export const addWordbook = async (accessToken: string, name: string) => {
 export const getVocaList = async (accessToken: string, bookId: string | undefined) => {
   return new Promise<typeof data.voca>((resolve, reject) => {
     if (bookId === undefined) {
-      return reject(new Error("bookId is undefined"));
+      throw new Error("bookId is undefined");
     }
     const parsedBookId = parseInt(bookId);
     if (isNaN(parsedBookId)) {
-      return reject(new Error("bookId is not a number"));
+      throw new Error("bookId is undefined");
     }
     setTimeout(() => {
         const wordbook = data.wordbook.find((wordbook) => wordbook.id === parsedBookId);

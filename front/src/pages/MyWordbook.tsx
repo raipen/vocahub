@@ -8,7 +8,7 @@ import HiddenWordbookList from "@components/HiddenWordbookList";
 
 function MyWordbook() {
   let [datas, Error] = useFetchWithRendering(getDatasWhenWordbookRender);
-  if(Error) return <Navigate to="/error" state={Error} />;
+  if(Error) return <Navigate to="/error" state={{message:Error.toast}} />;
   if(!datas) datas = [{name: 'Loading', wordbookCount: 0, vocaCount: 0, loginDate: []}, [], []];
   const [profile, wordbooks, hiddenWordbooks] = datas;
   return (

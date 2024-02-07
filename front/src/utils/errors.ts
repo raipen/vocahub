@@ -12,4 +12,10 @@ export class ErrorWithToast extends Error {
 }
 
 //만료된 access token 에러
-export class ExpiredAccessTokenError extends ErrorWithToast{}
+export class ExpiredAccessTokenError extends ErrorWithToast{
+    name: string = 'ExpiredAccessTokenError';
+    toast: string = '세션이 만료되었습니다. 다시 로그인해주세요.';
+    constructor(message: string, toast?: string) {
+      super(message, toast);
+    }
+}

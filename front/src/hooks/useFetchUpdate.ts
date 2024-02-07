@@ -1,5 +1,5 @@
 import { useState, useContext } from "react";
-import { ErrorWithToast } from '@utils/erros';
+import { ErrorWithToast } from '@utils/errors';
 import { LoginContext } from "@context/LoginContext";
 
 const useFetchUpdate =  <T,U extends any[]>(fetchFunction: (accessToken:string,...args:U) => Promise<T>)
