@@ -3,7 +3,7 @@ import useFetchUpdate from "@hooks/useFetchUpdate";
 import { Input } from "@components";
 import { addWordbook, hideWordbook } from '@utils/apis/wordbookmock';
 import { Link,Navigate } from 'react-router-dom';
-import { WordbookListContainer, MyWordbook, Wordbook, NewButton, CancelButton } from './WordbookListStyle';
+import { WordbookListContainer, Title, Wordbook, NewButton, CancelButton } from './WordbookListStyle';
 import { ISOStringToDateString } from '@utils/index';
 
 function WordbookList({ wordbooks }: {
@@ -26,7 +26,7 @@ function WordbookList({ wordbooks }: {
 
     return (
         <WordbookListContainer>
-            <MyWordbook>
+            <Title>
                 <span>내 단어장</span>
                 { newWordbook === false && <NewButton onClick={() => setNewWordbook(true)}>
                     <span className="material-icons-sharp">
@@ -34,7 +34,7 @@ function WordbookList({ wordbooks }: {
                     </span>
                     <span>New</span>
                 </NewButton> }
-            </MyWordbook>
+            </Title>
             { newWordbook && (
             <Wordbook >
                 <div>

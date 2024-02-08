@@ -13,7 +13,7 @@ const WordbookListContainer = styled.div`
   }
 `;
 
-const MyWordbook = styled.div`
+const Title = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -138,4 +138,4 @@ const Expend = styled.div`
     }
 `;
 
-export { WordbookListContainer, MyWordbook, Wordbook, NewButton, CancelButton, Expend };
+export { WordbookListContainer, Title, Wordbook, NewButton, CancelButton, Expend };

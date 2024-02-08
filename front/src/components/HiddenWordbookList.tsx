@@ -2,7 +2,7 @@ import { useState } from 'react';
 import useFetchUpdate from "@hooks/useFetchUpdate";
 import { showWordbook } from '@utils/apis/wordbookmock';
 import { Link, Navigate } from 'react-router-dom';
-import { WordbookListContainer, MyWordbook, Wordbook, Expend } from './WordbookListStyle';
+import { WordbookListContainer, Title, Wordbook, Expend } from './WordbookListStyle';
 import { ISOStringToDateString } from '@utils/index';
 
 function WordbookList({ wordbooks }: {
@@ -23,14 +23,14 @@ function WordbookList({ wordbooks }: {
 
     return (
         <WordbookListContainer>
-            <MyWordbook onClick={() => setExpend(expend => !expend)}>
+            <Title onClick={() => setExpend(expend => !expend)}>
                 <span>숨긴 단어장</span>
                 <Expend>
                     <span className="material-icons-sharp">
                         {expend ? 'expand_less' : 'expand_more'}
                     </span>
                 </Expend>
-            </MyWordbook>
+            </Title>
             {expend&&wordbooks.map((wordbook, index) => (
                 <Wordbook key={index}>
                     <div>
