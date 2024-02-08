@@ -89,7 +89,7 @@ const NewButton = styled.div`
   font-size: 1rem;
   font-weight: 300;
   background-color: var(--main-color);
-    color: white;
+  color: white;
   padding: 5px 20px;
   font-weight: 600;
   border-radius: 5px;

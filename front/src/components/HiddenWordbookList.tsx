@@ -3,11 +3,7 @@ import useFetchUpdate from "@hooks/useFetchUpdate";
 import { showWordbook } from '@utils/apis/wordbookmock';
 import { Link, Navigate } from 'react-router-dom';
 import { WordbookListContainer, MyWordbook, Wordbook, Expend } from './WordbookListStyle';
-
-function ISOStringToDateString(isoString: string) {
-    const date = isoString.split('T')[0];
-    return date.split('-').join('.');
-}
+import { ISOStringToDateString } from '@utils/index';
 
 function WordbookList({ wordbooks }: {
     wordbooks: {

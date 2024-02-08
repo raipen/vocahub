@@ -85,7 +85,7 @@ export const addWordbook = async (accessToken: string, name: string) => {
 };
 
 export const getVocaList = async (accessToken: string, bookId: string | undefined) => {
-  return new Promise<typeof data.voca>((resolve, reject) => {
+  return new Promise<{wordbook:typeof data.wordbook[0], voca:typeof data.voca}>((resolve, reject) => {
     if (bookId === undefined) {
       throw new Error("bookId is undefined");
     }
@@ -96,12 +96,15 @@ export const getVocaList = async (accessToken: string, bookId: string | undefine
     setTimeout(() => {
         const wordbook = data.wordbook.find((wordbook) => wordbook.id === parsedBookId);
         if (wordbook === undefined) {
-          reject(new Error("wordbook not found"));
+          return reject(new Error("wordbook not found"));
         }
         else if(wordbook.userId !== 1) {
-          reject(new Error("permission denied"));
+          return reject(new Error("permission denied"));
         }
-      resolve(data.voca.filter((voca) => voca.bookId === parsedBookId).sort((a, b) => a.order - b.order));
+      resolve({
+        wordbook: wordbook,
+        voca: data.voca.filter((voca) => voca.bookId === parsedBookId).sort((a, b) => a.order - b.order)
+      });
     }, 1000);
   });
 };

@@ -1,6 +1,11 @@
 import styled from 'styled-components';
 
 export const Button = styled.button`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1rem;
+    font-weight: bold;
     background-color: white;
     color: var(--main-color);
     border: 1px solid var(--main-color);
@@ -8,16 +13,31 @@ export const Button = styled.button`
     border-radius: 5px;
     cursor: pointer;
     transition: 0.3s;
-    display: flex;
-    font-weight: bold;
-    font-size: 1rem;
-    align-items: center;
-    justify-content: center;
     text-decoration: none;
     &:hover {
         background-color: var(--main-color);
         color: white;
     }
+`;
+
+export const ReverseButton = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1rem;
+  font-weight: bold;
+  background-color: var(--main-color);
+  color: white;
+  border: 1px solid var(--main-color);
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s;
+  text-decoration: none;
+  &:hover {
+      background-color: white;
+      color: var(--main-color);
+  }
 `;
 
 export const MainContainer = styled.main<{ background?: string, flexdirection?: string }>`
