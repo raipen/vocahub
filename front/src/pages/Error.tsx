@@ -1,7 +1,6 @@
 import { useLocation } from "react-router-dom";
 import styled from "styled-components";
 import { MainContainer } from "@components";
-import * as E from "@utils/errors";
 
 const ErrorContainer = styled.div`
     display: flex;

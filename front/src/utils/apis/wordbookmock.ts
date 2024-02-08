@@ -33,6 +33,9 @@ export const getDatasWhenWordbookRender = async (accessToken:string) => {
 export const getProfile = async (accessToken: string) => {
     return new Promise<{name:string, wordbookCount:number, vocaCount:number, loginDate:{date:string, count:number}[]}>((resolve,reject) => {
         setTimeout(() => {
+            if (accessToken === "access_token") {
+                reject(new ExpiredAccessTokenError("expired access token"));
+            }
             const wordbook = data.wordbook.filter((wordbook) => wordbook.userId === 1&&!wordbook.isHidden);
             const vocaCount = data.voca.filter((voca) => wordbook.some((wordbook) => wordbook.id === voca.bookId)).length;
             const loginDate = Array.from({length:70},

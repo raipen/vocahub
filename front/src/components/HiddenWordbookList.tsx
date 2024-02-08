@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import useFetchUpdate from "@hooks/useFetchUpdate";
 import { showWordbook } from '@utils/apis/wordbookmock';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import { WordbookListContainer, MyWordbook, Wordbook, Expend } from './WordbookListStyle';
 
 function ISOStringToDateString(isoString: string) {
@@ -22,6 +22,9 @@ function WordbookList({ wordbooks }: {
     const [expend, setExpend] = useState(false);
     const [showingWordbook, setShowingWordbook] = useState([] as number[]);
     const [loadingShowWordbook, fetchShowWordbook, errorShowWordbook] = useFetchUpdate(showWordbook);
+
+    if(errorShowWordbook) return <Navigate to="/error" state={{message: errorShowWordbook.toast}} />
+
     return (
         <WordbookListContainer>
             <MyWordbook onClick={() => setExpend(expend => !expend)}>
@@ -39,7 +42,7 @@ function WordbookList({ wordbooks }: {
                             <span className="material-icons-sharp">
                                 menu_book
                             </span>
-                            <Link to={`/wordbook/${wordbook.id}`}>{wordbook.name}</Link>
+                            <Link to={`/vocalist/${wordbook.id}`}>{wordbook.name}</Link>
                         </div>
                         <div>
                             <div>
