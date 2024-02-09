@@ -15,8 +15,8 @@ const useFetchUpdate =  <T,U extends any[]>(fetchFunction: (accessToken:string,.
         } catch (e : any) {
                 setError(e);
         }
+        await refresh();
         setLoading(false);
-        refresh();
     }
 
     return [loading, fetch, error];

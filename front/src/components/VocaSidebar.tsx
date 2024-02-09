@@ -4,19 +4,19 @@ import { ISOStringToDateString } from '@utils/index';
 import { ReverseButton } from '@components';
 
 const VocaSidebarContainer = styled.div`
-display: flex;
-flex-shrink: 0;
-flex-direction: column;
-position: relative;
-width: 300px;
-padding: 10px 15px;
-height: 100%;
-border: 1px solid var(--main-color);
-border-radius: 5px;
-@media (max-width: 600px) {
-  width: 100%;
-  padding: 10px 15px;
-}
+    display: flex;
+    flex-shrink: 0;
+    flex-direction: column;
+    position: relative;
+    width: 300px;
+    padding: 10px 15px;
+    height: 100%;
+    border: 1px solid var(--main-color);
+    border-radius: 5px;
+    @media (max-width: 750px) {
+        width: 100%;
+        padding: 10px max(15px, calc(50% - 250px));
+    }
 `;
 
 const DefaultListElement = styled.div`

@@ -21,8 +21,8 @@ const data = {
         { id: 5, bookId: 2, word: "elephant", meaning: ["코끼리"], checkCount: 0, testResult:null, order: 2 },
         { id: 6, bookId: 2, word: "fox", meaning: ["여우"], checkCount: 0, testResult:null, order: 3 },
         { id: 7, bookId: 3, word: "grape", meaning: ["포도"], checkCount: 0, testResult:null, order: 1 },
-        { id: 8, bookId: 3, word: "honey", meaning: ["꿀"], checkCount: 0, testResult:null, order: 2 },
-        { id: 9, bookId: 3, word: "icecream", meaning: ["아이스크림"], checkCount: 0, testResult:null, order: 3 },
+        { id: 8, bookId: 3, word: "honey", meaning: ["꿀","테스트","테스트2"], checkCount: 0, testResult:null, order: 2 },
+        { id: 9, bookId: 3, word: "icecream", meaning: ["아이스크림","테스트"], checkCount: 0, testResult:null, order: 3 },
     ]
 }
 export const getDatasWhenWordbookRender = async (accessToken:string) => {
@@ -159,7 +159,30 @@ export const increaseCheckCount = async (accessToken: string, vocaId: number) =>
             if (data.wordbook.some((wordbook) => wordbook.id === voca.bookId && wordbook.userId !== 1)) {
                 return reject(new Error("permission denied"));
             }
+            if (voca.checkCount === 5) {
+                return reject(new Error("check count is already 5"));
+            }
             voca.checkCount++;
+            console.log(voca);
+        resolve();
+        }, 1000);
+    });
+};
+
+export const decreaseCheckCount = async (accessToken: string, vocaId: number) => {
+    return new Promise<void>((resolve, reject) => {
+        setTimeout(() => {
+            const voca = data.voca.find((voca) => voca.id === vocaId);
+            if (voca === undefined) {
+                return reject(new Error("voca not found"));
+            }
+            if (data.wordbook.some((wordbook) => wordbook.id === voca.bookId && wordbook.userId !== 1)) {
+                return reject(new Error("permission denied"));
+            }
+            if(voca.checkCount === 0) {
+              return reject(new Error("check count is already 0"));
+            }
+            voca.checkCount--;
         resolve();
         }, 1000);
     });

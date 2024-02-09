@@ -4,7 +4,7 @@ import { requestLogin, requestRefresh, requestLogout } from '@apis/auth';
 export const LoginContext = createContext({
     isLogined: null as null|boolean,
     accessToken: "",
-    refresh: ()=>{},
+    refresh: async ()=>{},
     login: (arg: {email: string, password: string})=>{},
     logout: ()=>{}
 });
@@ -12,7 +12,7 @@ export const LoginContext = createContext({
 export const useInitLoginContext = () => {
     const [isLogined, setIsLogined] = useState(null as null|boolean);
     const [accessToken, setAccessToken] = useState("");
-    const refresh = useCallback(()=>requestRefresh({ setIsLogined, setAccessToken })(), []);
+    const refresh = useCallback(async ()=>await requestRefresh({ setIsLogined, setAccessToken })(), []);
     const login = useCallback(({email, password}:{email:string,password:string})=>requestLogin({ setIsLogined, setAccessToken })({email, password}), []);
     const logout = useCallback(()=>requestLogout({ setIsLogined, setAccessToken })(), []);
 
