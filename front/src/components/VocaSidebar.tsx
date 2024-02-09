@@ -119,15 +119,15 @@ function VocaSidebar({setVocaMode,wordbook}:{
         <DefaultListElement>
             <div>학습</div>
             <span>암기: 영어 단어만 보고 한국어 뜻을 떠올리고, 맞았는지 확인하기
-                <ChildListElement>반복적으로 학습해도 잘 외워지지 않는 단어는 체크 표시</ChildListElement>
+                <ChildListElement>반복적으로 학습해도 잘 외워지지 않는 단어는 +로 체크 표시</ChildListElement>
             </span>
-            <span>체크 표시된 단어만 다시 암기
+            <span>체크된 단어만 다시 암기
                 <ChildListElement>그래도 안 외워지는 단어는 체크 표시 한 번 더</ChildListElement>
             </span>
-            <span>(반복) n번 체크 표시된 단어만 다시 암기
+            <span>(반복) n번 체크된 단어만 다시 암기
                 <ChildListElement>안 외워지는 단어 체크 표시 추가 </ChildListElement>
             </span>
-            <span>체크표시가 4~5개가 누적되면 학습 끝</span>
+            <span>체크가 4~5개가 누적되면 학습 끝</span>
         </DefaultListElement>
         <DefaultListElement>
             <div>마무리 학습</div>
