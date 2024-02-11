@@ -17,7 +17,6 @@ function VocaList() {
   }, [vocaList]);
   if(vocaListError) return <Navigate to="/error" state={{message:vocaListError.toast}} />;
 
-  console.log(vocaList);
   const wordbook = {...vocaList.wordbook, wordCount:vocaList.voca.length};
 
   return (

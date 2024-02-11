@@ -180,7 +180,6 @@ function Word({word,checkCount,id}: {word: string, checkCount: number, id: numbe
 
   const handleIncrease = handleWord(id, fetchIncrease, setVocaList, (vocaCount) => vocaCount+1);
   const handleDecrease = handleWord(id, fetchDecrease, setVocaList, (vocaCount) => vocaCount-1);
-  console.log(loadingIncrease, loadingDecrease);
   return (
     <div style={{padding: '10px'}}>
       <span>{word}</span>
