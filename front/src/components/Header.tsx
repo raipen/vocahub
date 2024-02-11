@@ -3,7 +3,7 @@ import Logo from '@assets/Title.png';
 import { Link } from 'react-router-dom';
 import { useContext } from 'react';
 import { LoginContext } from '@context/LoginContext';
-import { Button } from '@components';
+import { HeaderButton } from '@components';
 
 const HeaderContainer = styled.header`
   background-color: #f8f9fa;
@@ -72,24 +72,24 @@ function Header() {
       <UserMenu>
         <SmallWordMenu>
           <Link to="/mywordbook">
-            <Button className="material-icons">menu_book</Button>
+            <HeaderButton className="material-icons">menu_book</HeaderButton>
           </Link>
         </SmallWordMenu>
         {
           isLogined === true ? (
             <>
-              <Button className="material-icons" onClick={logout}>logout</Button>
+              <HeaderButton className="material-icons" onClick={logout}>logout</HeaderButton>
               <Link to="/setting">
-                <Button className="material-icons">settings</Button>
+                <HeaderButton className="material-icons">settings</HeaderButton>
               </Link>
             </>
           ) :
             isLogined === false ? (
               <Link to="/login">
-                <Button className="material-icons">login</Button>
+                <HeaderButton className="material-icons">login</HeaderButton>
               </Link>
             ) :
-              <Button className="material-icons">hourglass_top</Button>
+              <HeaderButton className="material-icons">hourglass_top</HeaderButton>
         }
       </UserMenu>
     </HeaderContainer>

@@ -1,6 +1,5 @@
 import { useState } from "react";
-import { NewButton } from './WordbookListStyle';
-import { WordbookListContainer, WordbookListTitle } from './index';
+import { NewButton, WordbookListContainer, WordbookListTitle } from './index';
 import AddWordbook from './AddWordbook';
 
 function WordbookList({children}: {children: React.ReactNode}) {

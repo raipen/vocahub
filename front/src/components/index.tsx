@@ -1,51 +1,98 @@
-import styled from 'styled-components';
+import styled,{css} from 'styled-components';
 
-export const Button = styled.button`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 1rem;
-    font-weight: bold;
-    background-color: white;
-    color: var(--main-color);
-    border: 1px solid var(--main-color);
-    padding: 10px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: 0.3s;
-    text-decoration: none;
-    &:hover {
-        background-color: var(--main-color);
-        color: white;
-    }
-`;
-
-export const ReverseButton = styled.div`
+const FlexRowCenter = css`
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 1rem;
-  font-weight: bold;
+`;
+
+const FlexRowSpaceBetween = css`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+const FlexColumnCenter = css`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const FlexColumnStart = css`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+`;
+
+const MainColorBackground = css`
   background-color: var(--main-color);
   color: white;
   border: 1px solid var(--main-color);
-  padding: 10px;
   border-radius: 5px;
+`;
+
+const ReverseMainColorBackground = css`
+  background-color: white;
+  color: var(--main-color);
+  border: 1px solid var(--main-color);
+  border-radius: 5px;
+`;
+
+const clickable = css`
   cursor: pointer;
-  transition: 0.3s;
-  text-decoration: none;
+  user-select: none;
+  transition: all 0.3s;
+`;
+
+const ButtonCss = css`
+  ${FlexRowCenter};
+  ${clickable};
+  padding: 10px;
+  font-size: 1rem;
+  font-weight: 600;
+`;
+
+export const HeaderButton = styled.button`
+  ${ButtonCss};
+  ${ReverseMainColorBackground};
   &:hover {
-      background-color: white;
-      color: var(--main-color);
+    ${MainColorBackground};
   }
 `;
 
-export const MainContainer = styled.main<{ background?: string, flexdirection?: string }>`
+export const ReverseButton = styled.div`
+  ${ButtonCss};
+  ${MainColorBackground};
+  &:hover {
+    ${ReverseMainColorBackground};
+  }
+`;
+
+export const NewButton = styled.div`
+  ${ButtonCss};
+  ${MainColorBackground};
+  padding: 5px 20px;
+  gap: 10px;
+  >span:first-child {
+    font-size: 1rem;
+  }
+`;
+
+export const CancelButton = styled.div`
+  ${ButtonCss};
+  ${ReverseMainColorBackground};
+  padding: 5px 20px;
+  >span:first-child {
+    font-size: 1rem;
+  }
+`;
+
+export const MainContainer = styled.main<{ $background?: string, $flexdirection?: string }>`
   padding: 20px max(30px, calc(50% - 590px));
   width: 100%;
   display: flex;
-  flex-direction: ${props => props.flexdirection || 'column'};
-  background-color: ${props => props.background || 'white'};
+  flex-direction: ${props => props.$flexdirection || 'column'};
+  background-color: ${props => props.$background || 'white'};
   gap: 20px;
   flex-wrap: wrap;
 `;
@@ -74,47 +121,36 @@ export const WordbookListContainer = styled.div`
 `;
 
 export const WordbookListTitle = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  ${FlexRowSpaceBetween};
   font-size: 1.5rem;
   font-weight: 300;
   margin-bottom: 10px;
 `;
 
 export const Expend = styled.span`
+  ${clickable};
   color: var(--main-color);
   padding: 5px 20px;
-  user-select: none;
-  cursor: pointer;
   font-size: 2rem;
 `;
 
 export const WordbookContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
+  ${FlexRowSpaceBetween};
   margin-bottom: 10px;
   border-top: 1px solid var(--main-color);
   padding: 10px;
 `;
 
 export const WordbookMenu = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  font-weight: 300;
+  ${FlexColumnCenter};
+  ${clickable};
   color: var(--muted-text-color);
-  user-select: none;
-  cursor: pointer;
+  font-weight: 300;
   gap: 10px;
 `;
 
 export const WordbookInfo = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  ${FlexColumnStart};
   font-size: 1rem;
   font-weight: 300;
   color: var(--muted-text-color);

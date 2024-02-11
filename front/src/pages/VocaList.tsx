@@ -21,7 +21,7 @@ function VocaList() {
 
   return (
     <VocaListContext.Provider value={{vocaList, setVocaList}}>
-      <MainContainer flexdirection="row">
+      <MainContainer $flexdirection="row">
         <VocaSidebar setVocaMode={setVocaMode} wordbook={wordbook} />
         {vocaList === null && <div></div>}
         {vocaList !== null && (

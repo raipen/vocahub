@@ -1,5 +1,4 @@
-import { WordbookInfo, WordbookMenu, WordbookName, WordbookContainer, Input } from './index';
-import { NewButton, CancelButton } from './WordbookListStyle';
+import { WordbookInfo, WordbookMenu, WordbookName, WordbookContainer, Input, NewButton, CancelButton  } from './index';
 import useFetchUpdate from "@hooks/useFetchUpdate";
 import { addWordbook } from '@utils/apis/wordbookmock';
 import { useContext,useRef } from 'react';

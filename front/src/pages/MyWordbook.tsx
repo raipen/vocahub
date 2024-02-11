@@ -12,7 +12,7 @@ function MyWordbook() {
   const [profile, [wordbooks, hiddenWordbooks]] = data;
   return (
     <WordbookListContext.Provider value={{data, setData}}>
-      <MainContainer flexdirection="row">
+      <MainContainer $flexdirection="row">
         <Profile profile={profile} />
         <WordbookList>
           {wordbooks.map((wordbook, index) =><WordbookListElement key={index} wordbook={wordbook}/>)}
