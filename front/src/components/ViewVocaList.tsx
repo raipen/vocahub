@@ -1,9 +1,11 @@
 import styled from 'styled-components';
 import { VocaMode } from "@utils/vocaModeEnum";
 import { VocaListContainer, Title, NewButton } from './VocaListStyle';
-import { useState, useEffect } from 'react';
+import { useState, useEffect,useContext } from 'react';
+import { VocaListContext } from '@context/VocaListContext';
 import useFetchUpdate from '@hooks/useFetchUpdate';
 import { increaseCheckCount,decreaseCheckCount } from '@utils/apis/wordbookmock';
+import { getVocaList } from "@utils/apis/wordbook";
 
 const WordContainer = styled.div`
   display: grid;
@@ -141,7 +143,7 @@ const SelectButton = styled.div<{$active: boolean}>`
   }
 `;
 
-function ReversibleMeaning({children, reversed, refresh}: {children: string, reversed?: boolean, refresh?: object}) {
+function ReversibleMeaning({children, reversed, refresh}: {children: string, reversed?: boolean, refresh: object}) {
   const [isReversed, setIsReversed] = useState(reversed);
   useEffect(() => {
     setIsReversed(reversed);
@@ -153,16 +155,39 @@ function ReversibleMeaning({children, reversed, refresh}: {children: string, rev
   );
 }
 
+const handleWord = (
+  id: number,
+  fetchFunction: (id: number) => Promise<void>,
+  setVocaList: React.Dispatch<React.SetStateAction<Awaited<ReturnType<typeof getVocaList>>>>,
+  callback: (vocaCount: number) => number
+) => async () => {
+  await fetchFunction(id);
+  setVocaList((prev) => {
+    const newVocaList = prev.voca.map(voca => {
+      if (voca.id === id) {
+        return { ...voca, checkCount: callback(voca.checkCount) };
+      }
+      return voca;
+    });
+    return { ...prev, voca: newVocaList };
+  });
+}
+
 function Word({word,checkCount,id}: {word: string, checkCount: number, id: number}) {
-  const [loadingIncrease, fetchIncrease, errorIncrease] = useFetchUpdate(increaseCheckCount);
-  const [loadingDecrease, fetchDecrease, errorDecrease] = useFetchUpdate(decreaseCheckCount);
+  const [loadingIncrease, fetchIncrease]= useFetchUpdate(increaseCheckCount);
+  const [loadingDecrease, fetchDecrease] = useFetchUpdate(decreaseCheckCount);
+  const { setVocaList } = useContext(VocaListContext);
+
+  const handleIncrease = handleWord(id, fetchIncrease, setVocaList, (vocaCount) => vocaCount+1);
+  const handleDecrease = handleWord(id, fetchDecrease, setVocaList, (vocaCount) => vocaCount-1);
+  console.log(loadingIncrease, loadingDecrease);
   return (
     <div style={{padding: '10px'}}>
       <span>{word}</span>
       {checkCount>1&& new Array(checkCount-1).fill(0).map((_,i) => <Check key={i} className="material-icons-sharp">done</Check>)}
       {loadingIncrease&&<Check className="material-icons-sharp">done</Check>}
-      {!loadingDecrease&&checkCount>0&& <RemoveCheck onClick={() => fetchDecrease(id)} className="material-icons-sharp">done</RemoveCheck>}
-      {!loadingIncrease&&checkCount<5&& <AddCheck onClick={() => fetchIncrease(id)} className="material-icons-sharp">add</AddCheck>}
+      {!loadingDecrease&&checkCount>0&& <RemoveCheck onClick={handleDecrease} className="material-icons-sharp">done</RemoveCheck>}
+      {!loadingIncrease&&checkCount<5&& <AddCheck onClick={handleIncrease} className="material-icons-sharp">add</AddCheck>}
     </div>
   );
 }

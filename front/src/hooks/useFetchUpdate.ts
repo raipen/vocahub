@@ -3,23 +3,22 @@ import { ErrorWithToast } from '@utils/errors';
 import { LoginContext } from "@context/LoginContext";
 
 const useFetchUpdate =  <T,U extends any[]>(fetchFunction: (accessToken:string,...args:U) => Promise<T>)
-    : [boolean, (...args:U)=>Promise<void>, ErrorWithToast | null] => {
+    : [boolean, (...args:U)=>Promise<T>] => {
     const { accessToken, refresh } = useContext(LoginContext);
     const [loading, setLoading] = useState(false);
-    const [error, setError] = useState<ErrorWithToast | null>(null);
     
     const fetch = async (...args:U) => {
         setLoading(true);
         try {
-            await fetchFunction(accessToken, ...args);
-        } catch (e : any) {
-                setError(e);
+            return await fetchFunction(accessToken, ...args);
+        } catch (e : unknown) {
+            throw e instanceof ErrorWithToast ? e : new ErrorWithToast("unknown error");
+        } finally {
+            setLoading(false);
         }
-        await refresh();
-        setLoading(false);
     }
 
-    return [loading, fetch, error];
+    return [loading, fetch];
 }
 
 export default useFetchUpdate;
