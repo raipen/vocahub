@@ -8,29 +8,31 @@ import EditVocaList from "@components/EditVocaList";
 import TestVocaList from "@components/TestVocaList";
 import VocaSidebar from "@components/VocaSidebar";
 
+const VocaModeWithComponent = [
+  [VocaMode.VIEW, ViewVocaList],
+  [VocaMode.EDIT, EditVocaList],
+  [VocaMode.TEST, TestVocaList]
+] as const;
+
 function VocaList() {
   const { wordbookId } = useParams();
-  const { vocaList, setVocaList, vocaListError } = useInitVocaList(parseInt(wordbookId!));
+  const { wordbook, vocaList, setVocaList, vocaListError } = useInitVocaList(parseInt(wordbookId!));
   const [ vocaMode, setVocaMode ] = useState(VocaMode.EDIT);
   useEffect(() => {
-    if(vocaList.voca.length > 0) setVocaMode(VocaMode.VIEW);
+    if(vocaList.length > 0) setVocaMode(VocaMode.VIEW);
   }, [vocaList]);
   if(vocaListError) return <Navigate to="/error" state={{message:vocaListError.toast}} />;
 
-  const wordbook = {...vocaList.wordbook, wordCount:vocaList.voca.length};
-
   return (
-    <VocaListContext.Provider value={{vocaList, setVocaList}}>
+    <VocaListContext.Provider value={{vocaList, setVocaList, wordbookId:wordbook.id}}>
       <MainContainer $flexdirection="row">
-        <VocaSidebar setVocaMode={setVocaMode} wordbook={wordbook} />
+        <VocaSidebar setVocaMode={setVocaMode} wordbook={{...wordbook, wordCount:vocaList.length}} />
         {vocaList === null && <div></div>}
-        {vocaList !== null && (
-          <>
-            {vocaMode === VocaMode.VIEW && <ViewVocaList vocaList={vocaList.voca} setVocaMode={setVocaMode} />}
-            {vocaMode === VocaMode.EDIT && <EditVocaList vocaList={vocaList.voca} wordbookId={parseInt(wordbookId!)} setVocaMode={setVocaMode} />}
-            {vocaMode === VocaMode.TEST && <TestVocaList vocaList={vocaList.voca} setVocaMode={setVocaMode} />}
-          </>
-        )}
+        {vocaList !== null &&
+          VocaModeWithComponent.map(([mode, Component], i) =>
+            vocaMode === mode && <Component key={i} setVocaMode={setVocaMode} />
+          )
+        }
       </MainContainer>
     </VocaListContext.Provider>
   );

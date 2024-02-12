@@ -24,12 +24,12 @@ import {
 const handleWord = (
   id: number,
   fetchFunction: (id: number) => Promise<void>,
-  setVocaList: React.Dispatch<React.SetStateAction<Awaited<ReturnType<typeof getVocaList>>>>,
+  setVocaList: React.Dispatch<React.SetStateAction<Awaited<ReturnType<typeof getVocaList>>['voca']>>,
   callback: (vocaCount: number) => number
 ) => async () => {
   await fetchFunction(id);
   setVocaList((prev) => {
-    const newVocaList = prev.voca.map(voca => {
+    const newVocaList = prev.map(voca => {
       if (voca.id === id) {
         return { ...voca, checkCount: callback(voca.checkCount) };
       }
@@ -69,15 +69,8 @@ function FlippableMeaning({children, reversed, refresh}: {children: string, reve
   );
 }
 
-function ViewVocaList({vocaList, setVocaMode}: {vocaList: {
-    id: number;
-    bookId: number;
-    word: string;
-    meaning: string[];
-    checkCount: number;
-    testResult: boolean | null;
-    order: number;
-}[], setVocaMode: React.Dispatch<React.SetStateAction<VocaMode>>}) {
+function ViewVocaList({setVocaMode}: {setVocaMode: React.Dispatch<React.SetStateAction<VocaMode>>}) {
+  const { vocaList } = useContext(VocaListContext);
   const [defaultVisible, setDefaultVisible] = useState(false);
   const [showCount, setShowCount] = useState(0);
   const [refresh, setRefresh] = useState({});
