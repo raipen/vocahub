@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { NewButton, WordbookListContainer, WordbookListTitle } from './index';
+import { ButtonContainingIcon, WordbookListContainer, Title } from './index';
 import AddWordbook from './AddWordbook';
 
 function WordbookList({children}: {children: React.ReactNode}) {
@@ -7,15 +7,15 @@ function WordbookList({children}: {children: React.ReactNode}) {
 
   return (
     <WordbookListContainer>
-      <WordbookListTitle>
+      <Title>
         <span>내 단어장</span>
-        {!newWordbook && <NewButton onClick={() => setNewWordbook(true)}>
+        {!newWordbook && <ButtonContainingIcon onClick={() => setNewWordbook(true)}>
           <span className="material-icons-sharp">
             menu_book
           </span>
           <span>New</span>
-        </NewButton>}
-      </WordbookListTitle>
+        </ButtonContainingIcon>}
+      </Title>
       {newWordbook && <AddWordbook setNewWordbook={setNewWordbook} />}
       {children}
     </WordbookListContainer>

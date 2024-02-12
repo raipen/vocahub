@@ -12,13 +12,19 @@ const FlexRowSpaceBetween = css`
   align-items: center;
 `;
 
+const FlexRowLeftStart = css`
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+`;
+
 const FlexColumnCenter = css`
   display: flex;
   flex-direction: column;
   align-items: center;
 `;
 
-const FlexColumnStart = css`
+const FlexColumnLeftStart = css`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -38,6 +44,20 @@ const ReverseMainColorBackground = css`
   border-radius: 5px;
 `;
 
+const lightGrayBackground = css`
+  background-color: #f0f0f0;
+  border: 1px solid #f0f0f0;
+  border-radius: 5px;
+  color: black;
+`;
+
+const GrayBackground = css`
+  background-color: #ccc;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  color: black;
+`;
+
 const clickable = css`
   cursor: pointer;
   user-select: none;
@@ -52,15 +72,7 @@ const ButtonCss = css`
   font-weight: 600;
 `;
 
-export const HeaderButton = styled.button`
-  ${ButtonCss};
-  ${ReverseMainColorBackground};
-  &:hover {
-    ${MainColorBackground};
-  }
-`;
-
-export const ReverseButton = styled.div`
+export const ButtonWithHoverAnimation = styled.div`
   ${ButtonCss};
   ${MainColorBackground};
   &:hover {
@@ -68,7 +80,17 @@ export const ReverseButton = styled.div`
   }
 `;
 
-export const NewButton = styled.div`
+export const ReverseButtonWithHoverAnimation = styled.button`
+  ${ButtonCss};
+  ${ReverseMainColorBackground};
+  &:hover {
+    ${MainColorBackground};
+  }
+`;
+
+export const HeaderButton = ReverseButtonWithHoverAnimation;
+
+export const ButtonContainingIcon = styled.div`
   ${ButtonCss};
   ${MainColorBackground};
   padding: 5px 20px;
@@ -78,7 +100,7 @@ export const NewButton = styled.div`
   }
 `;
 
-export const CancelButton = styled.div`
+export const ReverseButtonContainingIcon = styled.div`
   ${ButtonCss};
   ${ReverseMainColorBackground};
   padding: 5px 20px;
@@ -120,7 +142,7 @@ export const WordbookListContainer = styled.div`
   }
 `;
 
-export const WordbookListTitle = styled.div`
+export const Title = styled.div`
   ${FlexRowSpaceBetween};
   font-size: 1.5rem;
   font-weight: 300;
@@ -150,7 +172,7 @@ export const WordbookMenu = styled.div`
 `;
 
 export const WordbookInfo = styled.div`
-  ${FlexColumnStart};
+  ${FlexColumnLeftStart};
   font-size: 1rem;
   font-weight: 300;
   color: var(--muted-text-color);
@@ -172,5 +194,133 @@ export const WordbookName = styled.div`
   &>.material-icons-sharp{
     font-size: 1rem;
     margin-right: 5px;
+  }
+`;
+
+export const VocaListContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
+  max-width: calc(100% - 320px);
+  padding: 10px 15px;
+  height: 100%;
+  margin-left: auto;
+  @media (max-width: 750px) {
+    width: 100%;
+    max-width: none;
+    padding: 0;
+  }
+`;
+
+export const VocaListElement = styled.div`
+  display: grid;
+  width: auto;
+  max-width: calc(100vw - 320px);
+  min-width: 300px;
+  grid-template-columns: auto 1px auto;
+  margin-bottom: 10px;
+  align-items: start;
+  overflow-wrap: anywhere;
+  &>div {
+    border-top: 1px solid var(--main-color);
+  }
+  @media (max-width: 750px) {
+    width: 100%;
+    max-width: none;
+    min-width: 0;
+  }
+`;
+
+export const SeparateLine = styled.div`
+  padding: 0;
+  background: linear-gradient(0, white 10%, #ccc 20%, #ccc 80%, white 90% );
+  width: 100%;
+  height: 100%;
+`;
+
+export const Check = styled.span`
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--main-color);
+`;
+
+export const RemoveCheck = styled(Check)`
+  ${clickable};
+  &:hover {
+    color: #ccc;
+  }
+`;
+
+export const AddCheck = styled(Check)`
+  ${clickable};
+  color: #ccc;
+  &:hover {
+    color: var(--main-color);
+  }
+`;
+
+export const Meaning = styled.div`
+  counter-reset: meaning;
+  height: 100%;
+  padding: 10px;
+`;
+
+export const MeaningCount = styled.div`
+  ${FlexRowLeftStart};
+  gap: 5px;
+  &::before {
+    counter-increment: meaning;
+    content: counter(meaning) ". ";
+    padding: 5px 0;
+    flex-shrink: 0;
+  }
+`;
+
+export const FilpCardContainer = styled.div<{$reversed?: boolean}>`
+  display: inline-block;
+  width: 100%;
+  padding-left: 5px;
+  cursor: pointer;
+  border-bottom: 1px solid #ccc;
+  transition: box-shadow 0.3s ease-in-out, border-color 0.3s ease-in-out;
+  &:hover{
+    border-radius: 5px;
+    box-shadow: 0 0 10px 0 #ccc;
+    border-color: white;
+  }
+`;
+
+export const FilpCard = styled.div<{$reversed?: boolean}>`
+  width: fit-content;
+  transition: all 0.3s ease-in-out;
+  transform: perspective(1500px) rotateX(${props => props.$reversed?180:0}deg);
+  backface-visibility: hidden;
+`;
+
+export const MeaningHeader = styled.div`
+  ${FlexRowCenter};
+  padding: 5px 10px;
+  >div {
+    ${clickable};
+    padding: 5px 10px;
+    margin: 0 5px;
+    ${lightGrayBackground};
+    &:hover {
+      ${GrayBackground};
+    }
+  }
+`;
+
+export const SelectButton = styled.div<{$active: boolean}>`
+  ${FlexRowCenter};
+  ${clickable};
+  ${props => props.$active?MainColorBackground:lightGrayBackground};
+  padding: 5px 10px;
+  font-weight: 600;
+  >span:first-child {
+    font-size: 1rem;
+  }
+  &:hover {
+    ${props => !props.$active&&GrayBackground};
   }
 `;

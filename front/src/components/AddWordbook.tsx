@@ -1,4 +1,4 @@
-import { WordbookInfo, WordbookMenu, WordbookName, WordbookContainer, Input, NewButton, CancelButton  } from './index';
+import { WordbookInfo, WordbookMenu, WordbookName, WordbookContainer, Input, ButtonContainingIcon, ReverseButtonContainingIcon  } from './index';
 import useFetchUpdate from "@hooks/useFetchUpdate";
 import { addWordbook } from '@utils/apis/wordbookmock';
 import { useContext,useRef } from 'react';
@@ -32,12 +32,12 @@ function AddWordbookList({setNewWordbook}: {setNewWordbook: React.Dispatch<React
       <WordbookMenu>
         {!loadingWordbook && (
           <>
-            <NewButton onClick={onClickAdd}>
+            <ButtonContainingIcon onClick={onClickAdd}>
               <span>생성</span>
-            </NewButton>
-            <CancelButton onClick={() => setNewWordbook(false)}>
+            </ButtonContainingIcon>
+            <ReverseButtonContainingIcon onClick={() => setNewWordbook(false)}>
               <span>취소</span>
-            </CancelButton>
+            </ReverseButtonContainingIcon>
           </>
         )}
         {loadingWordbook && <span className="material-icons-sharp">hourglass_bottom</span>}
