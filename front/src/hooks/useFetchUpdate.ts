@@ -1,5 +1,5 @@
 import { useState, useContext } from "react";
-import { ErrorWithToast } from '@utils/errors';
+import { ErrorWithToast,ExpiredAccessTokenError } from '@utils/errors';
 import { LoginContext } from "@context/LoginContext";
 
 const useFetchUpdate =  <T,U extends any[]>(fetchFunction: (accessToken:string,...args:U) => Promise<T>)
@@ -12,6 +12,9 @@ const useFetchUpdate =  <T,U extends any[]>(fetchFunction: (accessToken:string,.
         try {
             return await fetchFunction(accessToken, ...args);
         } catch (e : unknown) {
+            if(e instanceof ExpiredAccessTokenError){
+                await refresh();
+            }
             throw e instanceof ErrorWithToast ? e : new ErrorWithToast("unknown error");
         } finally {
             setLoading(false);

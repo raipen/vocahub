@@ -13,10 +13,6 @@ import Error from '@pages/Error';
 
 function App() {
     const value = useInitLoginContext();
-    const { isLogined, refresh } = value;
-    if(isLogined === null){
-        refresh();
-    }
     return (
         <LoginContext.Provider value={value}>
             <BrowserRouter>

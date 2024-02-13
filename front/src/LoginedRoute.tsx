@@ -3,9 +3,9 @@ import React, { useContext } from "react";
 import { LoginContext } from "@context/LoginContext";
 
 function LoginedRoute ({element}:{element:React.ReactElement}) {
-    const { isLogined } = useContext(LoginContext);
+    const { isLogined, loading } = useContext(LoginContext);
 
-    if(isLogined === null){
+    if(loading){
         return <></>;
     }
     

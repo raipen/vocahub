@@ -10,6 +10,7 @@ const HeaderContainer = styled.header`
   padding: 20px max(calc(50% - 600px), 20px);
   width: 100%;
   display: flex;
+  user-select: none;
   *{
     height: 30px;
   }
@@ -41,7 +42,7 @@ const WordMenu = styled.div`
   }
 `;
 
-const SmallWordMenu = styled.div`
+const IconMenu = styled.div`
   display: none;
   @media (max-width: 600px) {
     display: block;
@@ -55,7 +56,7 @@ const UserMenu = styled.div`
 `;
 
 function Header() {
-  const { isLogined,logout } = useContext(LoginContext);
+  const { isLogined, loading, logout } = useContext(LoginContext);
   return (
     <HeaderContainer>
       <Link to="/">
@@ -70,27 +71,23 @@ function Header() {
         </Link>
       </WordMenu>
       <UserMenu>
-        <SmallWordMenu>
+        <IconMenu>
           <Link to="/mywordbook">
             <HeaderButton className="material-icons">menu_book</HeaderButton>
           </Link>
-        </SmallWordMenu>
-        {
-          isLogined === true ? (
-            <>
-              <HeaderButton className="material-icons" onClick={logout}>logout</HeaderButton>
-              <Link to="/setting">
-                <HeaderButton className="material-icons">settings</HeaderButton>
-              </Link>
-            </>
-          ) :
-            isLogined === false ? (
-              <Link to="/login">
-                <HeaderButton className="material-icons">login</HeaderButton>
-              </Link>
-            ) :
-              <HeaderButton className="material-icons">hourglass_top</HeaderButton>
+        </IconMenu>
+        { !loading && isLogined && [
+          <HeaderButton className="material-icons" onClick={logout} key="logout">logout</HeaderButton>,
+          <Link to="/setting" key="setting">
+            <HeaderButton className="material-icons">settings</HeaderButton>
+          </Link>
+        ]}
+        { !loading && !isLogined && 
+          <Link to="/login">
+            <HeaderButton className="material-icons">login</HeaderButton>
+          </Link>
         }
+        { loading && <HeaderButton className="material-icons">hourglass_top</HeaderButton>}
       </UserMenu>
     </HeaderContainer>
   );

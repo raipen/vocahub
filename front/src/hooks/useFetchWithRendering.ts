@@ -1,7 +1,6 @@
 import { useEffect, useState, useContext } from "react";
 import { ErrorWithToast } from '@utils/errors';
 import { LoginContext } from "@context/LoginContext";
-import { ExpiredAccessTokenError } from "@utils/errors";
 
 const useFetchWithRendering =  <T,U extends any[]>(fetchFunction: (accessToken:string,...args:U) => Promise<T>, ...args:U)
     : [T | null, ErrorWithToast | null] => {
@@ -12,12 +11,10 @@ const useFetchWithRendering =  <T,U extends any[]>(fetchFunction: (accessToken:s
     useEffect(() => {
         fetchFunction(accessToken, ...args)
             .then((data) => {
+                console.log(data);
                 setData(data);
             })
             .catch((error) => {
-                if(error instanceof ExpiredAccessTokenError) {
-                    return refresh();
-                }
                 setError(error);
             });
     // eslint-disable-next-line
