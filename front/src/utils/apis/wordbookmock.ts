@@ -49,7 +49,7 @@ export const getProfile = async (accessToken: string) => {
 }
 
 export const getWordbookList = async (accessToken: string) => {
-  return new Promise<[(typeof data.wordbook[0] & { vocaCount: number })[], (typeof data.wordbook[0] & { vocaCount: number })[]]>((resolve) => {
+  return new Promise<[(Omit<typeof data.wordbook[0],"userId"> & { vocaCount: number })[], (Omit<typeof data.wordbook[0],"userId"> & { vocaCount: number })[]]>((resolve) => {
     setTimeout(() => {
       const wordbook = data.wordbook.filter((wordbook) => wordbook.userId === 1 && !wordbook.isHidden);
       const hiddenWordbook = data.wordbook.filter((wordbook) => wordbook.userId === 1 && wordbook.isHidden);
@@ -64,20 +64,8 @@ export const getWordbookList = async (accessToken: string) => {
   });
 };
 
-export const getHiddenWordbookList = async (accessToken: string) => {
-  return new Promise<(typeof data.wordbook[0] & { vocaCount: number })[]>((resolve) => {
-    setTimeout(() => {
-      resolve(data.wordbook
-        .filter((wordbook) => wordbook.userId === 1 && wordbook.isHidden)
-        .sort((a, b) => a.createdAt > b.createdAt ? -1 : 1)
-        .map((wordbook) => ({ ...wordbook, vocaCount: data.voca.filter((voca) => voca.bookId === wordbook.id).length }))
-      );
-    }, 1000);
-  });
-};
-
 export const addWordbook = async (accessToken: string, name: string) => {
-  return new Promise<[(typeof data.wordbook[0] & { vocaCount: number })[], (typeof data.wordbook[0] & { vocaCount: number })[]]>((resolve) => {
+  return new Promise<[(Omit<typeof data.wordbook[0],"userId"> & { vocaCount: number })[], (Omit<typeof data.wordbook[0],"userId"> & { vocaCount: number })[]]>((resolve) => {
     setTimeout(() => {
       data.wordbook.push({ id: data.wordbook.length + 1, userId: 1, name: name, createdAt: new Date(new Date().getTime() + 1000 * 60 * 60 * 9).toISOString(), isHidden: false });
       const wordbook = data.wordbook.filter((wordbook) => wordbook.userId === 1 && !wordbook.isHidden);
@@ -94,7 +82,7 @@ export const addWordbook = async (accessToken: string, name: string) => {
 };
 
 export const getVocaList = async (accessToken: string, bookId: number) => {
-  return new Promise<{ wordbook: typeof data.wordbook[0], voca: typeof data.voca }>((resolve, reject) => {
+  return new Promise<{ wordbook: Omit<typeof data.wordbook[0],"userId"|"isHidden">, voca: Omit<typeof data.voca[0],"bookId"|"order">[] }>((resolve, reject) => {
     if (isNaN(bookId)) {
       throw new Error("bookId is undefined");
     }
@@ -115,7 +103,7 @@ export const getVocaList = async (accessToken: string, bookId: number) => {
 };
 
 export const saveVocaList = async (accessToken: string, bookId: number, words: { id: number | null, word: string, meaning: string[] }[]) => {
-  return new Promise<typeof data.voca>((resolve, reject) => {
+  return new Promise<Omit<typeof data.voca[0],"bookId"|"order">[]>((resolve, reject) => {
     setTimeout(() => {
       const wordbook = data.wordbook.find((wordbook) => wordbook.id === bookId);
       if (wordbook === undefined) {
@@ -149,7 +137,7 @@ export const saveVocaList = async (accessToken: string, bookId: number, words: {
           voca.order = index + 1;
         }
       });
-      resolve(data.voca.filter((voca) => voca.bookId === bookId).sort((a, b) => a.order - b.order));
+      resolve(data.voca.filter((voca) => voca.bookId === bookId).map(e=>({...e})).sort((a, b) => a.order - b.order));
     }, 1000);
   });
 };
@@ -210,7 +198,7 @@ export const deleteVoca = async (accessToken: string, vocaId: number) => {
 };
 
 export const hideWordbook = async (accessToken: string, bookId: number) => {
-  return new Promise<[(typeof data.wordbook[0] & { vocaCount: number })[], (typeof data.wordbook[0] & { vocaCount: number })[]]>((resolve, reject) => {
+  return new Promise<[(Omit<typeof data.wordbook[0],"userId"> & { vocaCount: number })[], (Omit<typeof data.wordbook[0],"userId"> & { vocaCount: number })[]]>((resolve, reject) => {
     setTimeout(() => {
       const index = data.wordbook.findIndex((wordbook) => wordbook.id === bookId);
       if (index === -1) {
@@ -234,7 +222,7 @@ export const hideWordbook = async (accessToken: string, bookId: number) => {
 }
 
 export const showWordbook = async (accessToken: string, bookId: number) => {
-  return new Promise<[(typeof data.wordbook[0] & { vocaCount: number })[], (typeof data.wordbook[0] & { vocaCount: number })[]]>((resolve, reject) => {
+  return new Promise<[(Omit<typeof data.wordbook[0],"userId"> & { vocaCount: number })[], (Omit<typeof data.wordbook[0],"userId"> & { vocaCount: number })[]]>((resolve, reject) => {
     setTimeout(() => {
       const index = data.wordbook.findIndex((wordbook) => wordbook.id === bookId);
       if (index === -1) {

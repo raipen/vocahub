@@ -35,7 +35,7 @@ const handleWord = (
       }
       return voca;
     });
-    return { ...prev, voca: newVocaList };
+    return newVocaList;
   });
 }
 
@@ -74,7 +74,7 @@ function ViewVocaList({setVocaMode}: {setVocaMode: React.Dispatch<React.SetState
   const [defaultVisible, setDefaultVisible] = useState(false);
   const [showCount, setShowCount] = useState(0);
   const [refresh, setRefresh] = useState({});
-  
+  console.log(vocaList);
   const vocaListGreaterThanShowCount = vocaList.filter(voca=>voca.checkCount>=showCount);
 
   return (

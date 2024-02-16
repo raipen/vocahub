@@ -13,7 +13,7 @@ export const VocaListContext = createContext(
 export const useInitVocaList = (wordbookId:number) => {
   const [data, vocaListError] = useFetchWithRendering(getVocaList, wordbookId);
   const [wordbook, setWordbook] = useState<Exclude<typeof data, null>['wordbook']&{wordCount: number}>({
-    name: '', createdAt: '', id: 0, userId: 0, isHidden: false, wordCount: 0
+    name: '', createdAt: '', id: 0, wordCount: 0
   });
   const [vocaList, setVocaList] = useState<Exclude<typeof data, null>['voca']>([]);
   useEffect(() => {

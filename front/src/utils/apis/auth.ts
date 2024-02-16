@@ -1,8 +1,3 @@
-type setLoginContext = {
-  setIsLogined: (isLogined: null|boolean) => void;
-  setAccessToken: (accessToken: string | ((prev: string) => string)) => void;
-}
-
 type login = {
   email: string;
   password: string;
