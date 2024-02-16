@@ -57,6 +57,26 @@ const useEditVocaList = () => {
     setEditingVocaList(editingVocaList.filter((_, index) => index !== i));
   }, [editingVocaList]);
 
+  const deleteMean = useCallback((i: number, j: number) => {
+    const newVocaList = [...editingVocaList];
+    newVocaList[i].meaning = newVocaList[i].meaning.filter((_, index) => index !== j);
+    setEditingVocaList(newVocaList);
+  }, [editingVocaList]);
+
+  const moveWordUp = useCallback((i: number) => {
+    if (i === 0) return;
+    const newVocaList = [...editingVocaList];
+    [newVocaList[i], newVocaList[i - 1]] = [newVocaList[i - 1], newVocaList[i]];
+    setEditingVocaList(newVocaList);
+  }, [editingVocaList]);
+
+  const moveWordDown = useCallback((i: number) => {
+    if (i === editingVocaList.length - 1) return;
+    const newVocaList = [...editingVocaList];
+    [newVocaList[i], newVocaList[i + 1]] = [newVocaList[i + 1], newVocaList[i]];
+    setEditingVocaList(newVocaList);
+  }, [editingVocaList]);
+
   return useMemo(() => ({
     vocaList: editingVocaList,
     loadingSaveVocaList,
@@ -66,8 +86,11 @@ const useEditVocaList = () => {
     reset,
     save,
     deleteExistingVoca,
-    deleteNewVoca
-  }), [editingVocaList, loadingSaveVocaList, loadingDeleteVoca, onChangeWord, onChangeMeans, reset, save, deleteExistingVoca, deleteNewVoca]);
+    deleteNewVoca,
+    deleteMean,
+    moveWordUp,
+    moveWordDown
+  }), [editingVocaList, loadingSaveVocaList, loadingDeleteVoca, onChangeWord, onChangeMeans, reset, save, deleteExistingVoca, deleteNewVoca, deleteMean, moveWordUp, moveWordDown]);
 }
 
 export default useEditVocaList;
