@@ -79,7 +79,7 @@ const ButtonCss = css`
   font-weight: 600;
 `;
 
-export const ButtonWithHoverAnimation = styled.div`
+export const ButtonWithHoverAnimation = styled.button`
   ${ButtonCss};
   ${MainColorBackground};
   &:hover {

@@ -80,7 +80,8 @@ const WordbookInfo = styled.div`
 `;
 
 
-function VocaSidebar({setVocaMode,wordbook}:{
+function VocaSidebar({vocaMode,setVocaMode,wordbook}:{
+    vocaMode: VocaMode,
     setVocaMode: React.Dispatch<React.SetStateAction<VocaMode>>,
     wordbook: {name: string, createdAt: string, wordCount: number}
 }) {
@@ -133,7 +134,9 @@ function VocaSidebar({setVocaMode,wordbook}:{
             <div>마무리 학습</div>
             <span>전체 단어 테스트 진행 후 틀린 단어만 모아서 한 번 더 외우기</span>
         </DefaultListElement>
-        <ButtonWithHoverAnimation onClick={() => setVocaMode(VocaMode.TEST)}>테스트 시작</ButtonWithHoverAnimation>
+        {vocaMode===VocaMode.VIEW&&
+            <ButtonWithHoverAnimation onClick={() => setVocaMode(VocaMode.TEST)} disabled={true}>테스트 시작</ButtonWithHoverAnimation>
+        }
     </VocaSidebarContainer>
   );
 }

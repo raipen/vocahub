@@ -26,7 +26,7 @@ function VocaList() {
   return (
     <VocaListContext.Provider value={{vocaList, setVocaList, wordbookId:wordbook.id}}>
       <MainContainer $flexdirection="row">
-        <VocaSidebar setVocaMode={setVocaMode} wordbook={{...wordbook, wordCount:vocaList.length}} />
+        <VocaSidebar vocaMode={vocaMode} setVocaMode={setVocaMode} wordbook={{...wordbook, wordCount:vocaList.length}} />
         {isLoading && <div></div>}
         {!isLoading &&
           VocaModeWithComponent.map(([mode, Component], i) =>
