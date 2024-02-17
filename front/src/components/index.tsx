@@ -30,6 +30,13 @@ const FlexColumnLeftStart = css`
   align-items: flex-start;
 `;
 
+const FlexColumnStretchCenter = css`
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: center;
+`;
+
 const MainColorBackground = css`
   background-color: var(--main-color);
   color: white;
@@ -123,11 +130,16 @@ export const Input = styled.input`
   padding: 10px;
   border: 1px solid var(--main-color);
   border-radius: 5px;
-  margin: 10px 0;
+  flex-grow: 0;
   &:focus {
     outline: none;
     border: 1px solid var(--main-color);
   }
+`;
+
+export const MiniInput = styled(Input)`
+  width: 100%;
+  max-width: 150px;
 `;
 
 export const WordbookListContainer = styled.div`
@@ -238,20 +250,25 @@ export const SeparateLine = styled.div`
   height: 100%;
 `;
 
-export const Check = styled.span`
+export const Icon = styled.button`
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  padding-block: 0;
+  padding-inline: 0;
   font-size: 1rem;
   font-weight: 600;
   color: var(--main-color);
 `;
 
-export const RemoveCheck = styled(Check)`
+export const UnactivatableIcon = styled(Icon)`
   ${clickable};
   &:hover {
     color: #ccc;
   }
 `;
 
-export const AddCheck = styled(Check)`
+export const ActivatableIcon = styled(Icon)`
   ${clickable};
   color: #ccc;
   &:hover {
@@ -259,19 +276,28 @@ export const AddCheck = styled(Check)`
   }
 `;
 
+export const WarningClickableIcon = styled(Icon)`
+  ${clickable};
+  color: red;
+  &:hover {
+    color: #ccc;
+  }
+`;
+
 export const Meaning = styled.div`
+  ${FlexColumnStretchCenter};
   counter-reset: meaning;
   height: 100%;
-  padding: 10px;
+  padding: 5px 10px;
 `;
 
 export const MeaningCount = styled.div`
   ${FlexRowLeftStart};
   gap: 5px;
+  padding: 5px 0;
   &::before {
     counter-increment: meaning;
     content: counter(meaning) ". ";
-    padding: 5px 0;
     flex-shrink: 0;
   }
 `;

@@ -1,7 +1,7 @@
 import { useState, useContext, useCallback, useMemo } from 'react';
 import { VocaListContext } from '@context/VocaListContext';
 import useFetchUpdate from '@hooks/useFetchUpdate';
-import { saveVocaList, deleteVoca } from '@utils/apis/wordbookmock';
+import { saveVocaList } from '@utils/apis/wordbookmock';
 
 type Voca = { word: string, meaning: string[], id: number | null };
 
@@ -12,7 +12,6 @@ const useEditVocaList = () => {
 
   const [editingVocaList, setEditingVocaList] = useState(newVocaList);
   const [loadingSaveVocaList, fetchSaveVocaList] = useFetchUpdate(saveVocaList);
-  const [loadingDeleteVoca, fetchDeleteVoca] = useFetchUpdate(deleteVoca);
 
   const onChangeWord = useCallback((i: number) => (e: React.ChangeEvent<HTMLInputElement>) => {
     const newVocaList = [...editingVocaList];
@@ -48,29 +47,33 @@ const useEditVocaList = () => {
     callback();
   }, [editingVocaList, wordbookId, fetchSaveVocaList, setVocaList]);
 
-  const deleteExistingVoca = useCallback(async (id: number) => {
-    await fetchDeleteVoca(id);
-    setVocaList(vocaList.filter(voca => voca.id !== id));
-  }, [fetchDeleteVoca, setVocaList]);
+  const deleteNewVoca = useCallback(
+    (i: number, id: number | null) =>
+    (fetchDeleteVoca: (id: number) => Promise<void>) =>
+    async () => {
+      if(id !== null) {
+        await fetchDeleteVoca(id);
+        setVocaList(vocaList.filter(voca => voca.id !== id));
+      }
+      setEditingVocaList(editingVocaList.filter((_, index) => index !== i));
+    },
+    [editingVocaList]
+  );
 
-  const deleteNewVoca = useCallback((i: number) => {
-    setEditingVocaList(editingVocaList.filter((_, index) => index !== i));
-  }, [editingVocaList]);
-
-  const deleteMean = useCallback((i: number, j: number) => {
+  const deleteMean = useCallback((i: number, j: number) => ()=> {
     const newVocaList = [...editingVocaList];
     newVocaList[i].meaning = newVocaList[i].meaning.filter((_, index) => index !== j);
     setEditingVocaList(newVocaList);
   }, [editingVocaList]);
 
-  const moveWordUp = useCallback((i: number) => {
+  const moveWordUp = useCallback((i: number) => () => {
     if (i === 0) return;
     const newVocaList = [...editingVocaList];
     [newVocaList[i], newVocaList[i - 1]] = [newVocaList[i - 1], newVocaList[i]];
     setEditingVocaList(newVocaList);
   }, [editingVocaList]);
 
-  const moveWordDown = useCallback((i: number) => {
+  const moveWordDown = useCallback((i: number) => () => {
     if (i === editingVocaList.length - 1) return;
     const newVocaList = [...editingVocaList];
     [newVocaList[i], newVocaList[i + 1]] = [newVocaList[i + 1], newVocaList[i]];
@@ -80,17 +83,15 @@ const useEditVocaList = () => {
   return useMemo(() => ({
     vocaList: editingVocaList,
     loadingSaveVocaList,
-    loadingDeleteVoca,
     onChangeWord,
     onChangeMeans,
     reset,
     save,
-    deleteExistingVoca,
     deleteNewVoca,
     deleteMean,
     moveWordUp,
     moveWordDown
-  }), [editingVocaList, loadingSaveVocaList, loadingDeleteVoca, onChangeWord, onChangeMeans, reset, save, deleteExistingVoca, deleteNewVoca, deleteMean, moveWordUp, moveWordDown]);
+  }), [editingVocaList, loadingSaveVocaList, onChangeWord, onChangeMeans, reset, save, deleteNewVoca, deleteMean, moveWordUp, moveWordDown]);
 }
 
 export default useEditVocaList;

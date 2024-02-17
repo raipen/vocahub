@@ -133,7 +133,7 @@ export const saveVocaList = async (accessToken: string, bookId: number, words: {
             return reject(new Error("permission denied"));
           }
           voca.word = word.word;
-          voca.meaning = word.meaning;
+          voca.meaning = [...word.meaning];
           voca.order = index + 1;
         }
       });

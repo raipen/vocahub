@@ -10,9 +10,9 @@ import {
   Title,
   ButtonContainingIcon,
   SeparateLine,
-  Check,
-  RemoveCheck,
-  AddCheck,
+  Icon,
+  UnactivatableIcon,
+  ActivatableIcon,
   Meaning,
   MeaningCount,
   FilpCardContainer,
@@ -49,10 +49,10 @@ function CheckableWord({word,checkCount,id}: {word: string, checkCount: number, 
   return (
     <div style={{padding: '10px'}}>
       <span>{word}</span>
-      {checkCount>1&& new Array(checkCount-1).fill(0).map((_,i) => <Check key={i} className="material-icons-sharp">done</Check>)}
-      {loadingIncrease&&<Check className="material-icons-sharp">done</Check>}
-      {!loadingDecrease&&checkCount>0&& <RemoveCheck onClick={handleDecrease} className="material-icons-sharp">done</RemoveCheck>}
-      {!loadingIncrease&&checkCount<5&& <AddCheck onClick={handleIncrease} className="material-icons-sharp">add</AddCheck>}
+      {checkCount>1&& new Array(checkCount-1).fill(0).map((_,i) => <Icon key={i} className="material-icons-sharp">done</Icon>)}
+      {loadingIncrease&&<Icon className="material-icons-sharp">done</Icon>}
+      {!loadingDecrease&&checkCount>0&& <UnactivatableIcon onClick={handleDecrease} className="material-icons-sharp">done</UnactivatableIcon>}
+      {!loadingIncrease&&checkCount<5&& <ActivatableIcon onClick={handleIncrease} className="material-icons-sharp">add</ActivatableIcon>}
     </div>
   );
 }
@@ -74,7 +74,6 @@ function ViewVocaList({setVocaMode}: {setVocaMode: React.Dispatch<React.SetState
   const [defaultVisible, setDefaultVisible] = useState(false);
   const [showCount, setShowCount] = useState(0);
   const [refresh, setRefresh] = useState({});
-  console.log(vocaList);
   const vocaListGreaterThanShowCount = vocaList.filter(voca=>voca.checkCount>=showCount);
 
   return (

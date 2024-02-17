@@ -12,6 +12,7 @@ export const VocaListContext = createContext(
 
 export const useInitVocaList = (wordbookId:number) => {
   const [data, vocaListError] = useFetchWithRendering(getVocaList, wordbookId);
+  const [isLoading, setIsLoading] = useState(true);
   const [wordbook, setWordbook] = useState<Exclude<typeof data, null>['wordbook']&{wordCount: number}>({
     name: '', createdAt: '', id: 0, wordCount: 0
   });
@@ -20,8 +21,9 @@ export const useInitVocaList = (wordbookId:number) => {
     if (data) {
       setWordbook({...data.wordbook, wordCount: data.voca.length});
       setVocaList(data.voca);
+      setIsLoading(false);
     }
   }, [data]);
 
-  return useMemo(() => ({ wordbook, vocaList, setVocaList, vocaListError }), [wordbook, vocaList, setVocaList, vocaListError]);
+  return useMemo(() => ({ isLoading, wordbook, vocaList, setVocaList, vocaListError }), [isLoading, wordbook, vocaList, setVocaList, vocaListError]);
 }
