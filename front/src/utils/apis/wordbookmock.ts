@@ -245,3 +245,20 @@ export const showWordbook = async (accessToken: string, bookId: number) => {
   });
 }
 
+export const saveResult = async (accessToken: string, bookId: number, testResult: { id: number, result: boolean }[]) => {
+  return new Promise<void>((resolve, reject) => {
+    setTimeout(() => {
+      testResult.forEach((result) => {
+        const voca = data.voca.find((voca) => voca.id === result.id);
+        if (voca === undefined) {
+          return reject(new Error("voca not found"));
+        }
+        if (data.wordbook.some((wordbook) => wordbook.id === voca.bookId && wordbook.userId !== 1)) {
+          return reject(new Error("permission denied"));
+        }
+        voca.testResult = result.result;
+      });
+      resolve();
+    }, 1000);
+  });
+}
