@@ -135,7 +135,7 @@ function VocaSidebar({vocaMode,setVocaMode,wordbook}:{
             <span>전체 단어 테스트 진행 후 틀린 단어만 모아서 한 번 더 외우기</span>
         </DefaultListElement>
         {vocaMode===VocaMode.VIEW&&
-            <ButtonWithHoverAnimation onClick={() => setVocaMode(VocaMode.TEST)} disabled={true}>테스트 시작</ButtonWithHoverAnimation>
+            <ButtonWithHoverAnimation onClick={() => setVocaMode(VocaMode.TEST)}>테스트 시작</ButtonWithHoverAnimation>
         }
     </VocaSidebarContainer>
   );
