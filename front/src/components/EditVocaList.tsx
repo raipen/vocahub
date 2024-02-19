@@ -31,7 +31,7 @@ function WordInputWithMenu({word, onChange, disabled, moveWordUp, moveWordDown, 
   const disable = disabled || loadingDeleteVoca;
 
   return (
-    <div style={{display: 'flex', gap: '5px', padding: '10px', alignItems: 'center'}}>
+    <div style={{display: 'flex', padding: '10px', alignItems: 'center'}}>
       <ActivatableIcon onClick={moveWordUp} className="material-icons-sharp" tabIndex={-1} disabled={disable}>arrow_upward</ActivatableIcon>
       <ActivatableIcon onClick={moveWordDown} className="material-icons-sharp" tabIndex={-1} disabled={disable}>arrow_downward</ActivatableIcon>
       <MiniInput value={loadingDeleteVoca ? "삭제중" : word} onChange={onChange} disabled={disable}/>

@@ -139,6 +139,7 @@ export const Input = styled.input`
 
 export const MiniInput = styled(Input)`
   width: 100%;
+  margin: 0 5px;
   max-width: 150px;
 `;
 
@@ -299,6 +300,20 @@ export const MeaningCount = styled.div`
     counter-increment: meaning;
     content: counter(meaning) ". ";
     flex-shrink: 0;
+  }
+`;
+
+export const MeaningWithAnswer = styled.div<{ $correct?: boolean }>`
+  ${FlexColumnLeftStart};
+  &>span:first-child {
+    font-weight: 600;
+    color: ${props => props.$correct ? '#00c000' : '#ff4444'};
+    text-decoration: ${props => props.$correct ? 'none' : 'line-through'};
+  }
+  &>span:last-child {
+    font-weight: 300;
+    font-size: 0.9rem;
+    margin-left: 10px;
   }
 `;
 

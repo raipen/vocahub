@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { VocaMode } from "@utils/vocaModeEnum";
 import { ISOStringToDateString } from '@utils/index';
-import { ButtonWithHoverAnimation } from '@components';
+import { ButtonWithHoverAnimation, ReverseButtonWithHoverAnimation } from '@components';
 
 const VocaSidebarContainer = styled.div`
     display: flex;
@@ -136,6 +136,9 @@ function VocaSidebar({vocaMode,setVocaMode,wordbook}:{
         </DefaultListElement>
         {vocaMode===VocaMode.VIEW&&
             <ButtonWithHoverAnimation onClick={() => setVocaMode(VocaMode.TEST)}>테스트 시작</ButtonWithHoverAnimation>
+        }
+        {vocaMode!==VocaMode.VIEW&&
+            <ReverseButtonWithHoverAnimation onClick={() => setVocaMode(VocaMode.VIEW)}>단어 학습으로 돌아가기</ReverseButtonWithHoverAnimation>
         }
     </VocaSidebarContainer>
   );
