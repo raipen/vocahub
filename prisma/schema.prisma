@@ -6,3 +6,43 @@ datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
 }
+
+model User {
+  uuid     String   @unique @id
+  name     String
+  password String
+  salt     String
+  wordbook Wordbook[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Wordbook {
+  id        Int      @id @default(autoincrement())
+  title     String
+  user      User     @relation(fields: [userId], references: [uuid])
+  userId    String
+  voca      Voca[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  isHidden  Boolean  @default(false)
+}
+
+model Voca {
+  id        Int      @id @default(autoincrement())
+  word      String
+  meaning   Meaning[]
+  checkCount Int      @default(0)
+  order     Int      @default(0)
+  wordbook  Wordbook @relation(fields: [wordbookId], references: [id])
+  wordbookId Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Meaning {
+  id        Int      @id @default(autoincrement())
+  meaning   String
+  voca      Voca     @relation(fields: [vocaId], references: [id])
+  vocaId    Int
+}
