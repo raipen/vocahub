@@ -135,8 +135,8 @@ export const deleteVocaSchema = {
   },
 } as const;
 
-export type getVocaListInterface = SchemaToInterface<typeof getVocaListSchema>;
-export type saveVocaListInterface = SchemaToInterface<typeof saveVocaListSchema>;
-export type increaseCheckCountInterface = SchemaToInterface<typeof increaseCheckCountSchema>;
-export type decreaseCheckCountInterface = SchemaToInterface<typeof decreaseCheckCountSchema>;
-export type deleteVocaInterface = SchemaToInterface<typeof deleteVocaSchema>;
+export type getVocaListInterface = SchemaToInterface<typeof getVocaListSchema> & { Body: { userId: string } };
+export type saveVocaListInterface = SchemaToInterface<typeof saveVocaListSchema> & { Body: { userId: string } };
+export type increaseCheckCountInterface = SchemaToInterface<typeof increaseCheckCountSchema> & { Body: { userId: string } };
+export type decreaseCheckCountInterface = SchemaToInterface<typeof decreaseCheckCountSchema> & { Body: { userId: string } };
+export type deleteVocaInterface = SchemaToInterface<typeof deleteVocaSchema> & { Body: { userId: string } };

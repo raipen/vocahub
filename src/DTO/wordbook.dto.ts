@@ -108,4 +108,6 @@ export const showWordbookSchema = {
       },
 } as const;
 
-export type getWordbookListInterface = SchemaToInterface<typeof getWordbookListSchema>;
+export type getWordbookListInterface = SchemaToInterface<typeof getWordbookListSchema> & { Body: { userId: string } };
+export type addWordbookInterface = SchemaToInterface<typeof addWordbookSchema> & { Body: { userId: string } };
+export type hideWordbookInterface = SchemaToInterface<typeof hideWordbookSchema> & { Body: { userId: string } };
