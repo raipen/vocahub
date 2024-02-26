@@ -32,11 +32,11 @@ export default {
             }
         });
         if (!user) {
-            throw new NotFoundError('User not found');
+            throw new NotFoundError('', 'User');
         }
         const hashedPassword = crypto.pbkdf2Sync(password, user.salt, 10000, 64, 'sha512').toString('hex');
         if (hashedPassword !== user.password) {
-            throw new NotFoundError('Password not match');
+            throw new NotFoundError('', 'User');
         }
         const loginToken = new LoginToken(user.uuid);
         const accessToken = loginToken.signAccessToken();

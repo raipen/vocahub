@@ -52,6 +52,7 @@ export const signInSchema = {
         },
       },
       ...errorSchema(
+        E.NotFoundError
       )
     },
 } as const;
