@@ -3,7 +3,7 @@ import onError from '@hooks/onError';
 import checkUser from '@hooks/checkUser';
 import checkRefreshToken from '@hooks/checkRefreshToken';
 import * as User from '@DTO/user.dto';
-import userService from '@services/userService';
+import userService from '@services/user.service';
 
 const api: FastifyPluginAsync = async (server: FastifyInstance) => {
     server.post<User.signUpInterface>(

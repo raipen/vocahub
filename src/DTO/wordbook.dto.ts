@@ -12,10 +12,10 @@ const wordbookType = {
     type: 'array',
     items: {
       type: 'object',
-      required: ['id', 'name', 'createdAt', 'isHidden', 'vocaCount'],
+      required: ['id', 'title', 'createdAt', 'isHidden', 'vocaCount'],
       properties: {
         id: { type: 'number' },
-        name: { type: 'string' },
+        title: { type: 'string' },
         createdAt: { type: 'string' },
         isHidden: { type: 'boolean' },
         vocaCount: { type: 'number' },
@@ -39,19 +39,19 @@ export const getWordbookListSchema = {
     },
 } as const;
 
-export const addWordbookSchema = {
+export const createWordbookSchema = {
     tags: ['Wordbook'],
     summary: '단어장 목록 조회',
     headers: AuthorizationHeader,
     body: {
       type: 'object',
-      required: ['name'],
+      required: ['title'],
       properties: {
-        name: { type: 'string' },
+        title: { type: 'string' },
       },
     },
     response: {
-        200: {
+        201: {
           type: "array",
           items: [wordbookType,wordbookType],
           minItems: 2,
@@ -109,5 +109,6 @@ export const showWordbookSchema = {
 } as const;
 
 export type getWordbookListInterface = SchemaToInterface<typeof getWordbookListSchema> & { Body: { userId: string } };
-export type addWordbookInterface = SchemaToInterface<typeof addWordbookSchema> & { Body: { userId: string } };
+export type createWordbookInterface = SchemaToInterface<typeof createWordbookSchema> & { Body: { userId: string } };
 export type hideWordbookInterface = SchemaToInterface<typeof hideWordbookSchema> & { Body: { userId: string } };
+export type showWordbookInterface = SchemaToInterface<typeof showWordbookSchema> & { Body: { userId: string } };
