@@ -1,5 +1,3 @@
-import { ExpiredAccessTokenError } from "@utils/errors";
-
 const data = {
   user: [
     { id: 1, name: "user1", password: "1234" },
