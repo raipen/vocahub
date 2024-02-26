@@ -1,6 +1,5 @@
 import jwt from 'jsonwebtoken';
 import config from '@config';
-import crypto from 'crypto';
 import { UserAuthorizationError, UncorrectTokenError } from '@errors';
 export class LoginToken {
   userId: string;
@@ -10,11 +9,11 @@ export class LoginToken {
   }
 
   signAccessToken(): string {
-    return jwt.sign({ ...this }, config.jwtAccessKey, { expiresIn: '1d' });
+    return jwt.sign({ ...this }, config.jwtAccessKey, { expiresIn: '1h' });
   }
 
   signRefreshToken(): string {
-    return jwt.sign({ ...this }, config.jwtRefreshKey, { expiresIn: '14d' });
+    return jwt.sign({ ...this }, config.jwtRefreshKey, { expiresIn: '1d' });
   }
 
   public static getUserIdFromAccessToken(token: string): string {
