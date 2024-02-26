@@ -1,4 +1,3 @@
-import { Voca, Meaning } from '@prisma/client';
 import {
   AuthorizationHeader,
   errorSchema,

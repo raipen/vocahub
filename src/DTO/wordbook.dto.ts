@@ -1,4 +1,3 @@
-import { Wordbook } from '@prisma/client';
 import {
     AuthorizationHeader,
     errorSchema,
