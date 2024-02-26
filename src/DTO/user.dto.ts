@@ -18,13 +18,12 @@ export const signUpSchema = {
       },
     },
     response: {
-      200: {
+      201: {
         type: 'object',
         description: '회원가입 성공 => 바로 로그인',
-        required: ['accessToken', 'refreshToken'],
+        required: ['accessToken'],
         properties: {
-          accessToken: { type: 'string' },
-          refreshToken: { type: 'string' },
+          accessToken: { type: 'string' }
         },
       },
       ...errorSchema(
@@ -47,10 +46,9 @@ export const signInSchema = {
       200: {
         type: 'object',
         description: '로그인 성공',
-        required: ['accessToken', 'refreshToken'],
+        required: ['accessToken'],
         properties: {
-          accessToken: { type: 'string' },
-          refreshToken: { type: 'string' },
+          accessToken: { type: 'string' }
         },
       },
       ...errorSchema(
@@ -74,15 +72,13 @@ export const signOutSchema = {
 export const refreshSchema = {
     tags: ['User'],
     summary: '토큰 재발급',
-    headers: AuthorizationHeader,
     response: {
         200: {
             type: 'object',
             description: '토큰 재발급 성공',
-            required: ['accessToken', 'refreshToken'],
+            required: ['accessToken'],
             properties: {
-                accessToken: { type: 'string' },
-                refreshToken: { type: 'string' },
+                accessToken: { type: 'string' }
             },
         },
         ...errorSchema(
@@ -124,4 +120,4 @@ export const profileSchema = {
 export type signUpInterface = SchemaToInterface<typeof signUpSchema>;
 export type signInInterface = SchemaToInterface<typeof signInSchema>;
 export type signOutInterface = SchemaToInterface<typeof signOutSchema>;
-export type refreshInterface = SchemaToInterface<typeof refreshSchema>;
+export type refreshInterface = SchemaToInterface<typeof refreshSchema> & { Body: { userId: string } };
