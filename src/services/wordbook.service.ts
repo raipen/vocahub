@@ -1,9 +1,9 @@
 import { NotFoundError } from '@errors';
-import * as Wordbook from '@DTO/wordbook.dto';
+import * as WordbookDTO from '@DTO/wordbook.dto';
 import * as WordbookRepo from '@repository/wordbook.repo';
 
-export async function getWrodbookList({userId}: Wordbook.getWordbookListInterface['Body'])
-: Promise<Wordbook.getWordbookListInterface['Reply']['200']> {
+export async function getWrodbookList({userId}: WordbookDTO.getWordbookListInterface['Body'])
+: Promise<WordbookDTO.getWordbookListInterface['Reply']['200']> {
     const [nonHiddenWordbookList, hiddenWordbookList] = (await Promise.all([
         WordbookRepo.getNonHiddenWordbookList,
         WordbookRepo.getHiddenWordbookList
@@ -18,20 +18,20 @@ export async function getWrodbookList({userId}: Wordbook.getWordbookListInterfac
     return [nonHiddenWordbookList, hiddenWordbookList];
 }
 
-export async function createWordbook({userId, title}: Wordbook.createWordbookInterface['Body'])
-: Promise<Wordbook.createWordbookInterface['Reply']['201']> {
+export async function createWordbook({userId, title}: WordbookDTO.createWordbookInterface['Body'])
+: Promise<WordbookDTO.createWordbookInterface['Reply']['201']> {
     await WordbookRepo.createWordbook(userId, title);
     return getWrodbookList({userId});
 }
 
-export async function hideWordbook({userId, bookId}: Wordbook.hideWordbookInterface['Body'])
-: Promise<Wordbook.hideWordbookInterface['Reply']['200']> {
+export async function hideWordbook({userId, bookId}: WordbookDTO.hideWordbookInterface['Body'])
+: Promise<WordbookDTO.hideWordbookInterface['Reply']['200']> {
     await WordbookRepo.hideWordbook(userId, bookId);
     return getWrodbookList({userId});
 }
 
-export async function showWordbook({userId, bookId}: Wordbook.showWordbookInterface['Body'])
-: Promise<Wordbook.showWordbookInterface['Reply']['200']> {
+export async function showWordbook({userId, bookId}: WordbookDTO.showWordbookInterface['Body'])
+: Promise<WordbookDTO.showWordbookInterface['Reply']['200']> {
     await WordbookRepo.showWordbook(userId, bookId);
     return getWrodbookList({userId});
 }
