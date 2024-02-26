@@ -1,4 +1,4 @@
-import { Prisma,PrismaClient } from '@prisma/client';
+import { PrismaClient } from '@prisma/client';
 import { NotFoundError } from '@errors';
 import * as User from '@DTO/user.dto';
 import crypto from 'crypto';
