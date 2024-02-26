@@ -8,8 +8,8 @@ datasource db {
 }
 
 model User {
-  uuid     String   @unique @id
-  name     String
+  uuid     String   @unique @id @default(uuid())
+  name     String   @unique
   password String
   salt     String
   wordbook Wordbook[]
