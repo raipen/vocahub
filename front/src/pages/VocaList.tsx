@@ -20,6 +20,7 @@ function VocaList() {
   const [ vocaMode, setVocaMode ] = useState(VocaMode.EDIT);
   useEffect(() => {
     if(vocaList.length > 0) setVocaMode(VocaMode.VIEW);
+    // eslint-disable-next-line
   }, [isLoading]);
   if(vocaListError) return <Navigate to="/error" state={{message:vocaListError.toast}} />;
 

@@ -45,11 +45,11 @@ const LoginDateTable = styled.div`
     gap: 3px;
 `;
 
-const LoginDateElement = styled.div<{ background: string }>`
+const LoginDateElement = styled.div<{ $background: string }>`
     width: 11px;
     height: 11px;
     border-radius: 1px;
-    background-color: ${({background}) => background};
+    background-color: ${({$background: background}) => background};
     &>div {
         display: none;
         width: 200px;
@@ -105,7 +105,7 @@ function LoginDate({loginDate}: {loginDate: {date: string, count: number}[]}) {
                     <div key={index} style={{fontSize: '11px',lineHeight: '11px'}}>{day}</div>
                 ))}
                 {dataToUse.map((date, index) => (
-                    <LoginDateElement key={index} background={date.count>1? 'var(--main-color)': date.count===1? '#ffaa44': '#ccc'}>
+                    <LoginDateElement key={index} $background={date.count>1? 'var(--main-color)': date.count===1? '#ffaa44': '#ccc'}>
                         <div>{date.date}<br/>{date.count}개의 단어장을 학습</div>
                     </LoginDateElement>
                 ))}

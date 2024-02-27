@@ -10,15 +10,16 @@
         "paths": {
             "@api": ["src/api"],
             "@config": ["src/config"],
-            "@DTO/*": ["src/DTO/*"],
+            "@DTO/*": ["DTO/*"],
             "@loaders": ["src/loaders"],
             "@services/*": ["src/services/*"],
             "@utils/*": ["src/utils/*"],
-            "@errors": ["src/errors"],
-            "@errors/*": ["src/errors/*"],
+            "@errors": ["errors"],
+            "@errors/*": ["errors/*"],
             "@routes/*": ["src/api/routes/*"],
             "@hooks/*": ["src/api/hooks/*"],
             "@server": ["src/server"],
+            "@repository/*": ["src/repository/*"],
         }
     },
     "include": [

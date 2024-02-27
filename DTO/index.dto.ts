@@ -9,15 +9,6 @@ export const AuthorizationHeader = {
   required: ['authorization'],
 } as const;
 
-export const StoreAuthorizationHeader = {
-  type: 'object',
-  properties: {
-    authorization: { type: 'string' },
-    storeid: { type: 'string' },
-  },
-  required: ['authorization', 'storeid'],
-} as const;
-
 export const errorSchema = (...errors: Array<new (message:string,...any:any) => ErrorWithToast>) => {
   const errorConfigs = ErrorConfig.filter((errorConfig) => errors.some((error) => errorConfig.error === error));
   return errorConfigs.reduce((acc, cur) => {

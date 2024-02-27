@@ -1,93 +1,33 @@
 import jwt from 'jsonwebtoken';
 import config from '@config';
-import crypto from 'crypto';
 import { UserAuthorizationError, UncorrectTokenError } from '@errors';
-
-export class TokenForCertificatePhone {
-  phone: string;
-  encryptedCertificationCode: string;
-
-  constructor(phone: string, certificationCode: string) {
-    this.phone = phone;
-    this.encryptedCertificationCode = this.encryptCertificationCode(
-      phone,
-      certificationCode
-    );
-  }
-
-  private encryptCertificationCode(
-    phone: string,
-    certificationCode: string
-  ): string {
-    const hash = crypto.createHash('sha512');
-    hash.update(`${phone}${certificationCode}${config.salt}`);
-    return hash.digest('hex');
-  }
-
-  sign(): string {
-    return jwt.sign({ ...this }, config.jwtSecretKey, { expiresIn: '3m' });
-  }
-
-  public static verify(
-    token: string,
-    phone: string,
-    certificationCode: string
-  ): boolean {
-    const decoded = jwt.verify(
-      token,
-      config.jwtSecretKey
-    ) as TokenForCertificatePhone;
-    const hash = crypto.createHash('sha512');
-    hash.update(`${phone}${certificationCode}${config.salt}`);
-    const encryptedCertificationCode = hash.digest('hex');
-    if (decoded.encryptedCertificationCode == encryptedCertificationCode)
-      return true;
-    return false;
-  }
-}
-
-export class CertificatedPhoneToken {
-  phone: string;
-
-  constructor(phone: string) {
-    this.phone = phone;
-  }
-
-  sign(): string {
-    return jwt.sign({ ...this }, config.jwtSecretKey, { expiresIn: '3m' });
-  }
-
-  public static decode(token: string): CertificatedPhoneToken {
-    try {
-      const decoded = jwt.verify(
-        token,
-        config.jwtSecretKey
-      ) as CertificatedPhoneToken;
-      return decoded;
-    } catch (err) {
-      throw new UncorrectTokenError('토큰이 유효하지 않습니다.');
-    }
-  }
-}
-
 export class LoginToken {
-  userId: number;
+  userId: string;
 
-  constructor(userId: number) {
+  constructor(userId: string) {
     this.userId = userId;
   }
 
   signAccessToken(): string {
-    return jwt.sign({ ...this }, config.jwtSecretKey, { expiresIn: '1d' });
+    return jwt.sign({ ...this }, config.jwtAccessKey, { expiresIn: '1h' });
   }
 
   signRefreshToken(): string {
-    return jwt.sign({ ...this }, config.jwtSecretKey, { expiresIn: '14d' });
+    return jwt.sign({ ...this }, config.jwtRefreshKey, { expiresIn: '1d' });
   }
 
-  public static getUserId(token: string): number {
+  public static getUserIdFromAccessToken(token: string): string {
     try {
-      const decoded = jwt.verify(token, config.jwtSecretKey) as LoginToken;
+      const decoded = jwt.verify(token, config.jwtAccessKey) as LoginToken;
+      return decoded.userId;
+    } catch (err) {
+      throw new UserAuthorizationError('유저 인증에 실패했습니다');
+    }
+  }
+
+  public static getUserIdFromRefreshToken(token: string): string {
+    try {
+      const decoded = jwt.verify(token, config.jwtRefreshKey) as LoginToken;
       return decoded.userId;
     } catch (err) {
       throw new UserAuthorizationError('유저 인증에 실패했습니다');

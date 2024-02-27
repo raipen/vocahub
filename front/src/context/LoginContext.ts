@@ -7,8 +7,8 @@ export const LoginContext = createContext({
     loading: true,
     accessToken: "",
     refresh: async ()=>{},
-    login: (arg: {email: string, password: string})=>{},
-    logout: ()=>{}
+    login: async (arg: {name: string, password: string})=>{},
+    logout: async ()=>{}
 });
 
 
@@ -45,10 +45,10 @@ export const useInitLoginContext = () => {
             setLoading(false);
         }
     }, []);
-    const login = useCallback(async ({email, password}:{email:string,password:string})=>{
+    const login = useCallback(async ({name, password}:{name:string,password:string})=>{
         setLoading(true);
         try {
-            const accessToken = await requestLogin({email, password});
+            const accessToken = await requestLogin({name, password});
             setAccessToken(accessToken);
             setIsLogined(true);
         } catch (e: unknown) {

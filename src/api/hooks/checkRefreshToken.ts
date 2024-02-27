@@ -7,14 +7,12 @@ export default async (
   reply: FastifyReply,
   done: (err?: FastifyError) => void
 ) => {
-  const authorization = request.headers.authorization;
+  const authorization = request.cookies.authorization;
   if (!authorization) {
-    throw new NoAuthorizationInHeaderError('헤더에 Authorization이 없습니다');
+    throw new NoAuthorizationInHeaderError('쿠키에 Authorization이 없습니다');
   }
-
-  const replace_authorization = authorization.replace('Bearer ', '');
 
   if(!request.body)
     request.body = { userId: "" };
-  request.body.userId = LoginToken.getUserIdFromAccessToken(replace_authorization);
+  request.body.userId = LoginToken.getUserIdFromRefreshToken(authorization);
 };

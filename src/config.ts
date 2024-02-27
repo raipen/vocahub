@@ -16,7 +16,8 @@ class Config{
     config() {
         return {
             port: parseInt(process.env.NODE_ENV == 'test' ? '3001' : process.env.PORT || '8080'),
-            jwtSecretKey: process.env.JWT_SECRET_KEY || 'secretKey',
+            jwtAccessKey: process.env.JWT_ACCESS_KEY || 'secretKey',
+            jwtRefreshKey: process.env.JWT_REFRESH_KEY || 'refresh',
             salt: process.env.SALT || 'salt',
             nodeEnv: process.env.NODE_ENV,
         } as const;

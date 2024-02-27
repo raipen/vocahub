@@ -57,7 +57,7 @@ const useEditVocaList = () => {
       }
       setEditingVocaList(editingVocaList.filter((_, index) => index !== i));
     },
-    [editingVocaList]
+    [editingVocaList, setVocaList, vocaList]
   );
 
   const deleteMean = useCallback((i: number, j: number) => ()=> {
