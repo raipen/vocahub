@@ -1,31 +1,56 @@
 {
-    "compilerOptions": {
-        "strict": true,
-        "target": "es2022",
-        "module": "es2022",
-        "moduleResolution": "Node",
-        "outDir": "build",
-        "esModuleInterop": true,
-        "baseUrl": ".",
-        "paths": {
-            "@api": ["src/api"],
-            "@config": ["src/config"],
-            "@DTO/*": ["DTO/*"],
-            "@loaders": ["src/loaders"],
-            "@services/*": ["src/services/*"],
-            "@utils/*": ["src/utils/*"],
-            "@errors": ["errors"],
-            "@errors/*": ["errors/*"],
-            "@routes/*": ["src/api/routes/*"],
-            "@hooks/*": ["src/api/hooks/*"],
-            "@server": ["src/server"],
-            "@repository/*": ["src/repository/*"],
-        }
-    },
-    "include": [
-        "src/**/*.ts"
-    ],
-    "exclude": [
-        "node_modules"
-    ]
+  "compilerOptions": {
+    "target": "ES2020",
+    "useDefineForClassFields": true,
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "skipLibCheck": true,
+    "composite": true,
+
+    /* Bundler mode */
+    "moduleResolution": "Bundler",
+    "allowImportingTsExtensions": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx",
+
+    /* Linting */
+    "strict": true,
+    // "noUnusedLocals": true,
+    // "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+
+    /* Paths */
+    "baseUrl": ".",
+    "paths": {
+      /* Shared */
+      "@DTO/*": ["DTO/*"],
+      "@errors": ["errors"],
+      "@errors/*": ["errors/*"],
+
+      /* Server */
+      "@server": ["src/server"],
+      "@config": ["src/config"],
+      "@loaders": ["src/loaders"],
+      "@serverUtils/*": ["src/utils/*"],
+      "@api": ["src/api"],
+      "@routes/*": ["src/api/routes/*"],
+      "@services/*": ["src/services/*"],
+      "@repository/*": ["src/repository/*"],
+
+      /* Front */
+      "@pages/*": ["front/pages/*"],
+      "@components": ["front/components"],
+      "@components/*": ["front/components/*"],
+      "@context/*": ["front/context/*"],
+      "@hooks/*": ["front/hooks/*"],
+      "@utils/*": ["front/utils/*"],
+      "@apis/*": ["front/utils/apis/*"],
+      "@assets/*": ["front/assets/*"]
+    }
+  },
+  "include": ["src", "front", "DTO", "errors"],
+  "exclude": ["node_modules"],
+  "references": [{ "path": "./tsconfig.node.json" }]
 }
