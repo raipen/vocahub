@@ -1,9 +1,9 @@
 type login = {
-  email: string;
+  name: string;
   password: string;
 }
 
-export const requestLogin = async ({email, password}: login) => {
+export const requestLogin = async ({name, password}: login) => {
   await new Promise((resolve) => setTimeout(resolve, 1000));
   return "access_token";
 }
