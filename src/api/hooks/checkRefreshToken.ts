@@ -1,4 +1,4 @@
-import { LoginToken } from '@utils/jwt';
+import { LoginToken } from '@serverUtils/jwt';
 import { FastifyRequest, FastifyReply, FastifyError } from 'fastify';
 import { UserAuthorizationError, NoAuthorizationInHeaderError } from '@errors/index';
 

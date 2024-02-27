@@ -1,5 +1,5 @@
 import { FastifyInstance, FastifyPluginAsync, FastifySchema } from 'fastify';
-import onError from '@hooks/onError';
+import onError from '@fastifyHooks/onError';
 import { NotDefinedOnConfigError } from '@errors/index';
 
 const test: FastifyPluginAsync = async (server: FastifyInstance) => {

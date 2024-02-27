@@ -29,12 +29,13 @@
       "@errors": ["errors"],
       "@errors/*": ["errors/*"],
 
-      /* Server */
+      /* back */
       "@server": ["src/server"],
       "@config": ["src/config"],
       "@loaders": ["src/loaders"],
       "@serverUtils/*": ["src/utils/*"],
       "@api": ["src/api"],
+      "@fastifyHooks/*": ["src/api/hooks/*"],
       "@routes/*": ["src/api/routes/*"],
       "@services/*": ["src/services/*"],
       "@repository/*": ["src/repository/*"],
