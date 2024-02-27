@@ -3,7 +3,14 @@ const prisma = new PrismaClient();
 
 export const getVocaList = async (bookId: number) => await prisma.voca.findMany({
     where: {
-        wordbookId: bookId
+        wordbookId: bookId,
+    },
+    include: {
+        meaning: {
+            select: {
+                meaning: true
+            }
+        }
     }
 });
 
@@ -45,7 +52,18 @@ export const createVocas = async (bookId: number, voca: { word: string, meaning:
     });
 }
 
-const updateCheckCount = (increaseOrDecrease: 'increase' | 'decrease') => async (vocaId: number) => {
+const updateCheckCount = (increaseOrDecrease: 'increase' | 'decrease') => async (vocaId: number, userId: string) => {
+    const vocaUser = await prisma.voca.findFirst({
+        where: {
+            id: vocaId,
+        }
+    }).wordbook().user();
+    if (!vocaUser) {
+        throw new Error('Not found');
+    }
+    if (vocaUser.uuid !== userId) {
+        throw new Error('Not authorized');
+    }
     await prisma.voca.update({
         where: {
             id: vocaId
@@ -61,7 +79,18 @@ const updateCheckCount = (increaseOrDecrease: 'increase' | 'decrease') => async 
 export const increaseCheckCount = updateCheckCount('increase');
 export const decreaseCheckCount = updateCheckCount('decrease');
 
-export const deleteVoca = async (vocaId: number) => {
+export const deleteVoca = async (vocaId: number, userId: string) => {
+    const vocaUser = await prisma.voca.findFirst({
+        where: {
+            id: vocaId,
+        }
+    }).wordbook().user();
+    if (!vocaUser) {
+        throw new Error('Not found');
+    }
+    if (vocaUser.uuid !== userId) {
+        throw new Error('Not authorized');
+    }
     await prisma.voca.delete({
         where: {
             id: vocaId
