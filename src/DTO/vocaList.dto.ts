@@ -23,8 +23,18 @@ export const getVocaListSchema = {
       description: '단어 목록 조회 성공',
       required: ['wordbook', 'voca'],
       properties: {
-        wordbook: { type: 'object', properties: { id: { type: 'number' }, name: { type: 'string' }, createdAt: { type: 'string' } } },
-        voca: { type: 'array', items: { type: 'object', properties: { id: { type: 'number' }, word: { type: 'string' }, meaning: { type: 'string' }, checkCount: { type: 'number' } } } },
+        wordbook: {
+          type: 'object',
+          required: ['id', 'title', 'createdAt'],
+          properties: { id: { type: 'number' }, title: { type: 'string' }, createdAt: { type: 'string' } }
+        },
+        voca: { type: 'array', items: {
+          type: 'object',
+          required: ['id', 'word', 'meaning', 'checkCount'],
+          properties: { id: { type: 'number' }, word: { type: 'string' }, meaning: {
+            type: 'array', items: { type: 'string' }
+          }, checkCount: { type: 'number' } }
+        } },
       },
     },
     ...errorSchema(
@@ -60,10 +70,11 @@ export const saveVocaListSchema = {
       type: 'array',
       items: {
         type: 'object',
+        required: ['id', 'word', 'meaning', 'checkCount'],
         properties: {
           id: { type: 'number' },
           word: { type: 'string' },
-          meaning: { type: 'string' },
+          meaning: { type: 'array', items: { type: 'string' } },
           checkCount: { type: 'number' }
         }
       }
