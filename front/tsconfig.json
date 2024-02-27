@@ -29,7 +29,8 @@
       "@utils/*": ["src/utils/*"],
       "@apis/*": ["src/utils/apis/*"],
       "@assets/*": ["src/assets/*"],
-      "@DTO/*": ["src/DTO/*"],
+      "@DTO/*": ["../DTO/*"],
+      "@errors/*": ["../errors/*"],
     }
   },
   "include": [
