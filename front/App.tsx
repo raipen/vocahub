@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import { LoginContext, useInitLoginContext } from '@context/LoginContext';
 import LoginedRoute from './LoginedRoute';
 import Header from '@components/Header';
@@ -15,7 +15,6 @@ function App() {
     const value = useInitLoginContext();
     return (
         <LoginContext.Provider value={value}>
-            <BrowserRouter>
                 <Header />
                 <Routes>
                     <Route path="/" element={<Main />} />
@@ -28,7 +27,6 @@ function App() {
                     <Route path="*" element={<div>404 Not Found</div>} />
                 </Routes>
                 <Footer />
-            </BrowserRouter>
         </LoginContext.Provider>
     )
 }
