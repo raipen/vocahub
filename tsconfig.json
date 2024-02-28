@@ -49,7 +49,8 @@
       "@hooks/*": ["front/hooks/*"],
       "@utils/*": ["front/utils/*"],
       "@apis/*": ["front/utils/apis/*"],
-      "@assets/*": ["front/assets/*"]
+      "@assets/*": ["front/assets/*"],
+      "@front/*": ["front/*"],
     }
   },
   "include": ["src", "front", "DTO", "errors", "dist/server/entry-server.js"],
