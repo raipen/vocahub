@@ -13,6 +13,7 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
+    "allowJs": true,
     "jsx": "react-jsx",
 
     /* Linting */
@@ -51,7 +52,7 @@
       "@assets/*": ["front/assets/*"]
     }
   },
-  "include": ["src", "front", "DTO", "errors"],
+  "include": ["src", "front", "DTO", "errors", "dist/server/entry-server.js"],
   "exclude": ["node_modules"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
