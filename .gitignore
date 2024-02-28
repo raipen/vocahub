@@ -12,3 +12,4 @@ lerna-debug.log*
 .DS_Store
 desktop.ini
 .env
+dist/

@@ -1,7 +1,7 @@
 import { FastifyInstance, FastifyPluginAsync } from 'fastify';
-import onError from '@hooks/onError';
-import checkUser from '@hooks/checkUser';
-import checkRefreshToken from '@hooks/checkRefreshToken';
+import onError from '@fastifyHooks/onError';
+import checkUser from '@fastifyHooks/checkUser';
+import checkRefreshToken from '@fastifyHooks/checkRefreshToken';
 import * as User from '@DTO/user.dto';
 import userService from '@services/user.service';
 

@@ -1,6 +1,6 @@
 import { FastifyInstance, FastifyPluginAsync } from 'fastify';
-import onError from '@hooks/onError';
-import checkUser from '@hooks/checkUser';
+import onError from '@fastifyHooks/onError';
+import checkUser from '@fastifyHooks/checkUser';
 import * as WordbookDTO from '@DTO/wordbook.dto';
 import * as WordbookService from '@services/wordbook.service';
 

@@ -2,7 +2,7 @@ import { NotFoundError } from '@errors';
 import * as UserDTO from '@DTO/user.dto';
 import * as UserRepo from '@repository/user.repo';
 import crypto from 'crypto';
-import { LoginToken } from '@utils/jwt';
+import { LoginToken } from '@serverUtils/jwt';
 
 export default {
     async signUp({name,password}: UserDTO.signUpInterface['Body']){
