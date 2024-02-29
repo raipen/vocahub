@@ -6,7 +6,6 @@ import tsconfigPaths from 'vite-tsconfig-paths';
 export default defineConfig({
   root: 'src/front',
   plugins: [react(), tsconfigPaths()],
-  publicDir: 'src/front/public',
   server: {
     port: 3000,
     proxy: {
@@ -15,4 +14,14 @@ export default defineConfig({
       },
     },
   },
+  build: {
+    rollupOptions: {
+      output:[
+        {
+            format: 'cjs',
+            interop: 'compat',
+        }
+      ]
+    }
+  }
 })
