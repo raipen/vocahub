@@ -4,7 +4,7 @@ import tsconfigPaths from 'vite-tsconfig-paths';
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: './',
+  root: 'src/front',
   plugins: [react(), tsconfigPaths()],
   server: {
     port: 3000,
@@ -14,4 +14,14 @@ export default defineConfig({
       },
     },
   },
+  build: {
+    rollupOptions: {
+      output:[
+        {
+            format: 'cjs',
+            interop: 'compat',
+        }
+      ]
+    }
+  }
 })

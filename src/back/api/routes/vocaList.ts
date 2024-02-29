@@ -70,3 +70,5 @@ const api: FastifyPluginAsync = async (server: FastifyInstance) => {
         }
     );
 };
+
+export default api;

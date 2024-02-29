@@ -9,6 +9,17 @@ export const AuthorizationHeader = {
   required: ['authorization'],
 } as const;
 
+type ErrorSchema = {
+  type: 'object',
+  description: string,
+  required: ['error','message','toast'],
+  properties: {
+    error: { type: 'string', enum: string[] },
+    message: { type: 'string'},
+    toast: { type: 'string', enum: string[] }
+  }
+};
+
 export const errorSchema = (...errors: Array<new (message:string,...any:any) => ErrorWithToast>) => {
   const errorConfigs = ErrorConfig.filter((errorConfig) => errors.some((error) => errorConfig.error === error));
   return errorConfigs.reduce((acc, cur) => {
@@ -30,27 +41,7 @@ export const errorSchema = (...errors: Array<new (message:string,...any:any) => 
       }
     }
     return acc;
-  },{} as {
-    [key:number]: {
-      type: 'object',
-      description: string,
-      required: ['error','message','toast'],
-      properties: {
-        error: { type: 'string', enum: string[] },
-        message: { type: 'string'},
-        toast: { type: 'string', enum: string[] }
-      }
-    }
-  });
+  },{} as Record<number,ErrorSchema>);
 };
 
-export type ErrorInterface = FromSchema<{
-  type: 'object',
-  description: string,
-  required: ['error','message','toast'],
-  properties: {
-    error: { type: 'string', enum: string[] },
-    message: { type: 'string'},
-    toast: { type: 'string', enum: string[] }
-  }
-}>;
+export type ErrorInterface = FromSchema<ErrorSchema>;
