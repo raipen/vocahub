@@ -53,7 +53,7 @@
       "@front/*": ["src/front/*"],
     }
   },
-  "include": ["src", "front", "DTO", "errors", "dist/server/entry-server.js"],
+  "include": ["src"],
   "exclude": ["node_modules"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

@@ -2,7 +2,7 @@
   "name": "word-memorization",
   "version": "1.0.0",
   "description": "for https://www.youtube.com/watch?v=HD79q6aXjPA",
-  "main": "src/index.ts",
+  "main": "src/back/index.ts",
   "type": "module",
   "scripts": {
     "build": "npm-run-all --parallel build:client build:server",
