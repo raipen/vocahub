@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import { styled } from 'styled-components';
 import Logo from '@assets/Title.png';
 import { Link } from 'react-router-dom';
 import { useContext } from 'react';

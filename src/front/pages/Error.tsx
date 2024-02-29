@@ -1,5 +1,5 @@
 import { useLocation } from "react-router-dom";
-import styled from "styled-components";
+import { styled } from "styled-components";
 import { MainContainer } from "@components";
 
 const ErrorContainer = styled.div`
