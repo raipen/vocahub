@@ -1,7 +1,5 @@
 import { FastifyInstance } from 'fastify';
 import fastifyStatic from '@fastify/static';
-import fastifyCompress from '@fastify/compress';
-import sirv from 'sirv';
 import path from 'path';
 import fs from 'fs';
 import { fileURLToPath } from 'url';

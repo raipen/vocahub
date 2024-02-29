@@ -9,7 +9,7 @@
     "build:client": "vite build --ssrManifest --outDir dist/client",
     "build:server": "vite build --ssr front/entry-server.tsx --outDir dist/server",
     "dev:front": "vite",
-    "dev:back": "tsx watch src src/index.ts",
+    "dev:back": "tsx watch src/back/index.ts",
     "dev": "npm-run-all --parallel dev:front dev:back",
     "start": "cross-env NODE_ENV=production tsx src/index.ts",
     "prisma:generate": "prisma generate",
