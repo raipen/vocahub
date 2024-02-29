@@ -13,15 +13,5 @@ export default defineConfig({
         target: 'http://localhost:8080'
       },
     },
-  },
-  build: {
-    rollupOptions: {
-      output:[
-        {
-            format: 'cjs',
-            interop: 'compat',
-        }
-      ]
-    }
   }
 })
