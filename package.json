@@ -8,13 +8,13 @@
     "build": "npm-run-all --parallel build:client build:server",
     "build:client": "vite build --ssrManifest --outDir dist/client",
     "build:server": "vite build --ssr entry-server.tsx --outDir dist/server",
-    "dev:front": "vite",
-    "dev:back": "tsx watch --ignore src/front src/back/index.ts",
-    "dev": "npm-run-all --parallel dev:front dev:back",
-    "start": "cross-env NODE_ENV=production tsx src/back/index.ts",
+    "dev": "tsx watch --ignore node_modules src/back/index.ts",
+    "production:back": "cross-env NODE_ENV=production tsx src/back/index.ts",
+    "preview": "npm-run-all --serial build production:back",
+    "deploy": "npm-run-all --serial prisma:generate prisma:deploy preview",
     "prisma:generate": "prisma generate",
     "prisma:migrate:dev": "prisma migrate dev --name init --preview-feature",
-    "prisma:migrate:deploy": "prisma migrate deploy --name init --preview-feature"
+    "prisma:deploy": "prisma migrate deploy --preview-feature"
   },
   "author": "Raipen",
   "license": "ISC",

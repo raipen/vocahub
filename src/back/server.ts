@@ -1,10 +1,17 @@
 import fastify, {FastifyInstance} from 'fastify';
 import loaders from '@loaders';
+import frontLoaders from '@frontLoaders';
 
-const serverSetting = async () : Promise <FastifyInstance> => {
+const backendServer = async () : Promise <FastifyInstance> => {
     const server = fastify({logger: process.env.NODE_ENV === 'development'});
     await loaders(server);
     return server;
 }
 
-export default serverSetting;
+const frontServer = async () : Promise <FastifyInstance> => {
+    const server = fastify({logger: false});
+    await frontLoaders(server);
+    return server;
+}
+
+export {backendServer, frontServer};

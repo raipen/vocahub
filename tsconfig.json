@@ -34,6 +34,7 @@
       "@server": ["src/back/server"],
       "@config": ["src/back/config"],
       "@loaders": ["src/back/loaders"],
+      "@frontLoaders": ["src/back/loaders/developmentFront"],
       "@serverUtils/*": ["src/back/utils/*"],
       "@api": ["src/back/api"],
       "@fastifyHooks/*": ["src/back/api/hooks/*"],

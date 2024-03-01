@@ -2,12 +2,16 @@ import { FastifyInstance } from 'fastify';
 import path from 'path';
 import fs from 'fs';
 import { fileURLToPath } from 'url';
+import fastifyMiddie from '@fastify/middie';
 import { createServer } from 'vite';
 
 const frontPath = path.join(path.dirname(fileURLToPath(import.meta.url)), '../../front');
 export default async (server: FastifyInstance): Promise<void> => {
+    await server.register(fastifyMiddie);
     const vite = await createServer({
-        server: { middlewareMode: true },
+        server: {
+            middlewareMode: true,
+        },
         appType: 'custom'
     });
     server.use(vite.middlewares);

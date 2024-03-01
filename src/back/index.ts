@@ -1,11 +1,11 @@
 import {FastifyInstance} from 'fastify';
-import serverSetting from '@server';
+import {backendServer,frontServer} from '@server';
 import config from '@config';
 
 
-const startServer = async (server : FastifyInstance) => {
+const startServer = async (server : FastifyInstance,port:number) => {
     try {
-        await server.listen({port: config.port, host: '0.0.0.0'})
+        await server.listen({port: port, host: '0.0.0.0'})
     } catch (err) {
         server.log.error(err);
         process.exit(1);
@@ -13,6 +13,7 @@ const startServer = async (server : FastifyInstance) => {
 }
 
 (async () => {
-    const settedServer:FastifyInstance = await serverSetting();
-    startServer(settedServer);
+    startServer(await backendServer(),config.port);
+    if(config.nodeEnv === 'production') return;
+    startServer(await frontServer(),config.devFrontPort);
 })();
