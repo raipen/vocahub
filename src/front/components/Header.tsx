@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import { styled } from 'styled-components';
 import Logo from '@assets/Title.png';
 import { Link } from 'react-router-dom';
 import { useContext } from 'react';
@@ -56,7 +56,10 @@ const UserMenu = styled.div`
 `;
 
 function Header() {
-  const { isLogined, loading, logout } = useContext(LoginContext);
+  const { isLogined, loading, logout, login} = useContext(LoginContext);
+  const onClickLogin = async () => {
+    const result = await login({name: 'test', password: 'test'});
+  }
   return (
     <HeaderContainer>
       <Link to="/">
@@ -84,7 +87,7 @@ function Header() {
         ]}
         { !loading && !isLogined && 
           <Link to="/login">
-            <HeaderButton className="material-icons">login</HeaderButton>
+            <HeaderButton className="material-icons" onClick={onClickLogin}>login</HeaderButton>
           </Link>
         }
         { loading && <HeaderButton className="material-icons">hourglass_top</HeaderButton>}

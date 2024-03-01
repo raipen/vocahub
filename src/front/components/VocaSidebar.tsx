@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import { styled } from 'styled-components';
 import { VocaMode } from "@utils/vocaModeEnum";
 import { ISOStringToDateString } from '@utils/index';
 import { ButtonWithHoverAnimation, ReverseButtonWithHoverAnimation } from '@components';

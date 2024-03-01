@@ -20,7 +20,7 @@ export default async (server: FastifyInstance): Promise<void> => {
         
         const template = fs.readFileSync(path.join(frontPath, 'index.html'), 'utf-8');
         try {
-            const render = (await import('@front/dist/server/entry-server.cjs')).render;
+            const render = (await import('@front/dist/server/entry-server.js')).render;
             const rendered = render(url);
             const html = template
                 .replace(`<!--app-html-->`, rendered.html);
