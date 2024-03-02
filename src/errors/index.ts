@@ -49,6 +49,8 @@ export const ValidationError = generateGenericError('ValidationError');
 
 export const UserAuthorizationError = generateGenericError('UserAuthorizationError');
 
+export const NoAuthorizationInCookieError = generateGenericError('NoAuthorizationInCookieError');
+
 export const NoAuthorizationInHeaderError = generateGenericError('NoAuthorizationInHeaderError');
 
 export const NetworkError = generateGenericError('NetworkError');

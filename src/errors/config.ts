@@ -26,6 +26,12 @@ const ErrorConfigArray: ErrorConfigType[] = [
     toast: (error: E.ErrorWithToast) => `다시 로그인 해주세요.`,
   },
   {
+    describtion: '쿠키에 인증 정보가 없습니다.',
+    error: E.NoAuthorizationInCookieError,
+    code: 400,
+    toast: (error: E.ErrorWithToast) => `인증 정보가 없습니다.`,
+  },
+  {
     describtion: '헤더에 인증 정보가 없습니다.',
     error: E.NoAuthorizationInHeaderError,
     code: 400,
