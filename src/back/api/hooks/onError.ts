@@ -10,9 +10,7 @@ export default (
 ) => {
   if (!(error instanceof ErrorWithToast)) {
     if (error.validation) {
-      error.toast = ErrorConfig.find(
-        (config) => config.error === ValidationError
-      )!.toast(error);
+      error.toast = ErrorConfig[ValidationError.name]!.toast(error);
       return reply.code(400).send(error);
     }
     if(error as FastifyError & { toast?: string } instanceof PrismaClientKnownRequestError) {
@@ -26,9 +24,7 @@ export default (
     error.toast = '알 수 없는 에러가 발생했습니다.';
     return reply.code(500).send(error);
   }
-  const knownError = ErrorConfig.find(
-    (config) => error instanceof config.error
-  );
+  const knownError = ErrorConfig[error.name];
   if (knownError) {
     return reply
       .code(knownError.code)
