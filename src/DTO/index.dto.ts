@@ -21,7 +21,7 @@ type ErrorSchema = {
 };
 
 export const errorSchema = (...errors: Array<new (message:string,...any:any) => ErrorWithToast>) => {
-  const errorConfigs = ErrorConfig.filter((errorConfig) => errors.some((error) => errorConfig.error === error));
+  const errorConfigs = errors.map((error) => ErrorConfig[error.name]);
   return errorConfigs.reduce((acc, cur) => {
     const errorInstance = new cur.error("");
     if(acc[cur.code]) {

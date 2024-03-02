@@ -66,3 +66,5 @@ export const StoreAuthorizationError = generateGenericError(
 export const NoAuthorizationInHeaderError = generateGenericError(
   'NoAuthorizationInHeaderError'
 );
+
+export const NetworkError = generateGenericError('NetworkError');

@@ -1,7 +1,7 @@
 import axios from 'axios';
 import * as User from '@DTO/user.dto';
 import { ErrorInterface } from '@DTO/index.dto';
-import { ErrorWithToast } from '@errors/index';
+import * as E from '@errors/index';
 type login = {
   name: string;
   password: string;
@@ -13,10 +13,10 @@ export const requestLogin = async ({name, password}: login) => {
     return response.data.accessToken;
   }catch(e: unknown){
     if(!axios.isAxiosError(e)||!e.response){
-      throw e;
+      throw new E.NetworkError('NetworkError');
     }
     const data = e.response.data as ErrorInterface;
-    throw new ErrorWithToast(data.message);
+    throw new E.ErrorWithToast(data.message);
   }
 }
 

@@ -4,8 +4,8 @@ export type ErrorConfigType = {
   code: number;
   toast: (error: any) => string;
   describtion: string;
-}[];
-const ErrorConfig: ErrorConfigType = [
+};
+const ErrorConfigArray: ErrorConfigType[] = [
   {
     describtion: '요청이 잘못되었습니다.',
     error: E.ValidationError,
@@ -68,5 +68,11 @@ const ErrorConfig: ErrorConfigType = [
     code: 403,
     toast: (error: E.ErrorWithToast) => '이미 결제된 주문입니다.',
   }
-];
-export default ErrorConfig;
+] as const;
+
+const ErrorConfigs = {} as Record<string, ErrorConfigType>;
+ErrorConfigArray.forEach((config) => {
+  ErrorConfigs[config.error.name] = config;
+});
+
+export default ErrorConfigs;
