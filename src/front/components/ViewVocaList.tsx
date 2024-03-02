@@ -2,7 +2,7 @@ import { VocaMode } from "@utils/vocaModeEnum";
 import { useState, useEffect,useContext } from 'react';
 import { VocaListContext } from '@context/VocaListContext';
 import useFetchUpdate from '@hooks/useFetchUpdate';
-import { increaseCheckCount,decreaseCheckCount } from '@utils/apis/wordbookmock';
+import { increaseCheckCount,decreaseCheckCount } from '@utils/apis/wordbook';
 import { getVocaList } from "@utils/apis/wordbook";
 import { 
   VocaListElement,

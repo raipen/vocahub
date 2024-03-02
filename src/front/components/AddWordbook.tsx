@@ -1,6 +1,6 @@
 import { WordbookInfo, WordbookMenu, WordbookName, WordbookContainer, Input, ButtonContainingIcon, ReverseButtonContainingIcon  } from './index';
 import useFetchUpdate from "@hooks/useFetchUpdate";
-import { addWordbook } from '@utils/apis/wordbookmock';
+import { addWordbook } from '@utils/apis/wordbook';
 import { useContext,useRef } from 'react';
 import { WordbookListContext } from '@context/WordbookListContext';
 import WordbookDetailInfo from './WordbookDetailInfo';

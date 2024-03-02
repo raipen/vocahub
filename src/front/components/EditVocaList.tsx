@@ -16,7 +16,7 @@ import {
   ButtonWithHoverAnimation
 } from './index';
 import useFetchUpdate from '@hooks/useFetchUpdate';
-import { deleteVoca } from '@utils/apis/wordbookmock';
+import { deleteVoca } from '@utils/apis/wordbook';
 
 function WordInputWithMenu({word, onChange, disabled, moveWordUp, moveWordDown, deleteWord}:{
   word: string,

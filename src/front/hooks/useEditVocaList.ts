@@ -1,7 +1,7 @@
 import { useState, useContext, useCallback, useMemo } from 'react';
 import { VocaListContext } from '@context/VocaListContext';
 import useFetchUpdate from '@hooks/useFetchUpdate';
-import { saveVocaList } from '@utils/apis/wordbookmock';
+import { saveVocaList } from '@utils/apis/wordbook';
 
 type Voca = { word: string, meaning: string[], id: number | null };
 
