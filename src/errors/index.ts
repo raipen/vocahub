@@ -41,27 +41,15 @@ export class ExistError extends ErrorWithToast {
   }
 }
 
-export const AlreadyPaidError = generateGenericError('alreadyPaidError');
-
-export const NotEnoughError = generateGenericError('NotEnoughError');
-
 export const UncorrectTokenError = generateGenericError('UncorrectTokenError');
 
-export const  NotDefinedOnConfigError = generateGenericError("NotDefinedOnConfigError");
+export const NotDefinedOnConfigError = generateGenericError("NotDefinedOnConfigError");
 
 export const ValidationError = generateGenericError('ValidationError');
 
-export const UserAuthorizationError = generateGenericError(
-  'UserAuthorizationError'
-);
+export const UserAuthorizationError = generateGenericError('UserAuthorizationError');
 
-export const StoreAuthorizationError = generateGenericError(
-  'StoreAuthorizationError'
-);
-
-export const NoAuthorizationInHeaderError = generateGenericError(
-  'NoAuthorizationInHeaderError'
-);
+export const NoAuthorizationInHeaderError = generateGenericError('NoAuthorizationInHeaderError');
 
 export const NetworkError = generateGenericError('NetworkError');
 
