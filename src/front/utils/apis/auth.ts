@@ -24,7 +24,6 @@ export const requestLogin = async ({name, password}: login) => {
 export const requestRefresh = async () => {
   try{
     const response = await axios.post<User.refreshInterface['Reply']['200']>('/api/v1/user/refresh');
-    console.log(response.data);
     return response.data.accessToken;
   }catch(e: unknown){
     if(!axios.isAxiosError(e)||!e.response){

@@ -86,7 +86,8 @@ export const refreshSchema = {
             },
         },
         ...errorSchema(
-          
+          E.NoAuthorizationInCookieError,
+          E.UserAuthorizationError
         )
     },
 } as const;

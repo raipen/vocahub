@@ -1,6 +1,6 @@
 import { createContext, useState, useCallback, useMemo, useEffect } from 'react';
 import { requestLogin, requestRefresh, requestLogout } from '@apis/auth';
-import { ErrorWithToast } from '@errors';
+import { ErrorWithToast, NoAuthorizationInCookieError, UserAuthorizationError } from '@errors';
 
 export const LoginContext = createContext({
     isLogined: false,
@@ -25,6 +25,12 @@ export const useInitLoginContext = () => {
                 setIsLogined(true);
             } catch (e: unknown) {
                 setIsLogined(false);
+                if(e instanceof NoAuthorizationInCookieError) return;
+                if(e instanceof UserAuthorizationError) {
+                    await requestLogout();
+                    alert("로그인 정보가 만료되었습니다. 다시 로그인해주세요.");
+                    return;
+                }
                 throw e instanceof ErrorWithToast ? e : new ErrorWithToast("unknown error");
             } finally {
                 setLoading(false);
