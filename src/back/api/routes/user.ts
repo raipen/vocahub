@@ -1,5 +1,4 @@
 import { FastifyInstance, FastifyPluginAsync } from 'fastify';
-import onError from '@fastifyHooks/onError';
 import checkUser from '@fastifyHooks/checkUser';
 import checkRefreshToken from '@fastifyHooks/checkRefreshToken';
 import * as User from '@DTO/user.dto';
@@ -9,8 +8,7 @@ const api: FastifyPluginAsync = async (server: FastifyInstance) => {
     server.post<User.signUpInterface>(
         '/signUp',
         {
-            schema: User.signUpSchema,
-            onError
+            schema: User.signUpSchema
         },
         async (request, reply) => {
             const { accessToken, refreshToken } = await userService.signUp(request.body);
@@ -20,8 +18,7 @@ const api: FastifyPluginAsync = async (server: FastifyInstance) => {
     server.post<User.signInInterface>(
         '/signIn',
         {
-            schema: User.signInSchema,
-            onError
+            schema: User.signInSchema
         },
         async (request, reply) => {
             const { accessToken, refreshToken } = await userService.signIn(request.body);
@@ -31,8 +28,7 @@ const api: FastifyPluginAsync = async (server: FastifyInstance) => {
     server.post(
         '/signOut',
         {
-            schema: User.signOutSchema,
-            onError
+            schema: User.signOutSchema
         },
         async (request, reply) => {
             reply.clearCookie('authorization').send();
@@ -42,8 +38,7 @@ const api: FastifyPluginAsync = async (server: FastifyInstance) => {
         '/refresh',
         {
             schema: User.refreshSchema,
-            preValidation: checkRefreshToken,
-            onError
+            preValidation: checkRefreshToken
         },
         async (request, reply) => {
             const { accessToken } = await userService.refresh(request.body);

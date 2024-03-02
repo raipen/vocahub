@@ -1,29 +1,26 @@
 import { FastifyInstance, FastifyPluginAsync } from 'fastify';
-import onError from '@fastifyHooks/onError';
 import checkUser from '@fastifyHooks/checkUser';
 import * as VocaListDTO from '@DTO/vocaList.dto';
 import * as VocaListService from '@services/vocaList.service';
 
 const api: FastifyPluginAsync = async (server: FastifyInstance) => {
     server.get<VocaListDTO.getVocaListInterface>(
-        '/vocaList',
+        '/list/:bookId',
         {
             schema: VocaListDTO.getVocaListSchema,
-            preValidation: checkUser,
-            onError
+            preValidation: checkUser
         },
         async (request, reply) => {
-            const vocaList = await VocaListService.getVocaList(request.body, request.query);
+            const vocaList = await VocaListService.getVocaList(request.body, request.params);
             reply.status(200).send(vocaList);
         }
     );
 
     server.patch<VocaListDTO.saveVocaListInterface>(
-        '/vocaList',
+        '/list',
         {
             schema: VocaListDTO.saveVocaListSchema,
-            preValidation: checkUser,
-            onError
+            preValidation: checkUser
         },
         async (request, reply) => {
             const result = await VocaListService.updateVocas(request.body);
@@ -32,11 +29,10 @@ const api: FastifyPluginAsync = async (server: FastifyInstance) => {
     );
 
     server.patch<VocaListDTO.increaseCheckCountInterface>(
-        '/vocaList/increaseCheckCount',
+        '/increaseCheckCount',
         {
             schema: VocaListDTO.increaseCheckCountSchema,
-            preValidation: checkUser,
-            onError
+            preValidation: checkUser
         },
         async (request, reply) => {
             await VocaListService.increaseCheckCount(request.body);
@@ -45,11 +41,10 @@ const api: FastifyPluginAsync = async (server: FastifyInstance) => {
     );
 
     server.patch<VocaListDTO.decreaseCheckCountInterface>(
-        '/vocaList/decreaseCheckCount',
+        '/decreaseCheckCount',
         {
             schema: VocaListDTO.decreaseCheckCountSchema,
-            preValidation: checkUser,
-            onError
+            preValidation: checkUser
         },
         async (request, reply) => {
             await VocaListService.decreaseCheckCount(request.body);
@@ -58,11 +53,10 @@ const api: FastifyPluginAsync = async (server: FastifyInstance) => {
     );
 
     server.delete<VocaListDTO.deleteVocaInterface>(
-        '/vocaList',
+        '/',
         {
             schema: VocaListDTO.deleteVocaSchema,
-            preValidation: checkUser,
-            onError
+            preValidation: checkUser
         },
         async (request, reply) => {
             await VocaListService.deleteVoca(request.body);

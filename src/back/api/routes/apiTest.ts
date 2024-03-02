@@ -1,5 +1,4 @@
 import { FastifyInstance, FastifyPluginAsync, FastifySchema } from 'fastify';
-import onError from '@fastifyHooks/onError';
 import { NotDefinedOnConfigError } from '@errors/index';
 
 const test: FastifyPluginAsync = async (server: FastifyInstance) => {
@@ -16,10 +15,10 @@ const test: FastifyPluginAsync = async (server: FastifyInstance) => {
   server.get('/ping', { schema: testSchema }, async (req, rep) => {
     return { data: 'pong' };
   });
-  server.post('/notDefinedOnConfigerror', { onError }, async (req, rep) => {
+  server.post('/notDefinedOnConfigerror', async (req, rep) => {
     throw new NotDefinedOnConfigError('notDefinedOnConfigerror');
   });
-  server.post('/notDefinederror', { onError }, async (req, rep) => {
+  server.post('/notDefinederror', async (req, rep) => {
     throw new Error('notDefinederror');
   });
 };

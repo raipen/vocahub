@@ -1,5 +1,4 @@
 import { FastifyInstance, FastifyPluginAsync } from 'fastify';
-import onError from '@fastifyHooks/onError';
 import checkUser from '@fastifyHooks/checkUser';
 import * as WordbookDTO from '@DTO/wordbook.dto';
 import * as WordbookService from '@services/wordbook.service';
@@ -9,8 +8,7 @@ const api: FastifyPluginAsync = async (server: FastifyInstance) => {
         '/wordbook',
         {
             schema: WordbookDTO.getWordbookListSchema,
-            preValidation: checkUser,
-            onError
+            preValidation: checkUser
         },
         async (request, reply) => {
             const wordbookList = await WordbookService.getWrodbookList(request.body);
@@ -22,8 +20,7 @@ const api: FastifyPluginAsync = async (server: FastifyInstance) => {
         '/wordbook',
         {
             schema: WordbookDTO.createWordbookSchema,
-            preValidation: checkUser,
-            onError
+            preValidation: checkUser
         },
         async (request, reply) => {
             const result = await WordbookService.createWordbook(request.body);
@@ -35,8 +32,7 @@ const api: FastifyPluginAsync = async (server: FastifyInstance) => {
         '/wordbook/hide',
         {
             schema: WordbookDTO.hideWordbookSchema,
-            preValidation: checkUser,
-            onError
+            preValidation: checkUser
         },
         async (request, reply) => {
             const result = await WordbookService.hideWordbook(request.body);
@@ -48,8 +44,7 @@ const api: FastifyPluginAsync = async (server: FastifyInstance) => {
         '/wordbook/show',
         {
             schema: WordbookDTO.showWordbookSchema,
-            preValidation: checkUser,
-            onError
+            preValidation: checkUser
         },
         async (request, reply) => {
             const result = await WordbookService.showWordbook(request.body);

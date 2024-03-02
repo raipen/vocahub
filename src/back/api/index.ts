@@ -7,7 +7,7 @@ import wordbook from './routes/wordbook';
 const api: FastifyPluginAsync = async (server: FastifyInstance) => {
   server.register(test, { prefix: '/' });
   server.register(user, { prefix: '/user' });
-  server.register(vocaList, { prefix: '/vocaList' });
+  server.register(vocaList, { prefix: '/voca' });
   server.register(wordbook, { prefix: '/wordbook' });
 };
 

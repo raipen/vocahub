@@ -10,7 +10,7 @@ export const getVocaListSchema = {
   tags: ['Voca'],
   summary: '단어 목록 조회',
   headers: AuthorizationHeader,
-  querystring: {
+  params: {
     type: 'object',
     required: ['bookId'],
     properties: {
