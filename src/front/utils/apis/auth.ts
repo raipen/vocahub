@@ -1,7 +1,8 @@
 import axios from 'axios';
 import * as User from '@DTO/user.dto';
 import { ErrorInterface } from '@DTO/index.dto';
-import * as E from '@errors/index';
+import { NetworkError,ErrorWithToast } from '@errors/index';
+import ErrorConfigs from '@errors/config';
 type login = {
   name: string;
   password: string;
@@ -13,18 +14,35 @@ export const requestLogin = async ({name, password}: login) => {
     return response.data.accessToken;
   }catch(e: unknown){
     if(!axios.isAxiosError(e)||!e.response){
-      throw new E.NetworkError('NetworkError');
+      throw new NetworkError('NetworkError');
     }
-    const data = e.response.data as ErrorInterface;
-    throw new E.ErrorWithToast(data.message);
+    const {error:name, message} = e.response.data as ErrorInterface;
+    throw new ErrorConfigs[name].error(message);
   }
 }
 
 export const requestRefresh = async () => {
-  await new Promise((resolve) => setTimeout(resolve, 1000));
-  return "access_token";
+  try{
+    const response = await axios.post<User.refreshInterface['Reply']['200']>('/api/v1/user/refresh');
+    console.log(response.data);
+    return response.data.accessToken;
+  }catch(e: unknown){
+    if(!axios.isAxiosError(e)||!e.response){
+      throw new NetworkError('NetworkError');
+    }
+    const {error:name, message} = e.response.data as ErrorInterface;
+    throw new ErrorConfigs[name].error(message);
+  }
 }
 
 export const requestLogout = async () => {
-  await new Promise((resolve) => setTimeout(resolve, 1000));
+  try{
+    await axios.post('/api/v1/user/signOut');
+  }catch(e: unknown){
+    if(!axios.isAxiosError(e)||!e.response){
+      throw new NetworkError('NetworkError');
+    }
+    const {error:name, message} = e.response.data as ErrorInterface;
+    throw new ErrorConfigs[name].error(message);
+  }
 }

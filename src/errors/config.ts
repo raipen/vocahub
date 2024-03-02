@@ -67,6 +67,12 @@ const ErrorConfigArray: ErrorConfigType[] = [
     error: E.AlreadyPaidError,
     code: 403,
     toast: (error: E.ErrorWithToast) => '이미 결제된 주문입니다.',
+  },
+  {
+    describtion: '토큰 만료',
+    error: E.ExpiredAccessTokenError,
+    code: 401,
+    toast: (error: E.ErrorWithToast) => '세션이 만료되었습니다. 다시 로그인해주세요.',
   }
 ] as const;
 

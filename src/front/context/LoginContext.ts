@@ -1,6 +1,6 @@
 import { createContext, useState, useCallback, useMemo, useEffect } from 'react';
 import { requestLogin, requestRefresh, requestLogout } from '@apis/auth';
-import { ErrorWithToast } from '@utils/errors';
+import { ErrorWithToast } from '@errors';
 
 export const LoginContext = createContext({
     isLogined: false,

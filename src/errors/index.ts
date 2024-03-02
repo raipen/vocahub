@@ -64,3 +64,5 @@ export const NoAuthorizationInHeaderError = generateGenericError(
 );
 
 export const NetworkError = generateGenericError('NetworkError');
+
+export const ExpiredAccessTokenError = generateGenericError('ExpiredAccessTokenError');
