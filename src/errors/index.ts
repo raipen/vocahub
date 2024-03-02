@@ -7,9 +7,10 @@ export class ErrorWithToast extends Error {
 
 const generateGenericError = (name: string) => {
   return class extends ErrorWithToast {
+    static name = name;
+    name: string = name;
     constructor(message: string) {
       super(message);
-      this.name = name;
     }
   };
 };
