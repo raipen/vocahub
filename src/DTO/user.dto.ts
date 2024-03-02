@@ -26,6 +26,9 @@ export const signUpSchema = {
         },
       },
       ...errorSchema(
+        E.ValidationError,
+        E.NotCorrectTypeError,
+        E.ExistError,
       )
     },
 } as const;
@@ -51,6 +54,7 @@ export const signInSchema = {
         },
       },
       ...errorSchema(
+        E.ValidationError,
         E.NotFoundError
       )
     },
@@ -82,6 +86,7 @@ export const refreshSchema = {
             },
         },
         ...errorSchema(
+          
         )
     },
 } as const;
