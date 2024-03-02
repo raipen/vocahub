@@ -11,7 +11,6 @@ const useFetchWithRendering =  <T,U extends any[]>(fetchFunction: (accessToken:s
     useEffect(() => {
         fetchFunction(accessToken, ...args)
             .then((data) => {
-                console.log(data);
                 setData(data);
             })
             .catch((error) => {
