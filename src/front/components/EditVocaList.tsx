@@ -16,7 +16,7 @@ import {
   ButtonWithHoverAnimation
 } from './index';
 import useFetchUpdate from '@hooks/useFetchUpdate';
-import { deleteVoca } from '@utils/apis/wordbook';
+import { deleteVoca } from '@utils/apis/voca';
 
 function WordInputWithMenu({word, onChange, disabled, moveWordUp, moveWordDown, deleteWord}:{
   word: string,
@@ -24,7 +24,7 @@ function WordInputWithMenu({word, onChange, disabled, moveWordUp, moveWordDown, 
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
   moveWordUp: () => void,
   moveWordDown: () => void,
-  deleteWord: (fetchDeleteVoca: (id: number) => Promise<void>) => () => Promise<void>
+  deleteWord: (fetchDeleteVoca: (id: number) => Promise<null>) => () => Promise<void>
 }) {
   const [loadingDeleteVoca, fetchDeleteVoca] = useFetchUpdate(deleteVoca);
 
