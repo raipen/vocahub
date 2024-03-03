@@ -50,7 +50,7 @@ export async function decreaseCheckCount({vocaId, userId}: VocaListDTO.decreaseC
     await VocaListRepo.decreaseCheckCount(vocaId, userId);
 }
 
-export async function deleteVoca({vocaId, userId}: VocaListDTO.deleteVocaInterface['Body'])
+export async function deleteVoca({userId}: VocaListDTO.deleteVocaInterface['Body'], {vocaId}: VocaListDTO.deleteVocaInterface['Params'])
 {
     await VocaListRepo.deleteVoca(vocaId, userId);
 }

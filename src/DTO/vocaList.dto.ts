@@ -129,7 +129,7 @@ export const deleteVocaSchema = {
   tags: ['Voca'],
   summary: '단어 삭제',
   headers: AuthorizationHeader,
-  body: {
+  params: {
     type: 'object',
     required: ['vocaId'],
     properties: {

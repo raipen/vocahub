@@ -16,7 +16,7 @@ const api: FastifyPluginAsync = async (server: FastifyInstance) => {
         }
     );
 
-    server.patch<VocaListDTO.saveVocaListInterface>(
+    server.put<VocaListDTO.saveVocaListInterface>(
         '/list',
         {
             schema: VocaListDTO.saveVocaListSchema,
@@ -53,13 +53,13 @@ const api: FastifyPluginAsync = async (server: FastifyInstance) => {
     );
 
     server.delete<VocaListDTO.deleteVocaInterface>(
-        '/',
+        '/:vocaId',
         {
             schema: VocaListDTO.deleteVocaSchema,
             preValidation: checkUser
         },
         async (request, reply) => {
-            await VocaListService.deleteVoca(request.body);
+            await VocaListService.deleteVoca(request.body, request.params);
             reply.status(200).send();
         }
     );
