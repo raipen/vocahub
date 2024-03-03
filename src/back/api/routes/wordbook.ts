@@ -5,7 +5,7 @@ import * as WordbookService from '@services/wordbook.service';
 
 const api: FastifyPluginAsync = async (server: FastifyInstance) => {
     server.get<WordbookDTO.getWordbookListInterface>(
-        '/wordbook',
+        '/',
         {
             schema: WordbookDTO.getWordbookListSchema,
             preValidation: checkUser
@@ -17,7 +17,7 @@ const api: FastifyPluginAsync = async (server: FastifyInstance) => {
     );
 
     server.post<WordbookDTO.createWordbookInterface>(
-        '/wordbook',
+        '/',
         {
             schema: WordbookDTO.createWordbookSchema,
             preValidation: checkUser
@@ -29,7 +29,7 @@ const api: FastifyPluginAsync = async (server: FastifyInstance) => {
     );
 
     server.patch<WordbookDTO.hideWordbookInterface>(
-        '/wordbook/hide',
+        '/hide',
         {
             schema: WordbookDTO.hideWordbookSchema,
             preValidation: checkUser
@@ -41,7 +41,7 @@ const api: FastifyPluginAsync = async (server: FastifyInstance) => {
     );
 
     server.patch<WordbookDTO.showWordbookInterface>(
-        '/wordbook/show',
+        '/show',
         {
             schema: WordbookDTO.showWordbookSchema,
             preValidation: checkUser
