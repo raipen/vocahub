@@ -3,7 +3,7 @@ import * as VocaListDTO from '@DTO/vocaList.dto';
 import * as VocaListRepo from '@repository/vocaList.repo';
 import * as WordbookRepo from '@repository/wordbook.repo';
 
-export async function getVocaList({userId}: VocaListDTO.getVocaListInterface['Body'], {bookId}: VocaListDTO.getVocaListInterface['Querystring'])
+export async function getVocaList({userId}: VocaListDTO.getVocaListInterface['Body'], {bookId}: VocaListDTO.getVocaListInterface['Params'])
 : Promise<VocaListDTO.getVocaListInterface['Reply']['200']> {
     const wordbook = await WordbookRepo.getWordbook(bookId, userId);
     if (!wordbook) {
