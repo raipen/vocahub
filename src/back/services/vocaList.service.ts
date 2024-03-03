@@ -22,7 +22,6 @@ export async function getVocaList({userId}: VocaListDTO.getVocaListInterface['Bo
     };
 }
 
-
 export async function updateVocas({userId, bookId, voca}: VocaListDTO.saveVocaListInterface['Body'])
 : Promise<VocaListDTO.saveVocaListInterface['Reply']['200']> {
     const wordbook = await WordbookRepo.getWordbook(bookId, userId);
@@ -30,10 +29,14 @@ export async function updateVocas({userId, bookId, voca}: VocaListDTO.saveVocaLi
         throw new NotFoundError('Wordbook not found');
     }
     const orderdVoca = voca.map((v, i) => ({...v, order: i}));
-    const existVoca = orderdVoca.filter(v => v.id !== null) as { id: number, word: string, meaning: string[], order: number }[];
-    const newVoca = orderdVoca.filter(v => v.id === null) as { id: null, word: string, meaning: string[], order: number }[];
-    await VocaListRepo.updateVocas(bookId, existVoca);
-    await VocaListRepo.createVocas(bookId, newVoca);
+    const checkCounts = await VocaListRepo.getCheckCounts(bookId);
+    const vocaWithCheckCount = orderdVoca.map(v => ({
+        ...v,
+        id: v.id ?? undefined,
+        checkCount: checkCounts.find(c => c.id === v.id)?.checkCount ?? 0
+    }))
+    await VocaListRepo.deleteVocas(bookId);
+    await VocaListRepo.createVocas(bookId, vocaWithCheckCount);
     return (await VocaListRepo.getVocaList(bookId)).map(v => ({
         ...v,
         meaning: v.meaning.map(m => m.meaning)

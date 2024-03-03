@@ -14,41 +14,57 @@ export const getVocaList = async (bookId: number) => await prisma.voca.findMany(
     }
 });
 
-export const updateVocas = async (bookId: number, voca: { id: number, word: string, meaning: string[], order: number }[]) => {
-    const checkCounts = await prisma.voca.findMany({
-        where: {
-            wordbookId: bookId
-        },
-        select: {
-            id: true,
-            checkCount: true
-        }
-    });
-    await prisma.voca.deleteMany({
-        where: {
-            wordbookId: bookId
-        }
-    });
+export const deleteVocas = async (bookId: number) => await prisma.voca.deleteMany({
+    where: {
+        wordbookId: bookId
+    }
+});
+
+export const getCheckCounts = async (bookId: number) => await prisma.voca.findMany({
+    where: {
+        wordbookId: bookId
+    },
+    select: {
+        id: true,
+        checkCount: true
+    }
+});
+
+/**
+ * 
+ * @param bookId 
+ * @param voca should be ordered by order
+ */
+export const createVocas = async (bookId: number, voca: {
+    id?: number,
+    word: string,
+    meaning: string[],
+    order: number,
+    checkCount: number
+}[]) => {
     await prisma.voca.createMany({
         data: voca.map(v => ({
             id: v.id,
             word: v.word,
-            meaning: v.meaning,
             order: v.order,
             wordbookId: bookId,
-            checkCount: checkCounts.find(c => c.id === v.id)?.checkCount || 0
+            checkCount: v.checkCount,
         }))
     });
-}
-
-export const createVocas = async (bookId: number, voca: { word: string, meaning: string[], order: number }[]) => {
-    await prisma.voca.createMany({
-        data: voca.map(v => ({
-            word: v.word,
-            meaning: v.meaning,
-            order: v.order,
+    const vocaInDB = await prisma.voca.findMany({
+        where: {
             wordbookId: bookId
-        }))
+        },
+        orderBy: {
+            order: 'asc'
+        }
+    });
+    const meaning = voca.flatMap(({meaning},i) => meaning.map(m => ({
+        meaning: m,
+        vocaId: vocaInDB[i].id,
+    })));
+    await prisma.meaning.createMany({
+        data: meaning
     });
 }
 
