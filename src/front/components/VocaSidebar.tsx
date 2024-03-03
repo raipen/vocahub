@@ -83,7 +83,7 @@ const WordbookInfo = styled.div`
 function VocaSidebar({vocaMode,setVocaMode,wordbook}:{
     vocaMode: VocaMode,
     setVocaMode: React.Dispatch<React.SetStateAction<VocaMode>>,
-    wordbook: {name: string, createdAt: string, wordCount: number}
+    wordbook: {title: string, createdAt: string, wordCount: number}
 }) {
   return (
     <VocaSidebarContainer>
@@ -92,7 +92,7 @@ function VocaSidebar({vocaMode,setVocaMode,wordbook}:{
                 menu_book
             </span>
             <span>
-                {wordbook.name}
+                {wordbook.title}
             </span>
         </WordbookName>
         <WordbookInfo>

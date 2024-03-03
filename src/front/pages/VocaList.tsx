@@ -7,6 +7,7 @@ import ViewVocaList from "@components/ViewVocaList";
 import EditVocaList from "@components/EditVocaList";
 import TestVocaList from "@components/TestVocaList";
 import VocaSidebar from "@components/VocaSidebar";
+import ErrorConfigs from "@errors/config";
 
 const VocaModeWithComponent = [
   [VocaMode.VIEW, ViewVocaList],
@@ -22,7 +23,12 @@ function VocaList() {
     if(vocaList.length > 0) setVocaMode(VocaMode.VIEW);
     // eslint-disable-next-line
   }, [isLoading]);
-  if(vocaListError) return <Navigate to="/error" state={{message:vocaListError.toast}} />;
+  if(vocaListError) {
+    const errorConfig = ErrorConfigs[vocaListError.name];
+    if(errorConfig)
+      return <Navigate to="/error" state={{message: errorConfig.toast(vocaListError)}} />
+    return <Navigate to="/error" state={{message: "알 수 없는 오류가 발생했습니다."}} />
+  }
 
   return (
     <VocaListContext.Provider value={{vocaList, setVocaList, wordbookId:wordbook.id}}>

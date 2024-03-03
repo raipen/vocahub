@@ -5,20 +5,26 @@ import Profile from "@components/Profile";
 import WordbookList from "@components/WordbookList";
 import HiddenWordbookList from "@components/HiddenWordbookList";
 import WordbookListElement from "@components/WordbookListElement";
+import ErrorConfigs from "@errors/config";
 
 function MyWordbook() {
   const { data, setData, Error } = useInitWordbookList();
-  if(Error) return <Navigate to="/error" state={{message:Error.toast}} />;
-  const [profile, [wordbooks, hiddenWordbooks]] = data;
+  if(Error) {
+    const errorConfig = ErrorConfigs[Error.name];
+    if(errorConfig)
+      return <Navigate to="/error" state={{message: errorConfig.toast(Error)}} />
+    return <Navigate to="/error" state={{message: "알 수 없는 오류가 발생했습니다."}} />
+  }
+  const [profile, {wordbookList, hiddenWordbookList}] = data;
   return (
     <WordbookListContext.Provider value={{data, setData}}>
       <MainContainer $flexdirection="row">
         <Profile profile={profile} />
         <WordbookList>
-          {wordbooks.map((wordbook, index) =><WordbookListElement key={index} wordbook={wordbook}/>)}
+          {wordbookList.map((wordbook, index) =><WordbookListElement key={index} wordbook={wordbook}/>)}
         </WordbookList>
         <HiddenWordbookList>
-          {hiddenWordbooks.map((wordbook, index) =><WordbookListElement key={index} wordbook={wordbook}/>)}
+          {hiddenWordbookList.map((wordbook, index) =><WordbookListElement key={index} wordbook={wordbook}/>)}
         </HiddenWordbookList>
       </MainContainer>
     </WordbookListContext.Provider>

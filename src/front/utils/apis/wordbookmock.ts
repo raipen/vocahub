@@ -4,12 +4,12 @@ const data = {
     { id: 2, name: "user2", password: "1234" },
   ],
   wordbook: [
-    { id: 1, userId: 1, name: "wordbook1", createdAt: new Date(new Date().getTime() - 1000 * 60 * 60 * 72 + 1000 * 60 * 60 * 9).toISOString(), isHidden: false },
-    { id: 2, userId: 1, name: "wordbook2", createdAt: new Date(new Date().getTime() - 1000 * 60 * 60 * 24 + 1000 * 60 * 60 * 9).toISOString(), isHidden: false },
-    { id: 3, userId: 1, name: "wordbook3", createdAt: new Date(new Date().getTime() - 1000 * 60 * 10 + 1000 * 60 * 60 * 9).toISOString(), isHidden: false },
-    { id: 4, userId: 2, name: "day1", createdAt: new Date(new Date().getTime() - 1000 * 60 * 5).toISOString(), isHidden: false },
-    { id: 5, userId: 2, name: "day2", createdAt: new Date(new Date().getTime() - 1000 * 60 * 2).toISOString(), isHidden: false },
-    { id: 6, userId: 2, name: "day3", createdAt: new Date(new Date().getTime() - 1000 * 60).toISOString(), isHidden: false },
+    { id: 1, userId: 1, title: "wordbook1", createdAt: new Date(new Date().getTime() - 1000 * 60 * 60 * 72 + 1000 * 60 * 60 * 9).toISOString(), isHidden: false },
+    { id: 2, userId: 1, title: "wordbook2", createdAt: new Date(new Date().getTime() - 1000 * 60 * 60 * 24 + 1000 * 60 * 60 * 9).toISOString(), isHidden: false },
+    { id: 3, userId: 1, title: "wordbook3", createdAt: new Date(new Date().getTime() - 1000 * 60 * 10 + 1000 * 60 * 60 * 9).toISOString(), isHidden: false },
+    { id: 4, userId: 2, title: "day1", createdAt: new Date(new Date().getTime() - 1000 * 60 * 5).toISOString(), isHidden: false },
+    { id: 5, userId: 2, title: "day2", createdAt: new Date(new Date().getTime() - 1000 * 60 * 2).toISOString(), isHidden: false },
+    { id: 6, userId: 2, title: "day3", createdAt: new Date(new Date().getTime() - 1000 * 60).toISOString(), isHidden: false },
   ],
   voca: [
     { id: 1, bookId: 1, word: "apple", meaning: ["사과"], checkCount: 0, testResult: null as null | boolean, order: 1 },
@@ -46,35 +46,40 @@ export const getProfile = async (accessToken: string) => {
   });
 }
 
+type wordbookList = (Omit<typeof data.wordbook[0],"userId"> & { vocaCount: number })[];
+type wordbookApiReply = {wordbookList:wordbookList, hiddenWordbookList:wordbookList};
+
 export const getWordbookList = async (accessToken: string) => {
-  return new Promise<[(Omit<typeof data.wordbook[0],"userId"> & { vocaCount: number })[], (Omit<typeof data.wordbook[0],"userId"> & { vocaCount: number })[]]>((resolve) => {
+  return new Promise<wordbookApiReply>((resolve) => {
     setTimeout(() => {
       const wordbook = data.wordbook.filter((wordbook) => wordbook.userId === 1 && !wordbook.isHidden);
       const hiddenWordbook = data.wordbook.filter((wordbook) => wordbook.userId === 1 && wordbook.isHidden);
-      resolve([wordbook
+      resolve({
+        wordbookList:wordbook
         .sort((a, b) => a.createdAt > b.createdAt ? -1 : 1)
         .map((wordbook) => ({ ...wordbook, vocaCount: data.voca.filter((voca) => voca.bookId === wordbook.id).length })),
-      hiddenWordbook
+        hiddenWordbookList: hiddenWordbook
         .sort((a, b) => a.createdAt > b.createdAt ? -1 : 1)
         .map((wordbook) => ({ ...wordbook, vocaCount: data.voca.filter((voca) => voca.bookId === wordbook.id).length }))
-      ]);
+      });
     }, 1000);
   });
 };
 
-export const addWordbook = async (accessToken: string, name: string) => {
-  return new Promise<[(Omit<typeof data.wordbook[0],"userId"> & { vocaCount: number })[], (Omit<typeof data.wordbook[0],"userId"> & { vocaCount: number })[]]>((resolve) => {
+export const addWordbook = async (accessToken: string, title: string) => {
+  return new Promise<wordbookApiReply>((resolve) => {
     setTimeout(() => {
-      data.wordbook.push({ id: data.wordbook.length + 1, userId: 1, name: name, createdAt: new Date(new Date().getTime() + 1000 * 60 * 60 * 9).toISOString(), isHidden: false });
+      data.wordbook.push({ id: data.wordbook.length + 1, userId: 1, title: title, createdAt: new Date(new Date().getTime() + 1000 * 60 * 60 * 9).toISOString(), isHidden: false });
       const wordbook = data.wordbook.filter((wordbook) => wordbook.userId === 1 && !wordbook.isHidden);
       const hiddenWordbook = data.wordbook.filter((wordbook) => wordbook.userId === 1 && wordbook.isHidden);
-      resolve([wordbook
+      resolve({
+        wordbookList:wordbook
         .sort((a, b) => a.createdAt > b.createdAt ? -1 : 1)
         .map((wordbook) => ({ ...wordbook, vocaCount: data.voca.filter((voca) => voca.bookId === wordbook.id).length })),
-      hiddenWordbook
+        hiddenWordbookList: hiddenWordbook
         .sort((a, b) => a.createdAt > b.createdAt ? -1 : 1)
         .map((wordbook) => ({ ...wordbook, vocaCount: data.voca.filter((voca) => voca.bookId === wordbook.id).length }))
-      ]);
+      });
     }, 1000);
   });
 };
@@ -196,7 +201,7 @@ export const deleteVoca = async (accessToken: string, vocaId: number) => {
 };
 
 export const hideWordbook = async (accessToken: string, bookId: number) => {
-  return new Promise<[(Omit<typeof data.wordbook[0],"userId"> & { vocaCount: number })[], (Omit<typeof data.wordbook[0],"userId"> & { vocaCount: number })[]]>((resolve, reject) => {
+  return new Promise<wordbookApiReply>((resolve, reject) => {
     setTimeout(() => {
       const index = data.wordbook.findIndex((wordbook) => wordbook.id === bookId);
       if (index === -1) {
@@ -208,19 +213,20 @@ export const hideWordbook = async (accessToken: string, bookId: number) => {
       data.wordbook[index].isHidden = true;
       const wordbook = data.wordbook.filter((wordbook) => wordbook.userId === 1 && !wordbook.isHidden);
       const hiddenWordbook = data.wordbook.filter((wordbook) => wordbook.userId === 1 && wordbook.isHidden);
-      resolve([wordbook
+      resolve({
+        wordbookList:wordbook
         .sort((a, b) => a.createdAt > b.createdAt ? -1 : 1)
         .map((wordbook) => ({ ...wordbook, vocaCount: data.voca.filter((voca) => voca.bookId === wordbook.id).length })),
-      hiddenWordbook
+        hiddenWordbookList: hiddenWordbook
         .sort((a, b) => a.createdAt > b.createdAt ? -1 : 1)
         .map((wordbook) => ({ ...wordbook, vocaCount: data.voca.filter((voca) => voca.bookId === wordbook.id).length }))
-      ]);
+      });
     }, 1000);
   });
 }
 
 export const showWordbook = async (accessToken: string, bookId: number) => {
-  return new Promise<[(Omit<typeof data.wordbook[0],"userId"> & { vocaCount: number })[], (Omit<typeof data.wordbook[0],"userId"> & { vocaCount: number })[]]>((resolve, reject) => {
+  return new Promise<wordbookApiReply>((resolve, reject) => {
     setTimeout(() => {
       const index = data.wordbook.findIndex((wordbook) => wordbook.id === bookId);
       if (index === -1) {
@@ -232,13 +238,14 @@ export const showWordbook = async (accessToken: string, bookId: number) => {
       data.wordbook[index].isHidden = false;
       const wordbook = data.wordbook.filter((wordbook) => wordbook.userId === 1 && !wordbook.isHidden);
       const hiddenWordbook = data.wordbook.filter((wordbook) => wordbook.userId === 1 && wordbook.isHidden);
-      resolve([wordbook
+      resolve({
+        wordbookList:wordbook
         .sort((a, b) => a.createdAt > b.createdAt ? -1 : 1)
         .map((wordbook) => ({ ...wordbook, vocaCount: data.voca.filter((voca) => voca.bookId === wordbook.id).length })),
-      hiddenWordbook
+        hiddenWordbookList: hiddenWordbook
         .sort((a, b) => a.createdAt > b.createdAt ? -1 : 1)
         .map((wordbook) => ({ ...wordbook, vocaCount: data.voca.filter((voca) => voca.bookId === wordbook.id).length }))
-      ]);
+      });
     }, 1000);
   });
 }
