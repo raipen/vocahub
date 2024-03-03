@@ -49,6 +49,7 @@
       "@context/*": ["src/front/context/*"],
       "@hooks/*": ["src/front/hooks/*"],
       "@utils/*": ["src/front/utils/*"],
+      "@utils": ["src/front/utils"],
       "@apis/*": ["src/front/utils/apis/*"],
       "@assets/*": ["src/front/assets/*"],
       "@front/*": ["src/front/*"],

@@ -1,6 +1,6 @@
 import axios from 'axios';
 import * as User from '@DTO/user.dto';
-import { apiErrorCatchWrapper } from '..';
+import { apiErrorCatchWrapper } from '@utils';
 type login = {
   name: string;
   password: string;

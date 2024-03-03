@@ -1,6 +1,6 @@
 import { styled } from 'styled-components';
 import { VocaMode } from "@utils/vocaModeEnum";
-import { ISOStringToDateString } from '@utils/index';
+import { ISOStringToDateString } from '@utils';
 import { ButtonWithHoverAnimation, ReverseButtonWithHoverAnimation } from '@components';
 
 const VocaSidebarContainer = styled.div`
