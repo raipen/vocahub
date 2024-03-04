@@ -1,6 +1,7 @@
 import { createContext, useState, useCallback, useMemo, useEffect } from 'react';
 import { requestLogin, requestRefresh, requestLogout } from '@apis/auth';
 import { ErrorWithToast, NoAuthorizationInCookieError, UserAuthorizationError } from '@errors';
+import { useNavigate } from 'react-router-dom';
 
 export const LoginContext = createContext({
     isLogined: false,
@@ -16,6 +17,7 @@ export const useInitLoginContext = () => {
     const [isLogined, setIsLogined] = useState(false);
     const [loading, setLoading] = useState(true);
     const [accessToken, setAccessToken] = useState("");
+    const navigate = useNavigate();
 
     useEffect(()=>{
         (async ()=>{
@@ -75,6 +77,7 @@ export const useInitLoginContext = () => {
             throw e instanceof ErrorWithToast ? e : new ErrorWithToast("unknown error");
         } finally {
             setLoading(false);
+            navigate("/");
         }
     }, []);
 

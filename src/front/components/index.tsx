@@ -97,17 +97,18 @@ export const ReverseButtonWithHoverAnimation = styled.button`
 
 export const HeaderButton = ReverseButtonWithHoverAnimation;
 
-export const ButtonContainingIcon = styled.div`
+export const ButtonContainingIcon = styled.button<{ $margin?: string }>`
   ${ButtonCss};
   ${MainColorBackground};
   padding: 5px 20px;
+  ${props => props.$margin && `margin: ${props.$margin};`}
   gap: 10px;
   >span:first-child {
     font-size: 1rem;
   }
 `;
 
-export const ReverseButtonContainingIcon = styled.div`
+export const ReverseButtonContainingIcon = styled.button<{ $margin?: string }>`
   ${ButtonCss};
   ${ReverseMainColorBackground};
   padding: 5px 20px;
@@ -117,12 +118,26 @@ export const ReverseButtonContainingIcon = styled.div`
 `;
 
 export const MainContainer = styled.main<{ $background?: string, $flexdirection?: string }>`
-  padding: 20px max(30px, calc(50% - 590px));
+  padding: 20px 30px;
+  margin: 0 auto;
   width: 100%;
+  max-width: 1240px;
   display: flex;
   flex-direction: ${props => props.$flexdirection || 'column'};
   background-color: ${props => props.$background || 'white'};
   gap: 20px;
+  flex-wrap: wrap;
+`;
+
+export const LoginContainer = styled.main`
+  padding: 20px 30px;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  gap: 10px;
   flex-wrap: wrap;
 `;
 
@@ -363,5 +378,13 @@ export const SelectButton = styled.div<{$active: boolean}>`
   }
   &:hover {
     ${props => !props.$active&&GrayBackground};
+  }
+`;
+
+export const InputWithLabelContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  &>input {
   }
 `;
