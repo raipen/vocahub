@@ -45,6 +45,17 @@ const api: FastifyPluginAsync = async (server: FastifyInstance) => {
             reply.send({ accessToken });
         }
     );
+    server.get<User.profileInterface>(
+        '/profile',
+        {
+            schema: User.profileSchema,
+            preValidation: checkUser
+        },
+        async (request, reply) => {
+            const profile = await userService.getProfile(request.body);
+            reply.status(200).send(profile);
+        }
+    );
 };
 
 export default api;

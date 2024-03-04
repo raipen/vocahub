@@ -127,3 +127,4 @@ export type signUpInterface = SchemaToInterface<typeof signUpSchema>;
 export type signInInterface = SchemaToInterface<typeof signInSchema>;
 export type signOutInterface = SchemaToInterface<typeof signOutSchema>;
 export type refreshInterface = SchemaToInterface<typeof refreshSchema> & { Body: { userId: string } };
+export type profileInterface = SchemaToInterface<typeof profileSchema> & { Body: { userId: string } };
