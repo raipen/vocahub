@@ -19,3 +19,8 @@ export const requestRefresh = apiErrorCatchWrapper(async () => {
 export const requestLogout = apiErrorCatchWrapper(async () => {
     await axios.post('/api/v1/user/signOut');
 });
+
+export const requestSignUp = apiErrorCatchWrapper(async ({name, password}: login)=>{
+    const response = await axios.post<User.signUpInterface['Reply']['201']>('/api/v1/user/signUp', {name, password});
+    return response.data.accessToken;
+});

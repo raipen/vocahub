@@ -1,5 +1,5 @@
 import { createContext, useState, useCallback, useMemo, useEffect } from 'react';
-import { requestLogin, requestRefresh, requestLogout } from '@apis/auth';
+import { requestLogin, requestRefresh, requestLogout, requestSignUp } from '@apis/auth';
 import { ErrorWithToast, NoAuthorizationInCookieError, UserAuthorizationError } from '@errors';
 import { useNavigate } from 'react-router-dom';
 
@@ -9,7 +9,8 @@ export const LoginContext = createContext({
     accessToken: "",
     refresh: async ()=>{},
     login: async (arg: {name: string, password: string})=>{},
-    logout: async ()=>{}
+    logout: async ()=>{},
+    signUp: async (arg: {name: string, password: string})=>{},
 });
 
 
@@ -80,6 +81,19 @@ export const useInitLoginContext = () => {
             navigate("/");
         }
     }, []);
+    const signUp = useCallback(async ({name, password}:{name:string,password:string})=>{
+        setLoading(true);
+        try {
+            const accessToken = await requestSignUp({name, password});
+            setAccessToken(accessToken);
+            setIsLogined(true);
+        } catch (e: unknown) {
+            setIsLogined(false);
+            throw e instanceof ErrorWithToast ? e : new ErrorWithToast("unknown error");
+        } finally {
+            setLoading(false);
+        }
+    }, []);
 
-    return useMemo(() => ({ isLogined, loading, accessToken,  refresh, login , logout }), [isLogined, loading, accessToken, refresh, login, logout]);
+    return useMemo(() => ({ isLogined, loading, accessToken,  refresh, login , logout, signUp }), [isLogined, loading, accessToken, refresh, login, logout, signUp]);
 }

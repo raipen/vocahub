@@ -14,7 +14,7 @@ function Login() {
   const onLogin = async () => {
     try {
       await login({ name, password });
-      navigate("/");
+      navigate("/mywordbook");
     } catch (e) {
       console.error(e);
     }
