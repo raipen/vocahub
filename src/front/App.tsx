@@ -18,8 +18,8 @@ function App() {
                 <Header />
                 <Routes>
                     <Route path="/" element={<Main />} />
-                    <Route path="/login" element={<Login />} />
-                    <Route path="/signup" element={<Signup />} />
+                    <Route path="/login" element={<LoginedRoute element={<Login />} isLoginPage={false} />} />
+                    <Route path="/signup" element={<LoginedRoute element={<Signup />} isLoginPage={false} />} />
                     <Route path="/mywordbook" element={<LoginedRoute element={<MyWordbook />} />} />
                     <Route path="/vocalist/:wordbookId" element={<LoginedRoute element={<VocaList />} />} />
                     <Route path="/setting" element={<LoginedRoute element={<Setting />} />} />
