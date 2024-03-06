@@ -1,24 +1,8 @@
-import { useLocation, Link, useNavigate } from 'react-router-dom';
-import { useContext, useState } from 'react';
-import { LoginContext } from '@context/LoginContext';
-import { LoginContainer, Input, InputWithLabelContainer, ReverseButtonContainingIcon, ButtonContainingIcon } from '@components';
+import useSignUp from '@hooks/useSignUp';
+import { LoginContainer, Input, InputWithLabelContainer, ButtonContainingIcon } from '@components';
 
 function Signup() {
-  const navigate = useNavigate();
-  const { signUp } = useContext(LoginContext);
-  const [loginInfo, setLoginInfo] = useState({ name: '', password: '' });
-  const { name, password } = loginInfo;
-  const onChage = (type: 'name' | 'password') => (e: React.ChangeEvent<HTMLInputElement>) => {
-    setLoginInfo({ ...loginInfo, [type]: e.target.value });
-  }
-  const onSignUp = async () => {
-    try {
-      await signUp({ name, password });
-      navigate("/mywordbook");
-    } catch (e) {
-      console.error(e);
-    }
-  }
+  const { name, password, onChage, onSignUp } = useSignUp();
 
   return (
     <LoginContainer>
