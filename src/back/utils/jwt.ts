@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
 import config from '@config';
-import { UserAuthorizationError, UncorrectTokenError } from '@errors';
+import { UserAuthorizationError, ExpiredAccessTokenError } from '@errors';
 export class LoginToken {
   userId: string;
 
@@ -21,6 +21,9 @@ export class LoginToken {
       const decoded = jwt.verify(token, config.jwtAccessKey) as LoginToken;
       return decoded.userId;
     } catch (err) {
+      if(err instanceof jwt.TokenExpiredError) {
+        throw new ExpiredAccessTokenError('토큰이 만료되었습니다');
+      }
       throw new UserAuthorizationError('유저 인증에 실패했습니다');
     }
   }
