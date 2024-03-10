@@ -4,7 +4,7 @@ echo "wait db server"
 echo "start node server"
 if [ "$NODE_ENV" = "production" ]; then
     echo "production mode"
-    npm run deploy
+    npm run deploy:withoutShadow
 else
     npm run prisma:generate
     npm run prisma:migrate:dev
