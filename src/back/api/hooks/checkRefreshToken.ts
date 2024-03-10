@@ -1,6 +1,6 @@
 import { LoginToken } from '@serverUtils/jwt';
 import { FastifyRequest, FastifyReply, FastifyError } from 'fastify';
-import { UserAuthorizationError, NoAuthorizationInHeaderError } from '@errors/index';
+import { NoAuthorizationInCookieError } from '@errors/index';
 
 export default async (
   request: FastifyRequest<{ Body: { userId: string } }>,
@@ -9,7 +9,7 @@ export default async (
 ) => {
   const authorization = request.cookies.authorization;
   if (!authorization) {
-    throw new NoAuthorizationInHeaderError('쿠키에 Authorization이 없습니다');
+    throw new NoAuthorizationInCookieError('쿠키에 Authorization이 없습니다');
   }
 
   if(!request.body)

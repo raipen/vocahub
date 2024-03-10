@@ -1,6 +1,7 @@
 import { createContext, useState, useEffect,useMemo } from 'react';
 import useFetchWithRendering from "@hooks/useFetchWithRendering";
 import { getDatasWhenWordbookRender } from "@utils/apis/wordbook";
+import { getWordbookListInterface } from '@DTO/wordbook.dto';
 
 export const WordbookListContext = createContext(
   {} as {
@@ -13,8 +14,10 @@ export const useInitWordbookList = () => {
   const [dataFromRendering, Error] = useFetchWithRendering(getDatasWhenWordbookRender);
   const [data, setData] = useState<Exclude<typeof dataFromRendering, null>>([
     { name: 'Loading', wordbookCount: 0, vocaCount: 0, loginDate: [] as { date: string, count: number }[] },
-    [[] as { id: number, userId: number, name: string, createdAt: string, isHidden: boolean, vocaCount: number }[],
-    [] as { id: number, userId: number, name: string, createdAt: string, isHidden: boolean, vocaCount: number }[]]
+    {
+      wordbookList: [],
+      hiddenWordbookList: []      
+    } as getWordbookListInterface['Reply']['200']
   ]);
   useEffect(() => {
     if (dataFromRendering) {

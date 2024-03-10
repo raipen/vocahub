@@ -1,15 +1,15 @@
 import { WordbookInfo, WordbookMenu, WordbookName, WordbookContainer } from './index';
 import { Link } from 'react-router-dom';
 import useFetchUpdate from "@hooks/useFetchUpdate";
-import { hideWordbook,showWordbook } from '@utils/apis/wordbookmock';
+import { hideWordbook,showWordbook } from '@utils/apis/wordbook';
 import { useContext } from 'react';
 import { WordbookListContext } from '@context/WordbookListContext';
 import WordbookDetailInfo from './WordbookDetailInfo';
 
-function WordbookListElement({ wordbook: { id, name, isHidden, createdAt, vocaCount } }: {
+function WordbookListElement({ wordbook: { id, title, isHidden, createdAt, vocaCount } }: {
   wordbook: {
     id: number;
-    name: string;
+    title: string;
     isHidden: boolean;
     createdAt: string;
     vocaCount: number;
@@ -29,7 +29,7 @@ function WordbookListElement({ wordbook: { id, name, isHidden, createdAt, vocaCo
           <span className="material-icons-sharp">
             menu_book
           </span>
-          <Link to={`/vocalist/${id}`}>{name}</Link>
+          <Link to={`/vocalist/${id}`}>{title}</Link>
         </WordbookName>
         <WordbookDetailInfo createdAt={createdAt} vocaCount={vocaCount} />
       </WordbookInfo>

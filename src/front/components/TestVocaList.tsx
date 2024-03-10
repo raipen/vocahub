@@ -14,7 +14,7 @@ import {
   ButtonWithHoverAnimation,
   ReverseButtonWithHoverAnimation
 } from './index';
-import { saveResult } from '@utils/apis/wordbookmock';
+import { saveResult } from '@utils/apis/wordbook';
 
 const marking = (input: string[][], answer: {id:number,meaning: string[]}[]) => {
   const commaSeparatedAnswer = answer.map(a => ({...a,meaning:a.meaning.map(b=>b.split(',').map(c=>c.trim()))}));

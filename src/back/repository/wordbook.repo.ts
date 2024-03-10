@@ -20,6 +20,9 @@ const getWordbookList = (isHidden:boolean) => async (userId: string) => await pr
                 voca: true
             }
         }
+    },
+    orderBy: {
+        createdAt: 'desc'
     }
 });
 

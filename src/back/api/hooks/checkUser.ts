@@ -1,6 +1,6 @@
 import { LoginToken } from '@serverUtils/jwt';
 import { FastifyRequest, FastifyReply, FastifyError } from 'fastify';
-import { UserAuthorizationError, NoAuthorizationInHeaderError } from '@errors/index';
+import { NoAuthorizationInHeaderError } from '@errors/index';
 
 export default async (
   request: FastifyRequest<{ Body: { userId: string } }>,

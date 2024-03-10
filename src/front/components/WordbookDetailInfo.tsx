@@ -1,4 +1,4 @@
-import { ISOStringToDateString } from '@utils/index';
+import { ISOStringToDateString } from '@utils';
 import { styled } from 'styled-components';
 
 const Container = styled.div`

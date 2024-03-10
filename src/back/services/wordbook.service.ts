@@ -15,7 +15,10 @@ export async function getWrodbookList({userId}: WordbookDTO.getWordbookListInter
         isHidden: wordbook.isHidden,
         vocaCount: wordbook._count.voca
     })));
-    return [nonHiddenWordbookList, hiddenWordbookList];
+    return {
+        wordbookList: nonHiddenWordbookList,
+        hiddenWordbookList:hiddenWordbookList
+    };
 }
 
 export async function createWordbook({userId, title}: WordbookDTO.createWordbookInterface['Body'])

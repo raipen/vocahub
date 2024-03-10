@@ -1,7 +1,7 @@
 import { useState, useContext, useCallback, useMemo } from 'react';
 import { VocaListContext } from '@context/VocaListContext';
 import useFetchUpdate from '@hooks/useFetchUpdate';
-import { saveVocaList } from '@utils/apis/wordbookmock';
+import { saveVocaList } from '@utils/apis/voca';
 
 type Voca = { word: string, meaning: string[], id: number | null };
 
@@ -49,7 +49,7 @@ const useEditVocaList = () => {
 
   const deleteNewVoca = useCallback(
     (i: number, id: number | null) =>
-    (fetchDeleteVoca: (id: number) => Promise<void>) =>
+    (fetchDeleteVoca: (id: number) => Promise<null>) =>
     async () => {
       if(id !== null) {
         await fetchDeleteVoca(id);

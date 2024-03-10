@@ -4,8 +4,8 @@ export type ErrorConfigType = {
   code: number;
   toast: (error: any) => string;
   describtion: string;
-}[];
-const ErrorConfig: ErrorConfigType = [
+};
+const ErrorConfigArray: ErrorConfigType[] = [
   {
     describtion: '요청이 잘못되었습니다.',
     error: E.ValidationError,
@@ -26,10 +26,10 @@ const ErrorConfig: ErrorConfigType = [
     toast: (error: E.ErrorWithToast) => `다시 로그인 해주세요.`,
   },
   {
-    describtion: '사용자가 소유한 가게가 아닙니다.',
-    error: E.StoreAuthorizationError,
-    code: 401,
-    toast: (error: E.ErrorWithToast) => `가게 접근 권한이 없습니다.`,
+    describtion: '쿠키에 인증 정보가 없습니다.',
+    error: E.NoAuthorizationInCookieError,
+    code: 400,
+    toast: (error: E.ErrorWithToast) => `인증 정보가 없습니다.`,
   },
   {
     describtion: '헤더에 인증 정보가 없습니다.',
@@ -51,22 +51,34 @@ const ErrorConfig: ErrorConfigType = [
     toast: (error: E.ExistError) => `입력된 ${error.exist}가 이미 존재합니다.`,
   },
   {
-    describtion: '잔액이 부족합니다.',
-    error: E.NotEnoughError,
-    code: 403,
-    toast: (error: E.ErrorWithToast) => `잔액이 부족합니다.`,
-  },
-  {
     describtion: '토큰이 유효하지 않습니다.',
     error: E.UncorrectTokenError,
     code: 403,
     toast: (error: E.ErrorWithToast) => '토큰이 유효하지 않습니다.',
   },
   {
-    describtion: '이미 결제된 주문입니다.',
-    error: E.AlreadyPaidError,
-    code: 403,
-    toast: (error: E.ErrorWithToast) => '이미 결제된 주문입니다.',
-  }
-];
-export default ErrorConfig;
+    describtion: '토큰 만료',
+    error: E.ExpiredAccessTokenError,
+    code: 401,
+    toast: (error: E.ErrorWithToast) => '세션이 만료되었습니다. 다시 로그인해주세요.',
+  },
+  {
+    describtion: '서버와의 연결이 끊어졌습니다.',
+    error: E.NetworkError,
+    code: 0,
+    toast: (error: E.ErrorWithToast) => '서버와의 연결이 끊어졌습니다.',
+  },
+  {
+    describtion: '알 수 없는 오류가 발생했습니다.',
+    error: E.ErrorWithToast,
+    code: 500,
+    toast: (error: E.ErrorWithToast) => '알 수 없는 오류가 발생했습니다.',
+  },
+] as const;
+
+const ErrorConfigs = {} as Record<string, ErrorConfigType>;
+ErrorConfigArray.forEach((config) => {
+  ErrorConfigs[config.error.name] = config;
+});
+
+export default ErrorConfigs;

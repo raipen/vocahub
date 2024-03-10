@@ -2,8 +2,7 @@ import { VocaMode } from "@utils/vocaModeEnum";
 import { useState, useEffect,useContext } from 'react';
 import { VocaListContext } from '@context/VocaListContext';
 import useFetchUpdate from '@hooks/useFetchUpdate';
-import { increaseCheckCount,decreaseCheckCount } from '@utils/apis/wordbookmock';
-import { getVocaList } from "@utils/apis/wordbook";
+import { getVocaList, increaseCheckCount, decreaseCheckCount } from "@utils/apis/voca";
 import { 
   VocaListElement,
   VocaListContainer,
@@ -23,7 +22,7 @@ import {
 
 const handleWord = (
   id: number,
-  fetchFunction: (id: number) => Promise<void>,
+  fetchFunction: (id: number) => Promise<null>,
   setVocaList: React.Dispatch<React.SetStateAction<Awaited<ReturnType<typeof getVocaList>>['voca']>>,
   callback: (vocaCount: number) => number
 ) => async () => {

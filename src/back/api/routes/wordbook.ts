@@ -1,16 +1,14 @@
 import { FastifyInstance, FastifyPluginAsync } from 'fastify';
-import onError from '@fastifyHooks/onError';
 import checkUser from '@fastifyHooks/checkUser';
 import * as WordbookDTO from '@DTO/wordbook.dto';
 import * as WordbookService from '@services/wordbook.service';
 
 const api: FastifyPluginAsync = async (server: FastifyInstance) => {
     server.get<WordbookDTO.getWordbookListInterface>(
-        '/wordbook',
+        '/',
         {
             schema: WordbookDTO.getWordbookListSchema,
-            preValidation: checkUser,
-            onError
+            preValidation: checkUser
         },
         async (request, reply) => {
             const wordbookList = await WordbookService.getWrodbookList(request.body);
@@ -19,11 +17,10 @@ const api: FastifyPluginAsync = async (server: FastifyInstance) => {
     );
 
     server.post<WordbookDTO.createWordbookInterface>(
-        '/wordbook',
+        '/',
         {
             schema: WordbookDTO.createWordbookSchema,
-            preValidation: checkUser,
-            onError
+            preValidation: checkUser
         },
         async (request, reply) => {
             const result = await WordbookService.createWordbook(request.body);
@@ -32,11 +29,10 @@ const api: FastifyPluginAsync = async (server: FastifyInstance) => {
     );
 
     server.patch<WordbookDTO.hideWordbookInterface>(
-        '/wordbook/hide',
+        '/hide',
         {
             schema: WordbookDTO.hideWordbookSchema,
-            preValidation: checkUser,
-            onError
+            preValidation: checkUser
         },
         async (request, reply) => {
             const result = await WordbookService.hideWordbook(request.body);
@@ -45,11 +41,10 @@ const api: FastifyPluginAsync = async (server: FastifyInstance) => {
     );
 
     server.patch<WordbookDTO.showWordbookInterface>(
-        '/wordbook/show',
+        '/show',
         {
             schema: WordbookDTO.showWordbookSchema,
-            preValidation: checkUser,
-            onError
+            preValidation: checkUser
         },
         async (request, reply) => {
             const result = await WordbookService.showWordbook(request.body);

@@ -10,7 +10,7 @@ export const getVocaListSchema = {
   tags: ['Voca'],
   summary: '단어 목록 조회',
   headers: AuthorizationHeader,
-  querystring: {
+  params: {
     type: 'object',
     required: ['bookId'],
     properties: {
@@ -129,7 +129,7 @@ export const deleteVocaSchema = {
   tags: ['Voca'],
   summary: '단어 삭제',
   headers: AuthorizationHeader,
-  body: {
+  params: {
     type: 'object',
     required: ['vocaId'],
     properties: {

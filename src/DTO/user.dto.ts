@@ -26,6 +26,9 @@ export const signUpSchema = {
         },
       },
       ...errorSchema(
+        E.ValidationError,
+        E.NotCorrectTypeError,
+        E.ExistError,
       )
     },
 } as const;
@@ -51,6 +54,7 @@ export const signInSchema = {
         },
       },
       ...errorSchema(
+        E.ValidationError,
         E.NotFoundError
       )
     },
@@ -82,6 +86,8 @@ export const refreshSchema = {
             },
         },
         ...errorSchema(
+          E.NoAuthorizationInCookieError,
+          E.UserAuthorizationError
         )
     },
 } as const;
@@ -121,3 +127,4 @@ export type signUpInterface = SchemaToInterface<typeof signUpSchema>;
 export type signInInterface = SchemaToInterface<typeof signInSchema>;
 export type signOutInterface = SchemaToInterface<typeof signOutSchema>;
 export type refreshInterface = SchemaToInterface<typeof refreshSchema> & { Body: { userId: string } };
+export type profileInterface = SchemaToInterface<typeof profileSchema> & { Body: { userId: string } };
