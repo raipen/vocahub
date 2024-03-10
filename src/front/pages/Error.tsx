@@ -20,34 +20,12 @@ const ErrorContainer = styled.div`
 function Error() {
     const location = useLocation();
     const error = location.state;
+    let message: string = "오류메시지가 정의되지 않았습니다.";
     if (!error || typeof error !== "object") {
-        return (
-            <MainContainer>
-                <ErrorContainer>
-                    <span className="material-icons-sharp">
-                        error
-                    </span>
-                    <div>
-                        비정상적인 접근입니다.
-                    </div>
-                </ErrorContainer>
-            </MainContainer>
-        );
+        message = "비정상적인 접근입니다.";
     }
-    const message = error.message;
-    if (message) {
-        return (
-            <MainContainer>
-                <ErrorContainer>
-                    <span className="material-icons-sharp">
-                        error
-                    </span>
-                    <div>
-                        {message}
-                    </div>
-                </ErrorContainer>
-            </MainContainer>
-        );
+    if(error.message){
+        message = error.message;
     }
     return (
         <MainContainer>
@@ -56,7 +34,7 @@ function Error() {
                     error
                 </span>
                 <div>
-                    오류메시지가 정의되지 않았습니다.
+                    {message}
                 </div>
             </ErrorContainer>
         </MainContainer>
