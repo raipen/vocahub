@@ -13,9 +13,10 @@ const useFetchUpdate =  <T,U extends any[]>(fetchFunction: (accessToken:string,.
             return await fetchFunction(accessToken, ...args);
         } catch (e : unknown) {
             if(e instanceof ExpiredAccessTokenError){
-                await refresh();
+                await refresh(fetchFunction, ...args);
             }
-            throw e instanceof ErrorWithToast ? e : new ErrorWithToast("unknown error");
+            if(e instanceof ErrorWithToast) throw e;
+            throw new ErrorWithToast("unknown error");
         } finally {
             setLoading(false);
         }

@@ -7,7 +7,7 @@ export const LoginContext = createContext({
     isLogined: false,
     loading: true,
     accessToken: "",
-    refresh: async ()=>{},
+    refresh: async <T,U extends any[]> (callback:(accessToken:string,...args:U)=>Promise<T>, ...args:U)=>{},
     login: async (arg: {name: string, password: string})=>{},
     logout: async ()=>{},
     signUp: async (arg: {name: string, password: string})=>{},
@@ -41,10 +41,11 @@ export const useInitLoginContext = () => {
         })();
     },[]);
     
-    const refresh = useCallback(async ()=>{
+    const refresh = useCallback(async<T,U extends any[]> (callback:(accessToken:string,...args:U)=>Promise<T>, ...args:U)=>{
         setLoading(true);
         try {
             const accessToken = await requestRefresh();
+            await callback(accessToken, ...args);
             setAccessToken(accessToken);
             setIsLogined(true);
         } catch (e: unknown) {
