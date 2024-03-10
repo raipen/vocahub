@@ -1,4 +1,5 @@
 echo "wait db server"
+chmod +x ./wait-for-it.sh
 ./wait-for-it.sh  $DB_HOST:$DB_PORT
 
 echo "start node server"
