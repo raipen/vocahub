@@ -129,7 +129,7 @@ export const MainContainer = styled.main<{ $background?: string, $flexdirection?
   flex-wrap: wrap;
 `;
 
-export const LoginContainer = styled.main`
+export const LoginContainer = styled.form`
   padding: 20px 30px;
   margin: 0 auto;
   width: 100%;
