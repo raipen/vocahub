@@ -19,7 +19,7 @@ function AddWordbookList({setNewWordbook}: {setNewWordbook: React.Dispatch<React
     }
   }
   return (
-    <AddWordbookContainer>
+    <AddWordbookContainer as="form">
       <WordbookInfo>
         <WordbookName>
           <span className="material-icons-sharp">

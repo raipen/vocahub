@@ -182,7 +182,7 @@ export const showWordbook = async (accessToken: string, bookId: number) => {
       }
 }
 
-export const saveResult = async (accessToken: string, bookId: number, testResult: { id: number, result: boolean }[]) => {
+export const saveResult = async (accessToken: string, bookId: string, testResult: { id: number, result: boolean }[]) => {
   await awaitOneSecond();
   testResult.forEach((result) => {
     const voca = data.voca.find((voca) => voca.id === result.id);

@@ -14,7 +14,7 @@ export const getVocaListSchema = {
     type: 'object',
     required: ['bookId'],
     properties: {
-      bookId: { type: 'number' },
+      bookId: { type: 'string' },
     },
   },
   response: {
@@ -25,8 +25,8 @@ export const getVocaListSchema = {
       properties: {
         wordbook: {
           type: 'object',
-          required: ['id', 'title', 'createdAt'],
-          properties: { id: { type: 'number' }, title: { type: 'string' }, createdAt: { type: 'string' } }
+          required: ['uuid', 'title', 'createdAt'],
+          properties: { uuid: { type: 'string' }, title: { type: 'string' }, createdAt: { type: 'string' } }
         },
         voca: { type: 'array', items: {
           type: 'object',
@@ -51,7 +51,7 @@ export const saveVocaListSchema = {
     type: 'object',
     required: ['bookId', 'voca'],
     properties: {
-      bookId: { type: 'number' },
+      bookId: { type: 'string' },
       voca: {
         type: 'array', items: {
           type: 'object',

@@ -9,7 +9,7 @@ export async function getWrodbookList({userId}: WordbookDTO.getWordbookListInter
         WordbookRepo.getHiddenWordbookList
     ].map((getWordbookList) => getWordbookList(userId))))
     .map((wordbookList) => wordbookList.map((wordbook) => ({
-        id: wordbook.id,
+        uuid: wordbook.uuid,
         title: wordbook.title,
         createdAt: wordbook.createdAt.toISOString(),
         isHidden: wordbook.isHidden,

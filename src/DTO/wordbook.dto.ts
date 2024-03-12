@@ -9,9 +9,9 @@ const wordbookType = {
   type: 'array',
   items: {
     type: 'object',
-    required: ['id', 'title', 'createdAt', 'isHidden', 'vocaCount'],
+    required: ['uuid', 'title', 'createdAt', 'isHidden', 'vocaCount'],
     properties: {
-      id: { type: 'number' },
+      uuid: { type: 'string' },
       title: { type: 'string' },
       createdAt: { type: 'string' },
       isHidden: { type: 'boolean' },
@@ -40,7 +40,7 @@ export const getWordbookListSchema = {
 
 export const createWordbookSchema = {
   tags: ['Wordbook'],
-  summary: '단어장 목록 조회',
+  summary: '단어장 생성',
   headers: AuthorizationHeader,
   body: {
     type: 'object',
@@ -64,7 +64,7 @@ export const hideWordbookSchema = {
     type: 'object',
     required: ['bookId'],
     properties: {
-      bookId: { type: 'number' },
+      bookId: { type: 'string' },
     },
   },
   response: {
@@ -82,7 +82,7 @@ export const showWordbookSchema = {
     type: 'object',
     required: ['bookId'],
     properties: {
-      bookId: { type: 'number' },
+      bookId: { type: 'string' },
     },
   },
   response: {

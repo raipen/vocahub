@@ -6,9 +6,9 @@ import { useContext } from 'react';
 import { WordbookListContext } from '@context/WordbookListContext';
 import WordbookDetailInfo from './WordbookDetailInfo';
 
-function WordbookListElement({ wordbook: { id, title, isHidden, createdAt, vocaCount } }: {
+function WordbookListElement({ wordbook: { uuid, title, isHidden, createdAt, vocaCount } }: {
   wordbook: {
-    id: number;
+    uuid: string;
     title: string;
     isHidden: boolean;
     createdAt: string;
@@ -19,7 +19,7 @@ function WordbookListElement({ wordbook: { id, title, isHidden, createdAt, vocaC
   const { setData } = useContext(WordbookListContext);
 
   const onClick = async () => {
-    const data = await fetchWordbook(id);
+    const data = await fetchWordbook(uuid);
     setData(([profile])=>[profile, data]);
   }
   return (
@@ -29,7 +29,7 @@ function WordbookListElement({ wordbook: { id, title, isHidden, createdAt, vocaC
           <span className="material-icons-sharp">
             menu_book
           </span>
-          <Link to={`/vocalist/${id}`}>{title}</Link>
+          <Link to={`/vocalist/${uuid}`}>{title}</Link>
         </WordbookName>
         <WordbookDetailInfo createdAt={createdAt} vocaCount={vocaCount} />
       </WordbookInfo>

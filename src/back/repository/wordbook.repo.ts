@@ -1,9 +1,9 @@
 import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
-export const getWordbook = async (wordbookId: number, userId: string) => await prisma.wordbook.findFirst({
+export const getWordbook = async (wordbookId: string, userId: string) => await prisma.wordbook.findFirst({
     where: {
-        id: wordbookId,
+        uuid: wordbookId,
         userId
     }
 });
@@ -37,10 +37,10 @@ export const createWordbook = async (userId: string, title: string) => {
     });
 }
 
-const changeWordbookHidden = (isHidden:boolean) => async (userId: string, wordbookId: number) => {
+const changeWordbookHidden = (isHidden:boolean) => async (userId: string, wordbookId: string) => {
     await prisma.wordbook.update({
         where: {
-            id: wordbookId,
+            uuid: wordbookId,
             userId
         },
         data: {

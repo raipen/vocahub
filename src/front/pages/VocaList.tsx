@@ -17,7 +17,7 @@ const VocaModeWithComponent = [
 
 function VocaList() {
   const { wordbookId } = useParams();
-  const { isLoading, wordbook, vocaList, setVocaList, vocaListError } = useInitVocaList(parseInt(wordbookId!));
+  const { isLoading, wordbook, vocaList, setVocaList, vocaListError } = useInitVocaList(wordbookId!);
   const [ vocaMode, setVocaMode ] = useState(VocaMode.EDIT);
   useEffect(() => {
     if(vocaList.length > 0) setVocaMode(VocaMode.VIEW);
@@ -31,7 +31,7 @@ function VocaList() {
   }
 
   return (
-    <VocaListContext.Provider value={{vocaList, setVocaList, wordbookId:wordbook.id}}>
+    <VocaListContext.Provider value={{vocaList, setVocaList, wordbookId:wordbook.uuid}}>
       <MainContainer $flexdirection="row">
         <VocaSidebar vocaMode={vocaMode} setVocaMode={setVocaMode} wordbook={{...wordbook, wordCount:vocaList.length}} />
         {isLoading && <div></div>}

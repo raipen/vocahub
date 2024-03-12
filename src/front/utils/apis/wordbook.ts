@@ -34,7 +34,7 @@ export const addWordbook = apiErrorCatchWrapper(async (accessToken: string, titl
   return response.data;
 });
 
-export const hideWordbook = apiErrorCatchWrapper(async (accessToken: string, bookId: number) => {
+export const hideWordbook = apiErrorCatchWrapper(async (accessToken: string, bookId: string) => {
   const response = await axios.patch<Wordbook.hideWordbookInterface['Reply']['200']>(
     "/api/v1/wordbook/hide",
     { bookId },
@@ -43,7 +43,7 @@ export const hideWordbook = apiErrorCatchWrapper(async (accessToken: string, boo
   return response.data;
 });
 
-export const showWordbook = apiErrorCatchWrapper(async (accessToken: string, bookId: number) => {
+export const showWordbook = apiErrorCatchWrapper(async (accessToken: string, bookId: string) => {
   const response = await axios.patch<Wordbook.showWordbookInterface['Reply']['200']>(
     "/api/v1/wordbook/show",
     { bookId },

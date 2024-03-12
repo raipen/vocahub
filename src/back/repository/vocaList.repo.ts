@@ -1,7 +1,7 @@
 import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
-export const getVocaList = async (bookId: number) => await prisma.voca.findMany({
+export const getVocaList = async (bookId: string) => await prisma.voca.findMany({
     where: {
         wordbookId: bookId,
     },
@@ -14,13 +14,13 @@ export const getVocaList = async (bookId: number) => await prisma.voca.findMany(
     }
 });
 
-export const deleteVocas = async (bookId: number) => await prisma.voca.deleteMany({
+export const deleteVocas = async (bookId: string) => await prisma.voca.deleteMany({
     where: {
         wordbookId: bookId
     }
 });
 
-export const getCheckCounts = async (bookId: number) => await prisma.voca.findMany({
+export const getCheckCounts = async (bookId: string) => await prisma.voca.findMany({
     where: {
         wordbookId: bookId
     },
@@ -35,7 +35,7 @@ export const getCheckCounts = async (bookId: number) => await prisma.voca.findMa
  * @param bookId 
  * @param voca should be ordered by order
  */
-export const createVocas = async (bookId: number, voca: {
+export const createVocas = async (bookId: string, voca: {
     id?: number,
     word: string,
     meaning: string[],

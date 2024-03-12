@@ -2,7 +2,7 @@ import axios from "axios";
 import * as VocaList from "@DTO/vocaList.dto";
 import { apiErrorCatchWrapper } from "@utils";
 
-export const getVocaList = apiErrorCatchWrapper(async (accessToken: string, bookId: number) => {
+export const getVocaList = apiErrorCatchWrapper(async (accessToken: string, bookId: string) => {
   const response = await axios.get<VocaList.getVocaListInterface['Reply']['200']>(
     `/api/v1/voca/list/${bookId}`,
     { headers: { Authorization: `Bearer ${accessToken}` } }
@@ -10,7 +10,7 @@ export const getVocaList = apiErrorCatchWrapper(async (accessToken: string, book
   return response.data;
 });
 
-export const saveVocaList = apiErrorCatchWrapper(async (accessToken: string, bookId: number, voca: VocaList.saveVocaListInterface['Body']['voca']) => {
+export const saveVocaList = apiErrorCatchWrapper(async (accessToken: string, bookId: string, voca: VocaList.saveVocaListInterface['Body']['voca']) => {
   const response = await axios.put<VocaList.saveVocaListInterface['Reply']['200']>(
     `/api/v1/voca/list`,
     { bookId, voca },

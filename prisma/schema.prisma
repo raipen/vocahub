@@ -18,7 +18,7 @@ model User {
 }
 
 model Wordbook {
-  id        Int      @id @default(autoincrement())
+  uuid      String   @unique @id @default(uuid())
   title     String
   user      User     @relation(fields: [userId], references: [uuid])
   userId    String
@@ -34,8 +34,8 @@ model Voca {
   meaning   Meaning[]
   checkCount Int      @default(0)
   order     Int      @default(0)
-  wordbook  Wordbook @relation(fields: [wordbookId], references: [id])
-  wordbookId Int
+  wordbook  Wordbook @relation(fields: [wordbookId], references: [uuid])
+  wordbookId String
 }
 
 model Meaning {
