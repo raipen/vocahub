@@ -191,6 +191,11 @@ export const WordbookContainer = styled.div`
   padding: 10px;
 `;
 
+export const AddWordbookContainer = styled(WordbookContainer)`
+  ${FlexRowLeftStart};
+  gap: 10px;
+`;
+
 export const WordbookMenu = styled.div`
   ${FlexColumnCenter};
   ${clickable};

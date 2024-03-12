@@ -88,7 +88,9 @@ function ViewVocaList({setVocaMode}: {setVocaMode: React.Dispatch<React.SetState
           </SelectButton>)}
       </div>
       <VocaListElement>
-        <div></div>
+        <div style={{padding: '10px'}}>
+          영단어
+        </div>
         <SeparateLine/>
         <MeaningHeader>
           모두
@@ -96,7 +98,7 @@ function ViewVocaList({setVocaMode}: {setVocaMode: React.Dispatch<React.SetState
           /
           <div onClick={() => {setDefaultVisible(false); setRefresh({})}}>숨기기</div>
         </MeaningHeader>
-        {vocaListGreaterThanShowCount.length===0&&<div style={{padding: '10px'}}>단어가 없습니다.</div>}
+        {vocaListGreaterThanShowCount.length===0&&[<div key="1" style={{padding: '10px'}}>단어가 없습니다.</div>,<SeparateLine key="2"/>,<Meaning key="3"></Meaning>]}
         {vocaListGreaterThanShowCount.flatMap((voca,i) => [
             <CheckableWord word={voca.word} id={voca.id} checkCount={voca.checkCount} key={3*i}/>,
             <SeparateLine key={3*i+1}/>,

@@ -1,4 +1,4 @@
-import { WordbookInfo, WordbookMenu, WordbookName, WordbookContainer, Input, ButtonContainingIcon, ReverseButtonContainingIcon  } from './index';
+import { WordbookInfo, WordbookMenu, WordbookName, AddWordbookContainer, Input, ButtonContainingIcon, ReverseButtonContainingIcon  } from './index';
 import useFetchUpdate from "@hooks/useFetchUpdate";
 import { addWordbook } from '@utils/apis/wordbook';
 import { useContext,useRef } from 'react';
@@ -19,7 +19,7 @@ function AddWordbookList({setNewWordbook}: {setNewWordbook: React.Dispatch<React
     }
   }
   return (
-    <WordbookContainer>
+    <AddWordbookContainer>
       <WordbookInfo>
         <WordbookName>
           <span className="material-icons-sharp">
@@ -43,7 +43,7 @@ function AddWordbookList({setNewWordbook}: {setNewWordbook: React.Dispatch<React
         {loadingWordbook && <span className="material-icons-sharp">hourglass_bottom</span>}
         {loadingWordbook && <span>단어장 생성중</span>}
       </WordbookMenu>
-    </WordbookContainer>
+    </AddWordbookContainer>
   )
 }
 

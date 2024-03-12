@@ -49,13 +49,20 @@ function EditVocaList({setVocaMode}: {setVocaMode: React.Dispatch<React.SetState
   return (
     <VocaListContainer style={{marginLeft: 0}}>
       <Title>
-        <span>단어 목록</span>
+        <span>단어 편집</span>
         <div style={{display: 'flex', gap: '10px'}}>
           <ReverseButtonContainingIcon onClick={()=>reset(()=>setVocaMode(VocaMode.VIEW))}>취소</ReverseButtonContainingIcon>
           <ButtonContainingIcon onClick={()=>save(()=>setVocaMode(VocaMode.VIEW))}>저장</ButtonContainingIcon>
         </div>
       </Title>
       <VocaListElement>
+        <div style={{padding: '10px 20px'}}>
+          영단어
+        </div>
+        <SeparateLine/>
+        <div style={{padding: '10px 20px'}}>
+          뜻
+        </div>
         {vocaList.flatMap((voca,i) => [
             <WordInputWithMenu key={3*i} word={voca.word} onChange={onChangeWord(i)} disabled={loadingSaveVocaList} moveWordUp={moveWordUp(i)} moveWordDown={moveWordDown(i)} deleteWord={deleteNewVoca(i,voca.id)}/>,
             <SeparateLine key={3*i+1}/>,

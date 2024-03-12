@@ -56,8 +56,15 @@ function TestVocaList({setVocaMode}: {setVocaMode: React.Dispatch<React.SetState
         <span>단어 테스트</span>
       </Title>
       <VocaListElement>
+        <div style={{padding: '10px'}}>
+          영단어
+        </div>
+        <SeparateLine/>
+        <div style={{padding: '10px 20px'}}>
+          뜻
+        </div>
         {vocaList.flatMap((voca,i) => [
-            <div style={{padding:"10px"}} key={3*i}>{voca.word}</div>,
+            <div style={{padding:"18px 10px"}} key={3*i}>{voca.word}</div>,
             <SeparateLine key={3*i+1}/>,
             <Meaning key={3*i+2}>
               {voca.meaning.map((m,j) =>(
