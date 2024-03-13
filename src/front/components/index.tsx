@@ -118,10 +118,9 @@ export const ReverseButtonContainingIcon = styled.button<{ $margin?: string }>`
 `;
 
 export const MainContainer = styled.main<{ $background?: string, $flexdirection?: string }>`
-  padding: 20px 30px;
-  margin: 0 auto;
+  padding: 20px max(30px, calc(50% - 590px));
+  margin: 0;
   width: 100%;
-  max-width: 1240px;
   display: flex;
   flex-direction: ${props => props.$flexdirection || 'column'};
   background-color: ${props => props.$background || 'white'};
