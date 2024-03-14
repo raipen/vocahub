@@ -11,7 +11,9 @@ const FooterContainer = styled.footer`
 function Footer() {
   return (
     <FooterContainer>
-      Footer
+      © 2024. <a href="https://github.com/raipen" target="_blank" style={{color:"#8e8bf9",fontWeight:"600"}}>Raipen</a> all rights reserved.
+      <br/>
+      <i>contact: raipendalk@gmail.com</i>
     </FooterContainer>
   );
 }
