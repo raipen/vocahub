@@ -42,7 +42,6 @@ function useMainPage<T>(pageList: Array<T>) {
   }, [pageControl]);
 
   useEffect(() => {
-    window.scrollTo(0, 0);
     window.addEventListener('wheel', wheelEvent, { passive: false });
     const { touchStart, touchEnd } = touchEvent();
     window.addEventListener('touchstart', touchStart);
@@ -53,6 +52,10 @@ function useMainPage<T>(pageList: Array<T>) {
       window.removeEventListener('touchend', touchEnd);
     };
   }, [wheelEvent, touchEvent]);
+
+  useEffect(()=> {
+    scrollTo(0,0);
+  }, [page]);
 
   return pageList[page];
 }

@@ -128,6 +128,17 @@ export const MainContainer = styled.main<{ $background?: string, $flexdirection?
   flex-wrap: wrap;
 `;
 
+export const HomeContainer = styled(MainContainer)`
+  flex-grow: 1;
+  overflow: hidden;
+  max-height: calc(100vh - 150px);
+  flex-wrap: nowrap;
+  @media (max-width: 600px) {
+    max-height: calc(100vh - 70px);
+  }
+`;
+
+
 export const LoginContainer = styled.form`
   padding: 20px 30px;
   margin: 0 auto;
@@ -392,3 +403,33 @@ export const InputWithLabelContainer = styled.div`
   &>input {
   }
 `;
+
+const PageLink = styled.div`
+  ${FlexRowLeftStart};
+  width: fit-content;
+  gap: 5px;
+  padding: 5px 10px;
+  ${clickable};
+  border-radius: 5px;
+  &:hover {
+    color: var(--main-color);
+    background-color: RGBA(0,0,0,0.1);
+  }
+  &>span {
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+  &>.material-icons-sharp {
+    font-size: 1rem;
+    text-decoration: none;
+  }
+`;
+
+export const NewPageLink = ({text}:{text: string|undefined}) => {
+  return (
+    <PageLink>
+      <span>{text}</span>
+      <div className="material-icons-sharp">open_in_new</div>
+    </PageLink>
+  );
+}
