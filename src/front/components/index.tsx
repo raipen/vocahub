@@ -428,8 +428,8 @@ const PageLink = styled.div`
 export const NewPageLink = ({text}:{text: string|undefined}) => {
   return (
     <PageLink>
-      <span>{text}</span>
       <div className="material-icons-sharp">open_in_new</div>
+      <span>{text}</span>
     </PageLink>
   );
 }
