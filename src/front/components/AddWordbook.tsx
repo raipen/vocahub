@@ -22,10 +22,7 @@ function AddWordbookList({setNewWordbook}: {setNewWordbook: React.Dispatch<React
     <AddWordbookContainer as="form">
       <WordbookInfo>
         <WordbookName>
-          <span className="material-icons-sharp">
-            menu_book
-          </span>
-          <Input placeholder="단어장 이름(ex. 토익 day1)" ref={inputRef} style={{marginBottom: '10px'}}/>
+          <Input placeholder="단어장 이름(ex. 토익 day1)" ref={inputRef} style={{marginBottom: '10px', width: '100%'}} />
         </WordbookName>
         <WordbookDetailInfo createdAt={new Date(new Date().getTime() - new Date().getTimezoneOffset() * 60000).toISOString()} vocaCount={0} />
       </WordbookInfo>
