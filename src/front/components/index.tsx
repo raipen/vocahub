@@ -1,4 +1,4 @@
-import {styled, css} from 'styled-components';
+import {styled, css, keyframes } from 'styled-components';
 
 const FlexRowCenter = css`
   display: flex;
@@ -131,13 +131,10 @@ export const MainContainer = styled.main<{ $background?: string, $flexdirection?
 export const HomeContainer = styled(MainContainer)`
   flex-grow: 1;
   overflow: hidden;
-  max-height: calc(100vh - 150px);
   flex-wrap: nowrap;
-  @media (max-width: 600px) {
-    max-height: calc(100vh - 70px);
-  }
+  position: relative;
+  height: calc(100vh - 70px);
 `;
-
 
 export const LoginContainer = styled.form`
   padding: 20px 30px;
@@ -433,3 +430,28 @@ export const NewPageLink = ({text}:{text: string|undefined}) => {
     </PageLink>
   );
 }
+
+const BounceAnimation = keyframes`
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+`;
+
+export const ScrollBottom = styled.div`
+  ${clickable};
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 3rem;
+  width: fit-content;
+  animation: ${BounceAnimation} 1s infinite;
+`;
+
+export const ImageContainer = styled.img`
+  border: 3px solid var(--main-color);
+  border-radius: 10px;
+`;

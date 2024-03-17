@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState, useCallback, useMemo } from 'react';
 
 function useMainPage<T>(pageList: Array<T>) {
   const [page, setPage] = useState(0);
@@ -19,10 +19,11 @@ function useMainPage<T>(pageList: Array<T>) {
     else pageDown();
     setTimeout(() => {
       setIsScrolling(false);
-    }, 500);
+    }, 1000);
   }, [isScrolling, pageUp, pageDown]);
 
   const wheelEvent = useCallback((e: WheelEvent) => {
+    if(page === pageList.length - 1 && e.deltaY > 0) return;
     e.preventDefault();
     if (e.deltaY > 0) return pageControl('up');
     pageControl('down');
@@ -57,7 +58,7 @@ function useMainPage<T>(pageList: Array<T>) {
     scrollTo(0,0);
   }, [page]);
 
-  return pageList[page];
+  return useMemo(()=>({info:pageList[page], pageUp}), [pageList, pageUp]);
 }
 
 export default useMainPage;
