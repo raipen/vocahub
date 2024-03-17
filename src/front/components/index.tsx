@@ -449,19 +449,18 @@ export const NewPageLink = ({text}:{text: string|undefined}) => {
 
 const BounceAnimation = keyframes`
     0%, 100% {
-      transform: translateY(0);
+      transform: translate(-50%, 0);
     }
     50% {
-      transform: translateY(-10px);
+      transform: translate(-50%, 10px);
     }
 `;
 
 export const ScrollBottom = styled.div`
   ${clickable};
   position: absolute;
-  bottom: 0;
+  bottom: 10px;
   left: 50%;
-  transform: translateX(-50%);
   font-size: 3rem;
   width: fit-content;
   animation: ${BounceAnimation} 1s infinite;
