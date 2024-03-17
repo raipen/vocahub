@@ -23,7 +23,7 @@ function useMainPage<T>(pageList: Array<T>) {
   }, [isScrolling, pageUp, pageDown]);
 
   const wheelEvent = useCallback((e: WheelEvent) => {
-    if(page === pageList.length - 1 && e.deltaY > 0) return;
+    if(page === pageList.length - 1 && e.deltaY > 0 && !isScrolling) return;
     e.preventDefault();
     if (e.deltaY > 0) return pageControl('up');
     pageControl('down');
@@ -58,7 +58,7 @@ function useMainPage<T>(pageList: Array<T>) {
     scrollTo(0,0);
   }, [page]);
 
-  return useMemo(()=>({info:pageList[page], pageUp}), [pageList, pageUp]);
+  return useMemo(()=>({page,info:pageList[page], pageUp}), [page, pageList, pageUp]);
 }
 
 export default useMainPage;

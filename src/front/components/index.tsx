@@ -128,12 +128,27 @@ export const MainContainer = styled.main<{ $background?: string, $flexdirection?
   flex-wrap: wrap;
 `;
 
+const showUp = keyframes`
+  0% {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+`;
+
 export const HomeContainer = styled(MainContainer)`
   flex-grow: 1;
   overflow: hidden;
   flex-wrap: nowrap;
   position: relative;
   height: calc(100vh - 70px);
+  transition: background 0.5s;
+  &>*{
+    animation: ${showUp} 0.8s ease-in-out;
+  }
 `;
 
 export const LoginContainer = styled.form`
@@ -402,7 +417,6 @@ export const InputWithLabelContainer = styled.div`
 `;
 
 const PageLink = styled.div`
-  ${FlexRowLeftStart};
   width: fit-content;
   gap: 5px;
   padding: 5px 10px;
@@ -419,6 +433,7 @@ const PageLink = styled.div`
   &>.material-icons-sharp {
     font-size: 1rem;
     text-decoration: none;
+    margin-right: 5px;
   }
 `;
 
@@ -455,3 +470,4 @@ export const ImageContainer = styled.img`
   border: 3px solid var(--main-color);
   border-radius: 10px;
 `;
+
