@@ -59,7 +59,7 @@ function Header() {
   const { isLogined, loading, logout} = useContext(LoginContext);
   return (
     <HeaderContainer>
-      <Link to="/">
+      <Link to="/" reloadDocument>
         <img src={Logo} alt="로고" />
       </Link>
       <WordMenu>
