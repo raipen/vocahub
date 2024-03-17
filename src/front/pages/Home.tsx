@@ -3,14 +3,29 @@ import useMainPage from '@hooks/useMainPage';
 import { pageList, ContentsType } from '@utils/homeList';
 import { Link } from 'react-router-dom';
 
+function HomeWrapper({children,page, ...rest}: {children: React.ReactNode, page: number, [key: string]: any}) {
+  if(page%2 === 0) return (
+    <HomeContainer {...rest} $right={true} $bottom={page===0}>
+      <input type="hidden" value="home"/>
+      {children}
+    </HomeContainer>
+  );
+
+  return (
+    <HomeContainer {...rest}>
+      {children}
+    </HomeContainer>
+  );
+}
 function Home() {
   const {page,info,pageUp} = useMainPage(pageList);
   
-  const a = (
-    <>
-      <h2>{info.title}</h2>
+  return (
+    <HomeWrapper page={page} $background={info.background}>
       {info.contents.map((content, index) => {
         switch(content.type) {
+          case ContentsType.TITLE:
+            return <h2 key={index}>{content.text}</h2>;
           case ContentsType.LINK:
             return (
               <Link to={content.src!} key={index} target="_blank" style={{width:"fit-content"}}>
@@ -34,20 +49,7 @@ function Home() {
       {page!==pageList.length -1 && <ScrollBottom onClick={pageUp} className="material-icons-sharp">
         keyboard_double_arrow_down
       </ScrollBottom>}
-    </>
-  )
-
-  if(page%2 === 0) return (
-    <HomeContainer $background={info.background}>
-      <input type="hidden" value="home"/>
-      {a}
-    </HomeContainer>
-  );
-
-  return (
-    <HomeContainer $background={info.background}>
-    {a}
-    </HomeContainer>
+    </HomeWrapper>
   );
 }
 

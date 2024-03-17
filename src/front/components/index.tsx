@@ -140,14 +140,33 @@ const showUp = keyframes`
   }
 `;
 
-export const HomeContainer = styled(MainContainer)`
+export const HomeContainer = styled(MainContainer)<{ $right?: boolean, $bottom?:boolean }>`
   flex-grow: 1;
   overflow: hidden;
   flex-wrap: nowrap;
   position: relative;
   height: calc(100vh - 70px);
+  ${props => props.$right &&
+    `align-items: flex-end;
+    text-align: right;`}
+  ${props => props.$bottom &&
+    `justify-content: flex-end;
+    padding-bottom: 70px;`}
   &>*{
     animation: ${showUp} 0.8s ease-in-out;
+    word-break: keep-all;
+  }
+  &>h2{
+    margin-bottom: 0;
+  }
+  &>p{
+    max-width: 600px;
+  }
+  @media (max-width: 750px) {
+    align-items: normal;
+    justify-content: normal;
+    text-align: left;
+    padding: 20px;
   }
 `;
 
