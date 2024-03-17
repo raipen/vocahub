@@ -1,4 +1,4 @@
-import {styled, css} from 'styled-components';
+import {styled, css, keyframes } from 'styled-components';
 
 const FlexRowCenter = css`
   display: flex;
@@ -100,6 +100,7 @@ export const HeaderButton = ReverseButtonWithHoverAnimation;
 export const ButtonContainingIcon = styled.button<{ $margin?: string }>`
   ${ButtonCss};
   ${MainColorBackground};
+  word-break: keep-all;
   padding: 5px 20px;
   ${props => props.$margin && `margin: ${props.$margin};`}
   gap: 10px;
@@ -123,9 +124,31 @@ export const MainContainer = styled.main<{ $background?: string, $flexdirection?
   width: 100%;
   display: flex;
   flex-direction: ${props => props.$flexdirection || 'column'};
-  background-color: ${props => props.$background || 'white'};
+  background: ${props => props.$background || 'none'};
   gap: 20px;
   flex-wrap: wrap;
+`;
+
+const showUp = keyframes`
+  0% {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+`;
+
+export const HomeContainer = styled(MainContainer)`
+  flex-grow: 1;
+  overflow: hidden;
+  flex-wrap: nowrap;
+  position: relative;
+  height: calc(100vh - 70px);
+  &>*{
+    animation: ${showUp} 0.8s ease-in-out;
+  }
 `;
 
 export const LoginContainer = styled.form`
@@ -166,6 +189,7 @@ export const WordbookListContainer = styled.div`
   margin-left: auto;
   @media (max-width: 600px) {
     width: 100%;
+    padding: 0;
   }
 `;
 
@@ -392,3 +416,58 @@ export const InputWithLabelContainer = styled.div`
   &>input {
   }
 `;
+
+const PageLink = styled.div`
+  width: fit-content;
+  gap: 5px;
+  padding: 5px 10px;
+  ${clickable};
+  border-radius: 5px;
+  &:hover {
+    color: var(--main-color);
+    background-color: RGBA(0,0,0,0.1);
+  }
+  &>span {
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+  &>.material-icons-sharp {
+    font-size: 1rem;
+    text-decoration: none;
+    margin-right: 5px;
+  }
+`;
+
+export const NewPageLink = ({text}:{text: string|undefined}) => {
+  return (
+    <PageLink>
+      <div className="material-icons-sharp">open_in_new</div>
+      <span>{text}</span>
+    </PageLink>
+  );
+}
+
+const BounceAnimation = keyframes`
+    0%, 100% {
+      transform: translate(-50%, 0);
+    }
+    50% {
+      transform: translate(-50%, 10px);
+    }
+`;
+
+export const ScrollBottom = styled.div`
+  ${clickable};
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  font-size: 3rem;
+  width: fit-content;
+  animation: ${BounceAnimation} 1s infinite;
+`;
+
+export const ImageContainer = styled.img`
+  border: 3px solid var(--main-color);
+  border-radius: 10px;
+`;
+

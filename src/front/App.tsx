@@ -3,7 +3,7 @@ import { LoginContext, useInitLoginContext } from '@context/LoginContext';
 import LoginedRoute from './LoginedRoute';
 import Header from '@components/Header';
 import Footer from '@components/Footer';
-import Main from '@pages/Main';
+import Home from '@pages/Home';
 import Login from '@pages/Login';
 import Signup from '@pages/Signup';
 import MyWordbook from '@pages/MyWordbook';
@@ -17,7 +17,7 @@ function App() {
         <LoginContext.Provider value={value}>
                 <Header />
                 <Routes>
-                    <Route path="/" element={<Main />} />
+                    <Route path="/" element={<Home />} />
                     <Route path="/login" element={<LoginedRoute element={<Login />} isLoginPage={false} />} />
                     <Route path="/signup" element={<LoginedRoute element={<Signup />} isLoginPage={false} />} />
                     <Route path="/mywordbook" element={<LoginedRoute element={<MyWordbook />} />} />
