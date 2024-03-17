@@ -15,7 +15,7 @@ export const pageList = [
     title: '가장 효율적인 영단어 암기 서비스',
     contents: [
       { type: ContentsType.TEXT, text: '"토익독학 길잡이"님의 단어 암기 노하우를 Voca Hub로 사용해보세요.\n'+
-        '단어를 자주 보는것만으로 단어를 보고 바로 떠올리는 능력을 키울 수 있습니다.\n'+
+        '단어를 자주 보는 것만으로 단어를 보고 바로 떠올리는 능력을 키울 수 있습니다.\n'+
         '단어장을 만들고, 단어를 외우고, 테스트를 통해 단어를 확인하세요.\n'+ 
         '뜻을 가려두고 단어의 뜻이 떠오르지 않을 때마다 체크를 추가하고 다시 외워보세요.' },
       { type: ContentsType.LINK, src: 'https://www.youtube.com/watch?v=HD79q6aXjPA',text: '"토익독학 길잡이"님의 영단어 암기법 영상 보러가기' },
@@ -35,7 +35,7 @@ export const pageList = [
     title: '단어 추가하기',
     contents: [
       { type: ContentsType.TEXT, text: '단어장을 만들었다면 단어를 추가해보세요.\n'+
-        '영단어와 뜻을 입력해보세요. 여러개의 뜻을 입력할 수 있지만, 비슷한 뜻은 한 칸에 ,(쉼표)로 구분해서 입력할 수도 있습니다.\n'+
+        '영단어와 뜻을 입력해보세요. 단어마다 여러 개의 뜻을 입력할 수 있고, 비슷한 뜻은 한 칸에 ,(쉼표)로 구분해서 입력할 수도 있습니다.\n'+
         'tab키를 사용하여 더 빠르게 입력할 수 있습니다.' },
       { type: ContentsType.IMAGE, src: edit },
     ]
@@ -52,9 +52,9 @@ export const pageList = [
     background: '#ccfdde',
     title: '테스트',
     contents: [
-      { type: ContentsType.TEXT, text: '여러번 체크한 단어들을 다 외웠다면, 테스트를 통해 전체 단어들을 확인해보세요.\n'+
-        '단어를 보고 뜻을 맞추는 테스트로 당연히 뜻의 순서는 상관 없습니다.\n'+
-        '뜻이 여러개인 단어는 뜻을 모두 맞추어야 통과됩니다.' },
+      { type: ContentsType.TEXT, text: '여러 번 체크한 단어들을 다 외웠다면, 테스트를 통해 전체 단어들을 확인해보세요.\n'+
+        '단어를 보고 뜻을 맞추는 테스트로 뜻의 순서는 상관 없습니다.\n'+
+        '뜻이 여러 개인 단어는 뜻을 모두 맞추어야 통과됩니다.' },
       { type: ContentsType.IMAGE, src: test },
     ]
   },{
