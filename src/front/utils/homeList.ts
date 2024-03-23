@@ -12,16 +12,15 @@ export const enum ContentsType {
 }
 export const pageList = [
   {
-    background: 'linear-gradient(180deg, #f8f9fa 0%, #FFD6E0 100%)',
+    background: '#f8f9fa',
     contents: [
-      { type: ContentsType.TITLE, text: '♪(´▽｀)' },
+      { type: ContentsType.TITLE, text: '가장 효율적인 영단어 암기 서비스' },
+      { type: ContentsType.BUTTON, text: '시작하기', link: '/mywordbook' },
       { type: ContentsType.TEXT, text: '"토익독학 길잡이"님의 단어 암기 노하우를 Voca Hub로 사용해보세요.\n'+
       '단어를 자주 보는 것만으로 단어를 보고 바로 떠올리는 능력을 키울 수 있습니다.\n'+
       '단어장을 만들고, 단어를 외우고, 테스트를 통해 단어를 확인하세요.\n'+ 
       '뜻을 가린 상태에서 단어의 뜻이 떠오르지 않을 때마다 체크를 추가하고 다시 외워보세요.' },
       { type: ContentsType.LINK, src: 'https://www.youtube.com/watch?v=HD79q6aXjPA',text: '"토익독학 길잡이"님의 영단어 암기법 영상 보러가기' },
-      { type: ContentsType.TITLE, text: '가장 효율적인 영단어 암기 서비스' },
-      { type: ContentsType.BUTTON, text: '시작하기', link: '/mywordbook' },
     ]
   },{
     background: "#FFD6E0",
@@ -33,7 +32,7 @@ export const pageList = [
       { type: ContentsType.IMAGE, src: createWordbook },
     ]
   },{
-    background: '#eedcff',
+    background: '#f8f9fa',
     contents: [
       { type: ContentsType.TITLE, text: '단어 추가하기'},
       { type: ContentsType.TEXT, text: '단어장을 만들었다면 영단어와 뜻을 추가해보세요.\n'+
@@ -42,7 +41,7 @@ export const pageList = [
       { type: ContentsType.IMAGE, src: edit },
     ]
   },{
-    background: '#d1ecff',
+    background: '#FFD6E0',
     contents: [
       { type: ContentsType.TITLE, text: '단어 암기하기'},
       { type: ContentsType.TEXT, text: '단어장을 만들고 단어를 추가했다면, 단어를 외워보세요.\n'+
@@ -51,7 +50,7 @@ export const pageList = [
       { type: ContentsType.IMAGE, src: study },
     ]
   },{
-    background: '#ccfdde',
+    background: '#f8f9fa',
     contents: [
       { type: ContentsType.TITLE, text: '테스트'},
       { type: ContentsType.TEXT, text: '여러 번 체크한 단어들을 다 외웠다면, 테스트를 통해 전체 단어들을 확인해보세요.\n'+
@@ -60,7 +59,7 @@ export const pageList = [
       { type: ContentsType.IMAGE, src: test },
     ]
   },{
-    background: 'linear-gradient(180deg, #ffc5d2 0%, #f8f9fa 100%)',
+    background: '#FFD6E0',
     contents: [
       { type: ContentsType.TITLE, text: 'Voca Hub 시작하기'},
       { type: ContentsType.TEXT, text: '이제 Voca Hub를 시작해보세요.\n'+

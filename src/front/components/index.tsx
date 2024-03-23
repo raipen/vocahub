@@ -129,31 +129,21 @@ export const MainContainer = styled.main<{ $background?: string, $flexdirection?
   flex-wrap: wrap;
 `;
 
-const showUp = keyframes`
-  0% {
-    transform: translateY(100%);
-    opacity: 0;
-  }
-  100% {
-    transform: translateY(0);
-    opacity: 1;
-  }
-`;
-
-export const HomeContainer = styled(MainContainer)<{ $right?: boolean, $bottom?:boolean }>`
-  flex-grow: 1;
-  overflow: hidden;
+export const HomeContainer = styled.article`
+  margin: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  background: none !important;
+  justify-content: center;
+  gap: 20px;
   flex-wrap: nowrap;
   position: relative;
-  height: calc(100vh - 70px);
-  ${props => props.$right &&
-    `align-items: flex-end;
-    text-align: right;`}
-  ${props => props.$bottom &&
-    `justify-content: flex-end;
-    padding-bottom: 70px;`}
+  opacity: 0;
+  transform: translateY(50%);
+  transition: all 0.5s ease-in-out;
+  min-height: calc(70vh - 105px);
   &>*{
-    animation: ${showUp} 0.8s ease-in-out;
     word-break: keep-all;
   }
   &>h2{
@@ -161,12 +151,6 @@ export const HomeContainer = styled(MainContainer)<{ $right?: boolean, $bottom?:
   }
   &>p{
     max-width: 600px;
-  }
-  @media (max-width: 750px) {
-    align-items: normal;
-    justify-content: normal;
-    text-align: left;
-    padding: 20px;
   }
 `;
 
