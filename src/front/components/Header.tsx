@@ -2,7 +2,7 @@ import { styled } from 'styled-components';
 import Logo from '@assets/Title.png';
 import { Link } from 'react-router-dom';
 import { useContext } from 'react';
-import { LoginContext } from '@context/LoginContext';
+import LoginContext from '@context/LoginContext';
 import { HeaderButton } from '@components';
 
 const HeaderContainer = styled.header`

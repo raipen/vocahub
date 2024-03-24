@@ -1,6 +1,6 @@
 import { useEffect, useState, useContext } from "react";
 import { ErrorWithToast, ExpiredAccessTokenError } from '@errors';
-import { LoginContext } from "@context/LoginContext";
+import LoginContext from "@context/LoginContext";
 
 const useFetchWithRendering =  <T,U extends any[]>(fetchFunction: (accessToken:string,...args:U) => Promise<T>, ...args:U)
     : [T | null, ErrorWithToast | null] => {
