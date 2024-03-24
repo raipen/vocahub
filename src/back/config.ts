@@ -20,6 +20,8 @@ class Config{
             jwtAccessKey: process.env.JWT_ACCESS_KEY || 'secretKey',
             jwtRefreshKey: process.env.JWT_REFRESH_KEY || 'refresh',
             salt: process.env.SALT || 'salt',
+            kakaoClientId: process.env.KAKAO_CLIENT_ID || 'kakaoClientId',
+            kakaoRedirectUri: process.env.KAKAO_REDIRECT_URI || 'kakaoRedirectUri',
             nodeEnv: process.env.NODE_ENV,
         } as const;
     }
