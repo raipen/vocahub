@@ -5,7 +5,7 @@ import * as User from '@DTO/user.dto';
 import userService from '@services/user.service';
 
 const api: FastifyPluginAsync = async (server: FastifyInstance) => {
-    server.get(
+    server.post(
         '/logout',
         {
             schema: User.signOutSchema
