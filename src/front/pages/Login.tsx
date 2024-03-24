@@ -1,28 +1,16 @@
 import { Link } from 'react-router-dom';
-import { LoginContainer, Input, InputWithLabelContainer, ReverseButtonContainingIcon, ButtonContainingIcon } from '@components';
-import useSignIn from '@hooks/useSignIn';
+import kakaologin from '@assets/kakaologin.png';
+import { LoginContainer} from '@components';
 
 function Login() {
-  const { name, password, onChage, onSignIn } = useSignIn();
 
   return (
     <LoginContainer>
       <h1>로그인</h1>
-      <InputWithLabelContainer>
-        <label>아이디</label>
-        <Input value={name} onChange={onChage('name')} />
-      </InputWithLabelContainer>
-      <InputWithLabelContainer>
-        <label>비밀번호</label>
-        <Input type="password" value={password} onChange={onChage('password')} />
-      </InputWithLabelContainer>
-      <ButtonContainingIcon $margin="20px 0 0" onClick={onSignIn} type="submit">
-        <span>로그인</span>
-      </ButtonContainingIcon>
-      <Link to="/signup">
-        <ReverseButtonContainingIcon style={{ width: '100%' }}>
-          <span>회원가입</span>
-        </ReverseButtonContainingIcon>
+      <Link
+        style={{display: "block", margin: "0 auto"}}
+        to={`https://kauth.kakao.com/oauth/authorize?client_id=${import.meta.env.KAKAO_CLIENT_ID}&redirect_uri=${import.meta.env.KAKAO_REDIRECT_URI}&response_type=code`}>
+          <img src={kakaologin} alt="카카오 로그인" width="200"/>
       </Link>
     </LoginContainer>
   );

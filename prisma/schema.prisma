@@ -7,14 +7,21 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum SocialType {
+  GOOGLE
+  KAKAO
+  NAVER
+}
+
 model User {
   uuid     String   @unique @id @default(uuid())
-  name     String   @unique
-  password String
-  salt     String
+  name     String
+  socialType SocialType @default(KAKAO)
+  socialId String   
   wordbook Wordbook[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  @@unique([socialType, socialId])
 }
 
 model Wordbook {

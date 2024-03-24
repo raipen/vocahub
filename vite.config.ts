@@ -5,6 +5,8 @@ import tsconfigPaths from 'vite-tsconfig-paths';
 // https://vitejs.dev/config/
 export default defineConfig({
   root: 'src/front',
+  envDir: '../../',
+  envPrefix: ['VITE_', 'KAKAO_'],
   plugins: [react(), tsconfigPaths()],
   server: {
     port: 3000,

@@ -5,33 +5,13 @@ import * as User from '@DTO/user.dto';
 import userService from '@services/user.service';
 
 const api: FastifyPluginAsync = async (server: FastifyInstance) => {
-    server.post<User.signUpInterface>(
-        '/signUp',
-        {
-            schema: User.signUpSchema
-        },
-        async (request, reply) => {
-            const { accessToken, refreshToken } = await userService.signUp(request.body);
-            reply.status(201).setCookie('authorization', refreshToken).send({ accessToken });
-        }
-    );
-    server.post<User.signInInterface>(
-        '/signIn',
-        {
-            schema: User.signInSchema
-        },
-        async (request, reply) => {
-            const { accessToken, refreshToken } = await userService.signIn(request.body);
-            reply.setCookie('authorization', refreshToken).send({ accessToken });
-        }
-    );
     server.post(
-        '/signOut',
+        '/logout',
         {
             schema: User.signOutSchema
         },
-        async (request, reply) => {
-            reply.clearCookie('authorization').send();
+        async (_, reply) => {
+            reply.clearCookie('authorization').redirect(303, '/');
         }
     );
     server.post(

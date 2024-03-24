@@ -1,19 +1,20 @@
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient,SocialType } from '@prisma/client';
 const prisma = new PrismaClient();
 
-export const createUser = async (name: string, hashedPassword: string, salt: string) => {
+export const createUser = async ({name,socialId,socialType}:{name: string, socialId: string, socialType: SocialType}) => {
     return await prisma.user.create({
         data: {
             name,
-            password: hashedPassword,
-            salt
+            socialId,
+            socialType
         }
     });
 }
-export const getUser = async (name: string) => {
-    return prisma.user.findUnique({
+export const getUser = async (socialType: SocialType, socialId: string) => {
+    return prisma.user.findFirst({
         where: {
-            name
+            socialId,
+            socialType
         }
     });
 }
