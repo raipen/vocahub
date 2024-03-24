@@ -15,7 +15,7 @@ enum SocialType {
 
 model User {
   uuid     String   @unique @id @default(uuid())
-  name     String   @unique
+  name     String
   socialType SocialType @default(KAKAO)
   socialId String   
   wordbook Wordbook[]
