@@ -14,7 +14,6 @@ import {
   ButtonWithHoverAnimation,
   ReverseButtonWithHoverAnimation
 } from './index';
-import { saveResult } from '@utils/apis/wordbook';
 
 const marking = (input: string[][], answer: {id:number,meaning: string[]}[]) => {
   const commaSeparatedAnswer = answer.map(a => ({...a,meaning:a.meaning.map(b=>b.split(',').map(c=>c.trim()))}));
@@ -33,10 +32,9 @@ const marking = (input: string[][], answer: {id:number,meaning: string[]}[]) => 
 }
 
 function TestVocaList({setVocaMode}: {setVocaMode: React.Dispatch<React.SetStateAction<VocaMode>>}) {
-  const { vocaList, wordbookId } = useContext(VocaListContext);
+  const { vocaList } = useContext(VocaListContext);
   const emptyVocaList = vocaList.map(voca => new Array(voca.meaning.length).fill(""));
   const [inputList, setInputList] = useState(emptyVocaList);
-  const [loadingSaveResult, fetchSaveResult] = useFetchUpdate(saveResult);
   const [result, setResult] = useState<{meaning: string[],correct: boolean}[][]|null>(null);
   const onChangeInput = (i: number, j: number) => (e: React.ChangeEvent<HTMLInputElement>) => {
     const newInputList = [...inputList];
@@ -45,8 +43,7 @@ function TestVocaList({setVocaMode}: {setVocaMode: React.Dispatch<React.SetState
   }
 
   const onClickSaveResult = async () => {
-    const {detailMarking, markingResult} = marking(inputList, vocaList);
-    await fetchSaveResult(wordbookId, markingResult);
+    const {detailMarking} = marking(inputList, vocaList);
     setResult(detailMarking);
   }
 
@@ -69,7 +66,7 @@ function TestVocaList({setVocaMode}: {setVocaMode: React.Dispatch<React.SetState
             <Meaning key={3*i+2}>
               {voca.meaning.map((m,j) =>(
                 <MeaningCount key={j} style={{alignItems: result===null?'center':'flex-start'}}>
-                  {result===null&&<Input value={inputList[i][j]} onChange={onChangeInput(i,j)} disabled={loadingSaveResult}/>}
+                  {result===null&&<Input value={inputList[i][j]} onChange={onChangeInput(i,j)}/>}
                   {result!==null&&<MeaningWithAnswer $correct={result[i][j].correct}><span>{'\u00A0'+inputList[i][j]+'\u00A0'}</span><span>{result[i][j].meaning.join(', ')}</span></MeaningWithAnswer>}
                 </MeaningCount>
               ))}
