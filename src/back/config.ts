@@ -21,7 +21,9 @@ class Config{
             jwtRefreshKey: process.env.JWT_REFRESH_KEY || 'refresh',
             salt: process.env.SALT || 'salt',
             kakaoClientId: process.env.KAKAO_CLIENT_ID || 'kakaoClientId',
-            kakaoRedirectUri: process.env.KAKAO_REDIRECT_URI || 'kakaoRedirectUri',
+            redirectUri: process.env.REDIRECT_URI || 'RedirectUri',
+            googleClientId: process.env.GOOGLE_CLIENT_ID || 'googleClientId',
+            googleClientSecret: process.env.GOOGLE_CLIENT_SECRET || 'googleClientSecret',
             nodeEnv: process.env.NODE_ENV,
         } as const;
     }

@@ -24,6 +24,7 @@ export default (
   request: FastifyRequest,
   reply: FastifyReply
 ) => {
+  console.error(error);
   if (error instanceof ErrorWithToast) return handleKnownError(error, reply);
   if (error.validation) {
     return reply.code(400).send({

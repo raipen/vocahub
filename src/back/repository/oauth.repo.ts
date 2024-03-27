@@ -10,7 +10,7 @@ export const getKakaoAccessToken = async (code: string) => {
         data: qs.stringify({
             grant_type: 'authorization_code',
             client_id: config.kakaoClientId,
-            redirect_uri: config.kakaoRedirectUri,
+            redirect_uri: config.redirectUri+'/api/v1/oauth/kakao',
             code
         }),
         headers: {
@@ -46,3 +46,35 @@ export const getKakaoUserInfo = async (kakaoAccessToken: string) => {
         nickname: kakao_account.profile?.nickname,
     };
 }
+
+export const getGoogleAccessToken = async (code: string) => {
+    const {access_token: getGoogleAccessToken} = (await axios<{access_token:string,scope:string}>({
+        method: 'post',
+        url: 'https://oauth2.googleapis.com/token',
+        data: qs.stringify({
+            grant_type: 'authorization_code',
+            client_id: config.googleClientId,
+            redirect_uri: config.redirectUri+'/api/v1/oauth/google',
+            client_secret: config.googleClientSecret,
+            code
+        }),
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
+        }
+    })).data;
+    console.log(getGoogleAccessToken);
+    return getGoogleAccessToken;
+}
+
+export const getGoogleUserInfo = async (getGoogleAccessToken: string) => {
+    const { id, name } = (await axios.get<{id?:string,name?:string}>('https://www.googleapis.com/userinfo/v2/me', {
+        headers: {
+            Authorization: `Bearer ${getGoogleAccessToken}`,
+        }
+    })).data;
+    return {
+        id,
+        name
+    };
+}
+

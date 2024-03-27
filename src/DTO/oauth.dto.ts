@@ -1,6 +1,6 @@
 import { SchemaToInterface } from 'fastify-schema-to-ts';
 
-export const kakaoSchema = {
+export const oauthRedirctSchema = {
     tags: ['User'],
     summary: '로그인',
     querystring: {
@@ -16,4 +16,4 @@ export const kakaoSchema = {
     },
 } as const;
 
-export type kakaoInterface = SchemaToInterface<typeof kakaoSchema>;
+export type oauthRedirctInterface = SchemaToInterface<typeof oauthRedirctSchema>;
