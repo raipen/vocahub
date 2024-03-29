@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import kakaologin from '@assets/kakaologin.png';
+import googlelogin from '@assets/googlelogin.svg';
 import { LoginContainer} from '@components';
 
 function Login() {
@@ -15,7 +16,7 @@ function Login() {
       <Link
         style={{display: "block", margin: "0 auto"}}
         to={`https://accounts.google.com/o/oauth2/v2/auth?client_id=${__GOOGLE_CLIENT_ID__}&redirect_uri=${__REDIRECT_URI__}/api/v1/oauth/google&response_type=code&scope=https://www.googleapis.com/auth/userinfo.profile`}>
-          <img src="https://developers.google.com/identity/images/btn_google_signin_dark_normal_web.png" alt="구글 로그인" width="200"/>
+          <img src={googlelogin} alt="구글 로그인" width="200"/>
       </Link>
     </LoginContainer>
   );
