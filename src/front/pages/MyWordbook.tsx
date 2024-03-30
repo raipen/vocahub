@@ -1,31 +1,36 @@
 import { MainContainer } from "@components";
-import { WordbookListContext, useInitWordbookList } from "@context/WordbookListContext";
+import WordbookListContext from "@context/WordbookListContext";
+import useWordbookData from "@hooks/useWordbookData";
 import { Navigate } from "react-router-dom";
 import Profile from "@components/Profile";
-import WordbookList from "@components/WordbookList";
-import HiddenWordbookList from "@components/HiddenWordbookList";
-import WordbookListElement from "@components/WordbookListElement";
+import MyWordbookTitle from "@components/MyWordbookTitle";
+import HiddenWordbookTitle from "@components/HiddenWordbookTitle";
+import WordbookElement from "@components/WordbookElement";
+import { WordbookListContainer } from "@components";
 import ErrorConfigs from "@errors/config";
+import { useMemo } from "react";
 
 function MyWordbook() {
-  const { data, setData, Error } = useInitWordbookList();
+  const { profile, wordbookList, hiddenWordbookList, onClickWordbookElement, Error, expend, expendOnClick } = useWordbookData();
+  const contextValue = useMemo(() => ({ profile, onClickWordbookElement, expend, expendOnClick }), [profile, onClickWordbookElement, expend, expendOnClick]);
   if(Error) {
     const errorConfig = ErrorConfigs[Error.name];
     if(errorConfig)
       return <Navigate to="/error" state={{message: errorConfig.toast(Error)}} />
     return <Navigate to="/error" state={{message: "알 수 없는 오류가 발생했습니다."}} />
   }
-  const [profile, {wordbookList, hiddenWordbookList}] = data;
   return (
-    <WordbookListContext.Provider value={{data, setData}}>
+    <WordbookListContext.Provider value={contextValue}>
       <MainContainer $flexdirection="row">
-        <Profile profile={profile} />
-        <WordbookList>
-          {wordbookList.map((wordbook, index) =><WordbookListElement key={index} wordbook={wordbook}/>)}
-        </WordbookList>
-        <HiddenWordbookList>
-          {hiddenWordbookList.map((wordbook, index) =><WordbookListElement key={index} wordbook={wordbook}/>)}
-        </HiddenWordbookList>
+        <Profile/>
+        <WordbookListContainer>
+          <MyWordbookTitle/>
+          {wordbookList.map((wordbook, index) =><WordbookElement key={index} wordbook={wordbook}/>)}
+        </WordbookListContainer>
+        <WordbookListContainer>
+          <HiddenWordbookTitle/>
+          {expend&&hiddenWordbookList.map((wordbook, index) =><WordbookElement key={index} wordbook={wordbook}/>)}
+        </WordbookListContainer>
       </MainContainer>
     </WordbookListContext.Provider>
   );

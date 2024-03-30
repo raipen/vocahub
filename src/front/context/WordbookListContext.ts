@@ -1,29 +1,15 @@
-import { createContext, useState, useEffect,useMemo } from 'react';
-import useFetchWithRendering from "@hooks/useFetchWithRendering";
-import { getDatasWhenWordbookRender } from "@utils/apis/wordbook";
-import { getWordbookListInterface } from '@DTO/wordbook.dto';
+import { createContext } from 'react';
+import useWordbookData from '@hooks/useWordbookData';
 
-export const WordbookListContext = createContext(
+type returnData = ReturnType<typeof useWordbookData>;
+
+const WordbookListContext = createContext(
   {} as {
-    data: Awaited<ReturnType<typeof getDatasWhenWordbookRender>>,
-    setData: React.Dispatch<React.SetStateAction<Awaited<ReturnType<typeof getDatasWhenWordbookRender>>>>
+    profile: returnData['profile'],
+    onClickWordbookElement: returnData['onClickWordbookElement'],
+    expend: returnData['expend'],
+    expendOnClick: returnData['expendOnClick'],
   }
 );
 
-export const useInitWordbookList = () => {
-  const [dataFromRendering, Error] = useFetchWithRendering(getDatasWhenWordbookRender);
-  const [data, setData] = useState<Exclude<typeof dataFromRendering, null>>([
-    { name: 'Loading', wordbookCount: 0, vocaCount: 0, loginDate: [] as { date: string, count: number }[] },
-    {
-      wordbookList: [],
-      hiddenWordbookList: []      
-    } as getWordbookListInterface['Reply']['200']
-  ]);
-  useEffect(() => {
-    if (dataFromRendering) {
-      setData(dataFromRendering);
-    }
-  }, [dataFromRendering]);
-
-  return useMemo(() => ({ data, setData, Error }), [data, setData, Error]);
-}
+export default WordbookListContext;

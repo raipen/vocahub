@@ -1,6 +1,6 @@
 import { VocaMode } from "@utils/vocaModeEnum";
 import { useState, useEffect,useContext } from 'react';
-import { VocaListContext } from '@context/VocaListContext';
+import VocaListContext from '@context/VocaListContext';
 import useFetchUpdate from '@hooks/useFetchUpdate';
 import { getVocaList, increaseCheckCount, decreaseCheckCount } from "@utils/apis/voca";
 import { 

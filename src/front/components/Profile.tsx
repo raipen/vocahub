@@ -1,4 +1,7 @@
 import { styled } from 'styled-components';
+import WordbookListContext from '@context/WordbookListContext';
+import { useContext } from 'react';
+import { Link } from 'react-router-dom';
 
 const ProfileContainer = styled.div`
   display: flex;
@@ -13,17 +16,23 @@ const ProfileContainer = styled.div`
   &>div:first-child {
     display: flex;
     align-items: center;
+    gap: 5px;
     font-size: 1.5rem;
     font-weight: 300;
     margin-bottom: 10px;
+    >.material-icons-sharp {
+        font-size: 1rem;
+        user-select: none;
+    }
   }
   &>div:nth-child(2) {
     display: flex;
-    align-items: flex-end;
+    align-items: center;
     gap: 3px;
     color: var(--muted-text-color);
     >.material-icons-sharp {
         font-size: 1rem;
+        user-select: none;
     }
     >span:nth-child(3n+2) {
         font-weight: 600;
@@ -114,19 +123,18 @@ function LoginDate({loginDate}: {loginDate: {date: string, count: number}[]}) {
     );
 }
 
-function Profile({profile}: {profile:{
-    name: string;
-    wordbookCount: number;
-    vocaCount: number;
-    loginDate: {
-        date: string;
-        count: number;
-    }[];
-}}) {
+function Profile() {
+  const {profile} = useContext(WordbookListContext);
   return (
     <ProfileContainer>
         <div>
-            {profile.name}
+            <span className="material-icons-sharp">
+                account_circle
+            </span>
+            <span>{profile.name}</span>
+            <Link to="/setting" className="material-icons-sharp" style={{marginLeft: 'auto'}}>
+                settings
+            </Link>
         </div>
         <div>
             <span className="material-icons-sharp">

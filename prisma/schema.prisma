@@ -33,6 +33,7 @@ model Wordbook {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   isHidden  Boolean  @default(false)
+  deletedAt DateTime?
 }
 
 model Voca {

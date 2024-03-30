@@ -2,19 +2,18 @@ import { WordbookInfo, WordbookMenu, WordbookName, AddWordbookContainer, Input, 
 import useFetchUpdate from "@hooks/useFetchUpdate";
 import { addWordbook } from '@utils/apis/wordbook';
 import { useContext,useRef } from 'react';
-import { WordbookListContext } from '@context/WordbookListContext';
+import WordbookListContext from '@context/WordbookListContext';
 import WordbookDetailInfo from './WordbookDetailInfo';
 
 function AddWordbookList({setNewWordbook}: {setNewWordbook: React.Dispatch<React.SetStateAction<boolean>>}) {
   const [loadingWordbook, fetchWordbook] = useFetchUpdate(addWordbook);
-  const { setData } = useContext(WordbookListContext);
+  const { onClickWordbookElement } = useContext(WordbookListContext);
   const inputRef = useRef<HTMLInputElement>(null);
 
   const onClickAdd = async () => {
     const name = inputRef.current?.value;
     if (name) {
-      const wordbookData = await fetchWordbook(name);
-      setData(([profile]) => [profile, wordbookData]);
+      await onClickWordbookElement(fetchWordbook, name)();
       setNewWordbook(false);
     }
   }

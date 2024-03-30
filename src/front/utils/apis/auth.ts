@@ -10,3 +10,15 @@ export const requestRefresh = apiErrorCatchWrapper(async () => {
 export const requestLogout = apiErrorCatchWrapper(async () => {
     await axios.post('/api/v1/user/logout');
 });
+
+export const getUserName = apiErrorCatchWrapper(async (accessToken: string) => {
+    const response = await axios.get<User.getUserNameInterface['Reply']['200']>(
+        '/api/v1/user/name',
+        { headers: { Authorization: `Bearer ${accessToken}` } }
+    );
+    return response.data.name;
+});
+
+export const changeUserName = apiErrorCatchWrapper(async (accessToken: string,name: string) => {
+    await axios.patch('/api/v1/user/name', { name }, { headers: { Authorization: `Bearer ${accessToken}` } });
+});

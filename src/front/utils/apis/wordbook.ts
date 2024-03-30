@@ -9,7 +9,7 @@ export const getDatasWhenWordbookRender = async (accessToken: string): Promise<[
   return [profile, wordbooks]
 }
 
-const getProfile = apiErrorCatchWrapper(async (accessToken: string) => {
+export const getProfile = apiErrorCatchWrapper(async (accessToken: string) => {
   const response = await axios.get<User.profileInterface['Reply']['200']>(
     "/api/v1/user/profile",
     { headers: { Authorization: `Bearer ${accessToken}` } }
@@ -17,7 +17,7 @@ const getProfile = apiErrorCatchWrapper(async (accessToken: string) => {
   return response.data;
 });
 
-const getWordbookList = apiErrorCatchWrapper(async (accessToken: string) => {
+export const getWordbookList = apiErrorCatchWrapper(async (accessToken: string) => {
   const response = await axios.get<Wordbook.getWordbookListInterface['Reply']['200']>(
     "/api/v1/wordbook",
     { headers: { Authorization: `Bearer ${accessToken}` } }

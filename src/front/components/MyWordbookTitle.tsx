@@ -1,13 +1,11 @@
 import { useState } from "react";
-import { ButtonContainingIcon, WordbookListContainer, Title } from './index';
+import { ButtonContainingIcon, Title } from './index';
 import AddWordbook from './AddWordbook';
 
-function WordbookList({children}: {children: React.ReactNode}) {
+function MyWordbookTitle() {
   const [newWordbook, setNewWordbook] = useState(false);
-
-  return (
-    <WordbookListContainer>
-      <Title>
+  
+  return [<Title key="title">
         <span>내 단어장</span>
         {!newWordbook && <ButtonContainingIcon onClick={() => setNewWordbook(true)}>
           <span className="material-icons-sharp">
@@ -15,11 +13,7 @@ function WordbookList({children}: {children: React.ReactNode}) {
           </span>
           <span>New</span>
         </ButtonContainingIcon>}
-      </Title>
-      {newWordbook && <AddWordbook setNewWordbook={setNewWordbook} />}
-      {children}
-    </WordbookListContainer>
-  );
+      </Title>, newWordbook && <AddWordbook key="add" setNewWordbook={setNewWordbook} />]
 }
 
-export default WordbookList;
+export default MyWordbookTitle;

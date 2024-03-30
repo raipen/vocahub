@@ -13,6 +13,7 @@ import Setting from '@pages/Setting';
 import PrivacyPolicy from '@pages/PrivacyPolicy';
 import TermsOfService from '@pages/TermsOfService';
 import Error from '@pages/Error';
+import { MainContainer } from '@components';
 
 function App() {
     const value = useInitLogin();
@@ -29,7 +30,7 @@ function App() {
                     <Route path="/privacy-policy" element={<PrivacyPolicy />} />
                     <Route path="/terms-of-service" element={<TermsOfService />} />
                     <Route path="/error" element={<Error />} />
-                    <Route path="*" element={<div>404 Not Found</div>} />
+                    <Route path="*" element={<MainContainer>잘못된 접근입니다</MainContainer>} />
                 </Routes>
                 <Footer />
         </LoginContext.Provider>

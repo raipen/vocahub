@@ -10,6 +10,7 @@ export const createUser = async ({name,socialId,socialType}:{name: string, socia
         }
     });
 }
+
 export const getUser = async (socialType: SocialType, socialId: string) => {
     return prisma.user.findFirst({
         where: {
@@ -23,6 +24,17 @@ export const getUserById = async (uuid: string) => {
     return prisma.user.findUnique({
         where: {
             uuid
+        }
+    });
+}
+
+export const changeUserName = async (uuid: string, name: string) => {
+    return prisma.user.update({
+        where: {
+            uuid
+        },
+        data: {
+            name
         }
     });
 }
