@@ -14,6 +14,27 @@ export const signOutSchema = {
   },
 } as const;
 
+export const changeUserNameSchema = {
+  tags: ['User'],
+  summary: '닉네임 변경',
+  headers: AuthorizationHeader,
+  body: {
+    type: 'object',
+    required: ['name'],
+    properties: {
+      name: { type: 'string' },
+    },
+  },
+  response: {
+    200: {
+    },
+    ...errorSchema(
+      E.NoAuthorizationInCookieError,
+      E.UserAuthorizationError,
+    )
+  },
+} as const;
+
 export const refreshSchema = {
   tags: ['User'],
   summary: '토큰 재발급',
@@ -67,3 +88,4 @@ export const profileSchema = {
 export type signOutInterface = SchemaToInterface<typeof signOutSchema>;
 export type refreshInterface = SchemaToInterface<typeof refreshSchema> & { Body: { userId: string } };
 export type profileInterface = SchemaToInterface<typeof profileSchema> & { Body: { userId: string } };
+export type changeUserNameInterface = SchemaToInterface<typeof changeUserNameSchema> & { Body: { userId: string } };

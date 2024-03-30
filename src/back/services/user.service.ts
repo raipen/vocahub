@@ -12,6 +12,10 @@ export default {
         };
     },
 
+    async changeUserName({userId, name}: UserDTO.changeUserNameInterface['Body']){
+        await UserRepo.changeUserName(userId, name);
+    },
+
     async getProfile({userId}: UserDTO.profileInterface['Body']): Promise<UserDTO.profileInterface['Reply']['200']> {
         const { name } = (await UserRepo.getUserById(userId))!;
         const wordbook = await WordbookRepo.getNonHiddenWordbookList(userId);

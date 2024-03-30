@@ -36,6 +36,17 @@ const api: FastifyPluginAsync = async (server: FastifyInstance) => {
             reply.status(200).send(profile);
         }
     );
+    server.patch<User.changeUserNameInterface>(
+        '/name',
+        {
+            schema: User.changeUserNameSchema,
+            preValidation: checkUser
+        },
+        async (request, reply) => {
+            await userService.changeUserName(request.body);
+            reply.status(200).send();
+        }
+    );
 };
 
 export default api;
