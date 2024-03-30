@@ -18,7 +18,7 @@ const FooterMenuContainer = styled.div`
   gap: 1rem;
 `;
 
-const FooterMenu = styled(Link)`
+const FooterMenu = styled.a`
 `;
 
 const PrivacyPolicy = styled(FooterMenu)`
@@ -35,11 +35,13 @@ function Footer() {
   return (
     <FooterContainer>
       <FooterMenuContainer>
-        <PrivacyPolicy to="/privacy-policy">
+        <PrivacyPolicy href="/privacy-policy">
           개인정보 처리방침
         </PrivacyPolicy>
         <Separator />
-        <FooterMenu to="/">이용약관</FooterMenu>
+        <FooterMenu href="/terms-of-service">
+          이용약관
+        </FooterMenu>
       </FooterMenuContainer>
       <div>
         © 2024. <a href="https://github.com/raipen" target="_blank" style={{color:"#8e8bf9",fontWeight:"600"}}>Raipen</a> all rights reserved.
