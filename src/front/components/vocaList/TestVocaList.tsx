@@ -13,7 +13,7 @@ import {
   MeaningWithAnswer,
   ButtonWithHoverAnimation,
   ReverseButtonWithHoverAnimation
-} from './index';
+} from '../index';
 
 const marking = (input: string[][], answer: {id:number,meaning: string[]}[]) => {
   const commaSeparatedAnswer = answer.map(a => ({...a,meaning:a.meaning.map(b=>b.split(',').map(c=>c.trim()))}));

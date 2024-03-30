@@ -18,7 +18,7 @@ import {
   FilpCard,
   MeaningHeader,
   SelectButton
-} from './index';
+} from '../index';
 
 const handleWord = (
   id: number,

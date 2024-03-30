@@ -4,10 +4,10 @@ import useVocaListData from "@hooks/useVocaListData";
 import { useState,useEffect } from "react";
 import { useParams,Navigate } from "react-router-dom";
 import { VocaMode } from "@utils/vocaModeEnum";
-import ViewVocaList from "@components/ViewVocaList";
-import EditVocaList from "@components/EditVocaList";
-import TestVocaList from "@components/TestVocaList";
-import VocaSidebar from "@components/VocaSidebar";
+import ViewVocaList from "@components/vocaList/ViewVocaList";
+import EditVocaList from "@components/vocaList/EditVocaList";
+import TestVocaList from "@components/vocaList/TestVocaList";
+import VocaSidebar from "@components/vocaList/VocaSidebar";
 import ErrorConfigs from "@errors/config";
 
 const VocaModeWithComponent = [

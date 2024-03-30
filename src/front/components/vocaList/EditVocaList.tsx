@@ -14,7 +14,7 @@ import {
   ReverseButtonContainingIcon,
   ActivatableIcon,
   ButtonWithHoverAnimation
-} from './index';
+} from '../index';
 import useFetchUpdate from '@hooks/useFetchUpdate';
 import { deleteVoca } from '@utils/apis/voca';
 
