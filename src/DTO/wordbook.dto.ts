@@ -92,7 +92,46 @@ export const showWordbookSchema = {
   },
 } as const;
 
+export const deleteWordbookSchema = {
+  tags: ['Wordbook'],
+  summary: '단어장 삭제',
+  headers: AuthorizationHeader,
+  body: {
+    type: 'object',
+    required: ['bookId'],
+    properties: {
+      bookId: { type: 'string' },
+    },
+  },
+  response: {
+    200: returnType,
+    ...errorSchema(
+    )
+  },
+} as const;
+
+export const renameWordbookSchema = {
+  tags: ['Wordbook'],
+  summary: '단어장 이름 변경',
+  headers: AuthorizationHeader,
+  body: {
+    type: 'object',
+    required: ['bookId', 'title'],
+    properties: {
+      bookId: { type: 'string' },
+      title: { type: 'string' },
+    },
+  },
+  response: {
+    200: returnType,
+    ...errorSchema(
+    )
+  },
+} as const;
+
 export type getWordbookListInterface = SchemaToInterface<typeof getWordbookListSchema> & { Body: { userId: string } };
 export type createWordbookInterface = SchemaToInterface<typeof createWordbookSchema> & { Body: { userId: string } };
 export type hideWordbookInterface = SchemaToInterface<typeof hideWordbookSchema> & { Body: { userId: string } };
 export type showWordbookInterface = SchemaToInterface<typeof showWordbookSchema> & { Body: { userId: string } };
+export type deleteWordbookInterface = SchemaToInterface<typeof deleteWordbookSchema> & { Body: { userId: string } };
+export type renameWordbookInterface = SchemaToInterface<typeof renameWordbookSchema> & { Body: { userId: string } };

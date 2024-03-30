@@ -12,7 +12,8 @@ export const getWordbook = async (wordbookId: string, userId: string) => await p
 const getWordbookList = (isHidden:boolean) => async (userId: string) => await prisma.wordbook.findMany({
     where: {
         userId,
-        isHidden
+        isHidden,
+        deletedAt: null
     },
     include: {
         _count: {
@@ -51,3 +52,27 @@ const changeWordbookHidden = (isHidden:boolean) => async (userId: string, wordbo
 
 export const hideWordbook = changeWordbookHidden(true);
 export const showWordbook = changeWordbookHidden(false);
+
+export const deleteWordbook = async (userId: string, wordbookId: string) => {
+    await prisma.wordbook.update({
+        where: {
+            uuid: wordbookId,
+            userId
+        },
+        data: {
+            deletedAt: new Date()
+        }
+    });
+}
+
+export const renameWordbook = async (userId: string, wordbookId: string, title: string) => {
+    await prisma.wordbook.update({
+        where: {
+            uuid: wordbookId,
+            userId
+        },
+        data: {
+            title
+        }
+    });
+}

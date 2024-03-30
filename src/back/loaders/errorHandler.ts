@@ -1,5 +1,5 @@
 import { FastifyRequest, FastifyReply, FastifyError } from 'fastify';
-import { ErrorWithToast, ValidationError } from '@errors';
+import { ErrorWithToast, ValidationError,NotFoundError } from '@errors';
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
 import ErrorConfig from '@errors/config';
 
@@ -34,8 +34,10 @@ export default (
   }
   if(error instanceof PrismaClientKnownRequestError) {
     if(error.code === 'P2025') {
-      //error.toast = '찾을 수 없는 데이터가 포함되어 있습니다.';
-      return reply.code(404).send(error);
+      return reply.code(404).send({
+        error: NotFoundError.name,
+        message: '요청하신 데이터를 찾을 수 없습니다.',
+      });
     }
     //error.toast = '잘못된 데이터가 입력되었습니다.';
     return reply.code(400).send(error);
