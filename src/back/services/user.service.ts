@@ -12,6 +12,11 @@ export default {
         };
     },
 
+    async getUserName({userId}: UserDTO.getUserNameInterface['Body']){
+        const { name } = (await UserRepo.getUserById(userId))!;
+        return { name };
+    },
+
     async changeUserName({userId, name}: UserDTO.changeUserNameInterface['Body']){
         await UserRepo.changeUserName(userId, name);
     },
