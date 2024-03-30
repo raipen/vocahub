@@ -3,9 +3,10 @@ import WordbookListContext from "@context/WordbookListContext";
 import useWordbookData from "@hooks/useWordbookData";
 import { Navigate } from "react-router-dom";
 import Profile from "@components/Profile";
-import WordbookList from "@components/WordbookList";
-import HiddenWordbookList from "@components/HiddenWordbookList";
-import WordbookListElement from "@components/WordbookListElement";
+import MyWordbookTitle from "@components/MyWordbookTitle";
+import HiddenWordbookTitle from "@components/HiddenWordbookTitle";
+import WordbookElement from "@components/WordbookElement";
+import { WordbookListContainer } from "@components";
 import ErrorConfigs from "@errors/config";
 
 function MyWordbook() {
@@ -21,12 +22,14 @@ function MyWordbook() {
     <WordbookListContext.Provider value={{data, setData}}>
       <MainContainer $flexdirection="row">
         <Profile profile={profile} />
-        <WordbookList>
-          {wordbookList.map((wordbook, index) =><WordbookListElement key={index} wordbook={wordbook}/>)}
-        </WordbookList>
-        <HiddenWordbookList>
-          {hiddenWordbookList.map((wordbook, index) =><WordbookListElement key={index} wordbook={wordbook}/>)}
-        </HiddenWordbookList>
+        <WordbookListContainer>
+          <MyWordbookTitle/>
+          {wordbookList.map((wordbook, index) =><WordbookElement key={index} wordbook={wordbook}/>)}
+        </WordbookListContainer>
+        <WordbookListContainer>
+          <HiddenWordbookTitle/>
+          {hiddenWordbookList.map((wordbook, index) =><WordbookElement key={index} wordbook={wordbook}/>)}
+        </WordbookListContainer>
       </MainContainer>
     </WordbookListContext.Provider>
   );

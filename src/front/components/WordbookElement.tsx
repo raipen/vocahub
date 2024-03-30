@@ -6,7 +6,7 @@ import { useContext } from 'react';
 import WordbookListContext from '@context/WordbookListContext';
 import WordbookDetailInfo from './WordbookDetailInfo';
 
-function WordbookListElement({ wordbook: { uuid, title, isHidden, createdAt, vocaCount } }: {
+function WordbookElement({ wordbook: { uuid, title, isHidden, createdAt, vocaCount } }: {
   wordbook: {
     uuid: string;
     title: string;
@@ -42,4 +42,4 @@ function WordbookListElement({ wordbook: { uuid, title, isHidden, createdAt, voc
   )
 }
 
-export default WordbookListElement;
+export default WordbookElement;
