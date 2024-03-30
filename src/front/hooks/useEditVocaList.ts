@@ -1,5 +1,5 @@
 import { useState, useContext, useCallback, useMemo } from 'react';
-import { VocaListContext } from '@context/VocaListContext';
+import VocaListContext from '@context/VocaListContext';
 import useFetchUpdate from '@hooks/useFetchUpdate';
 import { saveVocaList } from '@utils/apis/voca';
 

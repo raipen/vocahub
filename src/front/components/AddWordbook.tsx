@@ -2,7 +2,7 @@ import { WordbookInfo, WordbookMenu, WordbookName, AddWordbookContainer, Input, 
 import useFetchUpdate from "@hooks/useFetchUpdate";
 import { addWordbook } from '@utils/apis/wordbook';
 import { useContext,useRef } from 'react';
-import { WordbookListContext } from '@context/WordbookListContext';
+import WordbookListContext from '@context/WordbookListContext';
 import WordbookDetailInfo from './WordbookDetailInfo';
 
 function AddWordbookList({setNewWordbook}: {setNewWordbook: React.Dispatch<React.SetStateAction<boolean>>}) {

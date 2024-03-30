@@ -1,5 +1,6 @@
 import { MainContainer } from "@components";
-import { VocaListContext, useInitVocaList } from "@context/VocaListContext";
+import VocaListContext from "@context/VocaListContext";
+import useVocaListData from "@hooks/useVocaListData";
 import { useState,useEffect } from "react";
 import { useParams,Navigate } from "react-router-dom";
 import { VocaMode } from "@utils/vocaModeEnum";
@@ -17,7 +18,7 @@ const VocaModeWithComponent = [
 
 function VocaList() {
   const { wordbookId } = useParams();
-  const { isLoading, wordbook, vocaList, setVocaList, vocaListError } = useInitVocaList(wordbookId!);
+  const { isLoading, wordbook, vocaList, setVocaList, vocaListError } = useVocaListData(wordbookId!);
   const [ vocaMode, setVocaMode ] = useState(VocaMode.EDIT);
   useEffect(() => {
     if(vocaList.length > 0) setVocaMode(VocaMode.VIEW);

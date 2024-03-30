@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import useFetchUpdate from "@hooks/useFetchUpdate";
 import { hideWordbook,showWordbook } from '@utils/apis/wordbook';
 import { useContext } from 'react';
-import { WordbookListContext } from '@context/WordbookListContext';
+import WordbookListContext from '@context/WordbookListContext';
 import WordbookDetailInfo from './WordbookDetailInfo';
 
 function WordbookListElement({ wordbook: { uuid, title, isHidden, createdAt, vocaCount } }: {

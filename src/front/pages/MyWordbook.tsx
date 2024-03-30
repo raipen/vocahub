@@ -1,5 +1,6 @@
 import { MainContainer } from "@components";
-import { WordbookListContext, useInitWordbookList } from "@context/WordbookListContext";
+import WordbookListContext from "@context/WordbookListContext";
+import useWordbookData from "@hooks/useWordbookData";
 import { Navigate } from "react-router-dom";
 import Profile from "@components/Profile";
 import WordbookList from "@components/WordbookList";
@@ -8,7 +9,7 @@ import WordbookListElement from "@components/WordbookListElement";
 import ErrorConfigs from "@errors/config";
 
 function MyWordbook() {
-  const { data, setData, Error } = useInitWordbookList();
+  const { data, setData, Error } = useWordbookData();
   if(Error) {
     const errorConfig = ErrorConfigs[Error.name];
     if(errorConfig)
