@@ -109,6 +109,10 @@ export const ButtonContainingIcon = styled.button<{ $margin?: string }>`
   }
 `;
 
+export const DisabledButtonContainingIcon = styled(ButtonContainingIcon)`
+  ${GrayBackground};
+`;
+
 export const ReverseButtonContainingIcon = styled.button<{ $margin?: string }>`
   ${ButtonCss};
   ${ReverseMainColorBackground};
@@ -416,8 +420,6 @@ export const InputWithLabelContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 5px;
-  &>input {
-  }
 `;
 
 const PageLink = styled.div`
