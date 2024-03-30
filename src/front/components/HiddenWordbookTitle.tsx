@@ -1,11 +1,12 @@
-import { useState } from 'react';
-import { WordbookListContainer, Title, Expend } from './index';
+import { useContext } from 'react';
+import WordbookListContext from '@context/WordbookListContext';
+import { Title, Expend } from './index';
 
 function HiddenWordbookTitle() {
-    const [expend, setExpend] = useState(false);
+    const {expend, expendOnClick} = useContext(WordbookListContext);
 
     return (
-        <Title onClick={() => setExpend(expend => !expend)}>
+        <Title onClick={expendOnClick}>
             <span>숨긴 단어장</span>
             <Expend className="material-icons-sharp">
                 {expend ? 'expand_less' : 'expand_more'}

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ButtonContainingIcon, WordbookListContainer, Title } from './index';
+import { ButtonContainingIcon, Title } from './index';
 import AddWordbook from './AddWordbook';
 
 function MyWordbookTitle() {

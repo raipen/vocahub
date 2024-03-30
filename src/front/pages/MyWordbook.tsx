@@ -8,9 +8,11 @@ import HiddenWordbookTitle from "@components/HiddenWordbookTitle";
 import WordbookElement from "@components/WordbookElement";
 import { WordbookListContainer } from "@components";
 import ErrorConfigs from "@errors/config";
+import { useMemo } from "react";
 
 function MyWordbook() {
-  const { profile, wordbookList, hiddenWordbookList, onClickWordbookElement, Error } = useWordbookData();
+  const { profile, wordbookList, hiddenWordbookList, onClickWordbookElement, Error, expend, expendOnClick } = useWordbookData();
+  const contextValue = useMemo(() => ({ profile, onClickWordbookElement, expend, expendOnClick }), [profile, onClickWordbookElement, expend, expendOnClick]);
   if(Error) {
     const errorConfig = ErrorConfigs[Error.name];
     if(errorConfig)
@@ -18,7 +20,7 @@ function MyWordbook() {
     return <Navigate to="/error" state={{message: "알 수 없는 오류가 발생했습니다."}} />
   }
   return (
-    <WordbookListContext.Provider value={{profile, onClickWordbookElement}}>
+    <WordbookListContext.Provider value={contextValue}>
       <MainContainer $flexdirection="row">
         <Profile/>
         <WordbookListContainer>
@@ -27,7 +29,7 @@ function MyWordbook() {
         </WordbookListContainer>
         <WordbookListContainer>
           <HiddenWordbookTitle/>
-          {hiddenWordbookList.map((wordbook, index) =><WordbookElement key={index} wordbook={wordbook}/>)}
+          {expend&&hiddenWordbookList.map((wordbook, index) =><WordbookElement key={index} wordbook={wordbook}/>)}
         </WordbookListContainer>
       </MainContainer>
     </WordbookListContext.Provider>

@@ -7,6 +7,8 @@ const WordbookListContext = createContext(
   {} as {
     profile: returnData['profile'],
     onClickWordbookElement: returnData['onClickWordbookElement'],
+    expend: returnData['expend'],
+    expendOnClick: returnData['expendOnClick'],
   }
 );
 
