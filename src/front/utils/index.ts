@@ -4,7 +4,8 @@ import ErrorConfigs from '@errors/config';
 import axios from 'axios';
 
 export function ISOStringToDateString(isoString: string) {
-    const date = isoString.split('T')[0];
+    const localDate = new Date(new Date(isoString).getTime() + 1000 * 60 * 60 * 9);
+    const date = localDate.toISOString().split('T')[0];
     return date.split('-').join('.');
 }
 

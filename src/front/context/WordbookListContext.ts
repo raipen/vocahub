@@ -1,10 +1,12 @@
 import { createContext } from 'react';
-import { getDatasWhenWordbookRender } from "@utils/apis/wordbook";
+import useWordbookData from '@hooks/useWordbookData';
+
+type returnData = ReturnType<typeof useWordbookData>;
 
 const WordbookListContext = createContext(
   {} as {
-    data: Awaited<ReturnType<typeof getDatasWhenWordbookRender>>,
-    setData: React.Dispatch<React.SetStateAction<Awaited<ReturnType<typeof getDatasWhenWordbookRender>>>>
+    profile: returnData['profile'],
+    onClickWordbookElement: returnData['onClickWordbookElement'],
   }
 );
 

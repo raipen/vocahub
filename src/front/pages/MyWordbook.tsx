@@ -10,18 +10,17 @@ import { WordbookListContainer } from "@components";
 import ErrorConfigs from "@errors/config";
 
 function MyWordbook() {
-  const { data, setData, Error } = useWordbookData();
+  const { profile, wordbookList, hiddenWordbookList, onClickWordbookElement, Error } = useWordbookData();
   if(Error) {
     const errorConfig = ErrorConfigs[Error.name];
     if(errorConfig)
       return <Navigate to="/error" state={{message: errorConfig.toast(Error)}} />
     return <Navigate to="/error" state={{message: "알 수 없는 오류가 발생했습니다."}} />
   }
-  const [profile, {wordbookList, hiddenWordbookList}] = data;
   return (
-    <WordbookListContext.Provider value={{data, setData}}>
+    <WordbookListContext.Provider value={{profile, onClickWordbookElement}}>
       <MainContainer $flexdirection="row">
-        <Profile profile={profile} />
+        <Profile/>
         <WordbookListContainer>
           <MyWordbookTitle/>
           {wordbookList.map((wordbook, index) =><WordbookElement key={index} wordbook={wordbook}/>)}

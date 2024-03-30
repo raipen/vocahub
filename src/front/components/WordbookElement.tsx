@@ -16,12 +16,8 @@ function WordbookElement({ wordbook: { uuid, title, isHidden, createdAt, vocaCou
   }
 }) {
   const [loadingWordbook, fetchWordbook] = useFetchUpdate(isHidden ? showWordbook : hideWordbook);
-  const { setData } = useContext(WordbookListContext);
+  const { onClickWordbookElement } = useContext(WordbookListContext);
 
-  const onClick = async () => {
-    const data = await fetchWordbook(uuid);
-    setData(([profile])=>[profile, data]);
-  }
   return (
     <WordbookContainer>
       <WordbookInfo>
@@ -34,7 +30,7 @@ function WordbookElement({ wordbook: { uuid, title, isHidden, createdAt, vocaCou
         <WordbookDetailInfo createdAt={createdAt} vocaCount={vocaCount} />
       </WordbookInfo>
       <WordbookMenu>
-        {!loadingWordbook && <span className="material-icons-sharp" onClick={onClick}>{isHidden ? "visibility" : "visibility_off"}</span>}
+        {!loadingWordbook && <span className="material-icons-sharp" onClick={onClickWordbookElement(fetchWordbook, uuid)}>{isHidden ? "visibility" : "visibility_off"}</span>}
         {loadingWordbook && <span className="material-icons-sharp">hourglass_bottom</span>}
         {loadingWordbook && <span>이동 중</span>}
       </WordbookMenu>

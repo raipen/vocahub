@@ -1,4 +1,6 @@
 import { styled } from 'styled-components';
+import WordbookListContext from '@context/WordbookListContext';
+import { useContext } from 'react';
 
 const ProfileContainer = styled.div`
   display: flex;
@@ -114,15 +116,8 @@ function LoginDate({loginDate}: {loginDate: {date: string, count: number}[]}) {
     );
 }
 
-function Profile({profile}: {profile:{
-    name: string;
-    wordbookCount: number;
-    vocaCount: number;
-    loginDate: {
-        date: string;
-        count: number;
-    }[];
-}}) {
+function Profile() {
+  const {profile} = useContext(WordbookListContext);
   return (
     <ProfileContainer>
         <div>

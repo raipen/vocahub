@@ -106,7 +106,7 @@ function VocaSidebar({vocaMode,setVocaMode,wordbook}:{
                 <span className="material-icons-sharp" onClick={() => setVocaMode(VocaMode.EDIT)}>
                     event
                 </span>
-                <span>{ISOStringToDateString(wordbook.createdAt)}</span>
+                {wordbook.createdAt&&<span>{ISOStringToDateString(wordbook.createdAt)}</span>}
             </div>
         </WordbookInfo>
         <DefaultListElement>
