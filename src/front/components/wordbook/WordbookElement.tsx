@@ -1,4 +1,4 @@
-import { WordbookInfo, WordbookMenu, WordbookName, WordbookContainer } from './index';
+import { WordbookInfo, WordbookMenu, WordbookName, WordbookContainer } from '../index';
 import { Link } from 'react-router-dom';
 import useFetchUpdate from "@hooks/useFetchUpdate";
 import { hideWordbook,showWordbook } from '@utils/apis/wordbook';

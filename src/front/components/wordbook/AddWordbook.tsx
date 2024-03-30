@@ -1,4 +1,4 @@
-import { WordbookInfo, WordbookMenu, WordbookName, AddWordbookContainer, Input, ButtonContainingIcon, ReverseButtonContainingIcon  } from './index';
+import { WordbookInfo, WordbookMenu, WordbookName, AddWordbookContainer, Input, ButtonContainingIcon, ReverseButtonContainingIcon  } from '../index';
 import useFetchUpdate from "@hooks/useFetchUpdate";
 import { addWordbook } from '@utils/apis/wordbook';
 import { useContext,useRef } from 'react';
