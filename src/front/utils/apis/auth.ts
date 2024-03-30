@@ -10,3 +10,7 @@ export const requestRefresh = apiErrorCatchWrapper(async () => {
 export const requestLogout = apiErrorCatchWrapper(async () => {
     await axios.post('/api/v1/user/logout');
 });
+
+export const changeUserName = apiErrorCatchWrapper(async (name: string) => {
+    await axios.put('/api/v1/user/name', { name });
+});
