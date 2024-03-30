@@ -10,6 +10,8 @@ import SetAccessToken from '@pages/SetAccessToken';
 import MyWordbook from '@pages/MyWordbook';
 import VocaList from '@pages/VocaList';
 import Setting from '@pages/Setting';
+import PrivacyPolicy from '@pages/PrivacyPolicy';
+import TermsOfService from '@pages/TermsOfService';
 import Error from '@pages/Error';
 
 function App() {
@@ -24,6 +26,8 @@ function App() {
                     <Route path="/mywordbook" element={<LoginedRoute element={<MyWordbook />} />} />
                     <Route path="/vocalist/:wordbookId" element={<LoginedRoute element={<VocaList />} />} />
                     <Route path="/setting" element={<LoginedRoute element={<Setting />} />} />
+                    <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+                    <Route path="/terms-of-service" element={<TermsOfService />} />
                     <Route path="/error" element={<Error />} />
                     <Route path="*" element={<div>404 Not Found</div>} />
                 </Routes>

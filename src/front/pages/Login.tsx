@@ -8,6 +8,7 @@ function Login() {
   return (
     <LoginContainer>
       <h1>로그인</h1>
+      <p>소셜 로그인 시 <a style={{color:"#7599ee", fontWeight:"500"}} href="/terms-of-service">이용약관</a> 및 <a style={{color:"#7599ee", fontWeight:"500"}} href="/privacy-policy">개인정보 처리방침</a>에 동의하는 것으로 간주합니다.</p>
       <Link
         style={{display: "block", margin: "0 auto"}}
         to={`https://kauth.kakao.com/oauth/authorize?client_id=${__KAKAO_CLIENT_ID__}&redirect_uri=${__REDIRECT_URI__}/api/v1/oauth/kakao&response_type=code`}>
