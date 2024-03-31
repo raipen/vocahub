@@ -4,6 +4,8 @@ import { getVocaList } from "@utils/apis/voca";
 import { VocaMode } from "@utils/vocaModeEnum";
 import useFetchUpdate from '@hooks/useFetchUpdate';
 import { saveVocaList } from '@utils/apis/voca';
+import { renameWordbook, deleteWordbook } from '@utils/apis/wordbook';
+import { useNavigate } from 'react-router-dom';
 
 type Voca = { word: string, meaning: string[], id: number | null };
 
@@ -16,6 +18,11 @@ export default (wordbookId: string) => {
   const [vocaList, setVocaList] = useState<Exclude<typeof data, null>['voca']>([]);
   const [vocaMode, setVocaMode] = useState(VocaMode.EDIT);
   const [loadingSaveVocaList, fetchSaveVocaList] = useFetchUpdate(saveVocaList);
+  const [isEditingWordbookName, setIsEditingWordbookName] = useState(false);
+  const [title, setTitle] = useState(wordbook.title);
+  const [loadingRenameWordbook, fetchRenameWordbook] = useFetchUpdate(renameWordbook);
+  const [loadingDeleteWordbook, fetchDeleteWordbook] = useFetchUpdate(deleteWordbook);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (data) {
@@ -59,8 +66,34 @@ export default (wordbookId: string) => {
     });
   }, []);
 
+  const onChangeTitle = useCallback((e: React.ChangeEvent<HTMLInputElement>) => setTitle(e.target.value), []);
+
+  const renameBook = useCallback(async () => {
+    await fetchRenameWordbook(wordbookId, title);
+    setWordbook({ ...wordbook, title });
+    setIsEditingWordbookName(false);
+  }, [fetchRenameWordbook, wordbookId]);
+
+  const removeBook = useCallback(async () => {
+    if (!window.confirm('정말로 삭제하시겠습니까? 단어장 내부의 단어들도 모두 삭제됩니다.')) return;
+    await fetchDeleteWordbook(wordbookId);
+    navigate('/mywordbook');
+  }, [fetchDeleteWordbook, wordbookId]);
+
+  const startEditingWordbookName = useCallback(() => setIsEditingWordbookName(true), []);
+  const cancelEditingWordbookName = useCallback(() => {
+    setIsEditingWordbookName(false);
+    setTitle(wordbook.title);
+  }, [wordbook.title]);
+
   return useMemo(() => ({ isLoading, wordbook, vocaList,
-    vocaListError, vocaMode,  loadingSaveVocaList, saveEditedVocaList, updateCheckCount,
+    vocaListError, vocaMode,  loadingSaveVocaList, saveEditedVocaList, updateCheckCount, title, onChangeTitle,
+    loadingRenameWordbook, renameBook, loadingDeleteWordbook, removeBook,
+    isEditingWordbookName, startEditingWordbookName, cancelEditingWordbookName,
     editMode, viewMode, testMode, excludeVoca }),
-    [isLoading, wordbook, vocaList, vocaListError, vocaMode, loadingSaveVocaList, saveEditedVocaList, updateCheckCount, editMode, viewMode, testMode]);
+    [isLoading, wordbook, vocaList,
+      vocaListError, vocaMode, loadingSaveVocaList, saveEditedVocaList, updateCheckCount, title, onChangeTitle,
+      loadingRenameWordbook, renameBook, loadingDeleteWordbook, removeBook,
+      isEditingWordbookName, startEditingWordbookName, cancelEditingWordbookName,
+      editMode, viewMode, testMode]);
 }

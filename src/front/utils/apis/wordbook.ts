@@ -62,7 +62,7 @@ export const deleteWordbook = apiErrorCatchWrapper(async (accessToken: string, b
 
 export const renameWordbook = apiErrorCatchWrapper(async (accessToken: string, bookId: string, title: string) => {
   const response = await axios.patch<Wordbook.renameWordbookInterface['Reply']['200']>(
-    "/api/v1/wordbook",
+    "/api/v1/wordbook/name",
     { bookId, title },
     { headers: { Authorization: `Bearer ${accessToken}` } }
   );

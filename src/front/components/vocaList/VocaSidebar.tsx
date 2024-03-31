@@ -1,7 +1,7 @@
 import { styled } from 'styled-components';
 import { VocaMode } from "@utils/vocaModeEnum";
 import { ISOStringToDateString } from '@utils';
-import { ButtonWithHoverAnimation, ReverseButtonWithHoverAnimation } from '@components';
+import { ButtonWithHoverAnimation, ReverseButtonWithHoverAnimation, Input,ButtonContainingIcon, ReverseButtonContainingIcon } from '@components';
 import VocaListContext from '@context/VocaListContext';
 import { useContext } from 'react';
 
@@ -56,8 +56,8 @@ const WordbookName = styled.div`
     margin-bottom: 10px;
     display: flex;
     align-items: center;
-    &>div {
-        display: inline-flex;
+    &>div{
+        display: flex;
         width: 100%;
         align-items: center;
         border-bottom: 1px solid var(--main-color);
@@ -70,7 +70,24 @@ const WordbookName = styled.div`
         }
         &>span:nth-child(2) {
             margin-left: auto;
+        }
+        &>span:nth-child(n+1) {
             cursor: pointer;
+            &:hover {
+                color: var(--main-color);
+            }
+        }
+    }
+    &>form {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        &>input {
+            width: 100%;
+            flex: 1;
+        }
+        &>button {
+            padding: 5px 10px;
         }
     }
     .material-icons-sharp {
@@ -97,7 +114,9 @@ const WordbookInfo = styled.div`
 
 
 function VocaSidebar() {
-    const { wordbook, viewMode, testMode, vocaMode } = useContext(VocaListContext);
+    const { wordbook, viewMode, testMode, vocaMode, title, onChangeTitle,
+        loadingRenameWordbook, renameBook, loadingDeleteWordbook, removeBook,
+        isEditingWordbookName, startEditingWordbookName, cancelEditingWordbookName } = useContext(VocaListContext);
 
   return (
     <VocaSidebarContainer>
@@ -105,14 +124,32 @@ function VocaSidebar() {
             <span className="material-icons-sharp">
                 menu_book
             </span>
-            <div>
-                <span>
-                    {wordbook.title}
-                </span>
-                <span className="material-icons-sharp">
+            {
+                !isEditingWordbookName&&
+                <div>
+                    <span>{loadingDeleteWordbook?"삭제중":wordbook.title}</span>
+                    <span className="material-icons-sharp" onClick={startEditingWordbookName}>
                     edit
-                </span>
-            </div>
+                    </span>
+                    <span className="material-icons-sharp" onClick={removeBook}>
+                        delete
+                    </span>
+                </div>
+            }
+            {
+                isEditingWordbookName&&
+                <form onSubmit={e =>{ e.preventDefault(); renameBook();}}>
+                    <Input
+                        value={title}
+                        onChange={onChangeTitle}
+                        placeholder="단어장 이름"
+                        autoFocus
+                        disabled={loadingRenameWordbook}
+                    />
+                    <ButtonContainingIcon type="submit" disabled={loadingRenameWordbook}> 저장 </ButtonContainingIcon>
+                    <ReverseButtonContainingIcon type="button" onClick={cancelEditingWordbookName}> 취소 </ReverseButtonContainingIcon>
+                </form>
+            }
         </WordbookName>
         <WordbookInfo>
             <div>
