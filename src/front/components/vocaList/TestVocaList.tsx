@@ -32,7 +32,7 @@ const marking = (input: string[][], answer: {id:number,meaning: string[]}[]) => 
 }
 
 function TestVocaList() {
-  const { vocaList, setVocaMode } = useContext(VocaListContext);
+  const { vocaList, viewMode } = useContext(VocaListContext);
   const emptyVocaList = vocaList.map(voca => new Array(voca.meaning.length).fill(""));
   const [inputList, setInputList] = useState(emptyVocaList);
   const [result, setResult] = useState<{meaning: string[],correct: boolean}[][]|null>(null);
@@ -80,7 +80,7 @@ function TestVocaList() {
             {result.filter(voca => voca.every(m => m.correct)).length}/{vocaList.length}
           </div>}
       {result!==null&&
-        <ReverseButtonWithHoverAnimation onClick={()=>setVocaMode(VocaMode.VIEW)}>
+        <ReverseButtonWithHoverAnimation onClick={viewMode}>
           돌아가기
         </ReverseButtonWithHoverAnimation>}
     </VocaListContainer>

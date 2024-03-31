@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo,useCallback } from 'react';
 import useFetchWithRendering from "@hooks/useFetchWithRendering";
 import { getVocaList } from "@utils/apis/voca";
 import { VocaMode } from "@utils/vocaModeEnum";
@@ -20,5 +20,9 @@ export default (wordbookId: string) => {
     }
   }, [data]);
 
-  return useMemo(() => ({ isLoading, wordbook, vocaList, setVocaList, vocaListError, vocaMode, setVocaMode }), [isLoading, wordbook, vocaList, setVocaList, vocaListError, vocaMode]);
+  const editMode = useCallback(() => setVocaMode(VocaMode.EDIT), []);
+  const viewMode = useCallback(() => setVocaMode(VocaMode.VIEW), []);
+  const testMode = useCallback(() => setVocaMode(VocaMode.TEST), []);
+
+  return useMemo(() => ({ isLoading, wordbook, vocaList, setVocaList, vocaListError, vocaMode, editMode, viewMode, testMode }), [isLoading, wordbook, vocaList, setVocaList, vocaListError, vocaMode]);
 }

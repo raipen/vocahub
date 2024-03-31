@@ -1,6 +1,3 @@
-import { VocaMode } from "@utils/vocaModeEnum";
-import VocaListContext from '@context/VocaListContext';
-import { useContext } from 'react';
 import useEditVocaList from "@hooks/useEditVocaList";
 import { 
   VocaListElement,
@@ -43,10 +40,9 @@ function WordInputWithMenu({word, onChange, disabled, moveWordUp, moveWordDown, 
 }
 
 function EditVocaList() {
-  const { setVocaMode } = useContext(VocaListContext);
   const { vocaList, loadingSaveVocaList,
     onChangeWord, onChangeMeans, reset, save,
-    deleteNewVoca, deleteMean,
+    deleteWord, deleteMean,
     moveWordUp, moveWordDown } = useEditVocaList();
 
   return (
@@ -54,8 +50,8 @@ function EditVocaList() {
       <Title>
         <span>단어 편집</span>
         <div style={{display: 'flex', gap: '10px'}}>
-          <ReverseButtonContainingIcon onClick={()=>reset(()=>setVocaMode(VocaMode.VIEW))}>취소</ReverseButtonContainingIcon>
-          <ButtonContainingIcon onClick={()=>save(()=>setVocaMode(VocaMode.VIEW))}>저장</ButtonContainingIcon>
+          <ReverseButtonContainingIcon onClick={reset}>취소</ReverseButtonContainingIcon>
+          <ButtonContainingIcon onClick={save}>저장</ButtonContainingIcon>
         </div>
       </Title>
       <VocaListElement>
@@ -67,7 +63,7 @@ function EditVocaList() {
           뜻
         </div>
         {vocaList.flatMap((voca,i) => [
-            <WordInputWithMenu key={3*i} word={voca.word} onChange={onChangeWord(i)} disabled={loadingSaveVocaList} moveWordUp={moveWordUp(i)} moveWordDown={moveWordDown(i)} deleteWord={deleteNewVoca(i,voca.id)}/>,
+            <WordInputWithMenu key={3*i} word={voca.word} onChange={onChangeWord(i)} disabled={loadingSaveVocaList} moveWordUp={moveWordUp(i)} moveWordDown={moveWordDown(i)} deleteWord={deleteWord(i,voca.id)}/>,
             <SeparateLine key={3*i+1}/>,
             <Meaning key={3*i+2}>
               {voca.meaning.map((m,j) =>(
@@ -79,7 +75,7 @@ function EditVocaList() {
             </Meaning>
         ])}
       </VocaListElement>
-      <ButtonWithHoverAnimation onClick={()=>save(()=>setVocaMode(VocaMode.VIEW))}>저장</ButtonWithHoverAnimation>
+      <ButtonWithHoverAnimation onClick={save}>저장</ButtonWithHoverAnimation>
     </VocaListContainer>
   );
 }

@@ -8,7 +8,9 @@ const VocaListContext = createContext(
     wordbookId: string,
     wordbook: ReturnType<typeof useVocaListData>['wordbook'],
     vocaMode: ReturnType<typeof useVocaListData>['vocaMode'],
-    setVocaMode: ReturnType<typeof useVocaListData>['setVocaMode']
+    editMode: () => void,
+    viewMode: () => void,
+    testMode: () => void
   }
 );
 

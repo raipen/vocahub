@@ -97,7 +97,7 @@ const WordbookInfo = styled.div`
 
 
 function VocaSidebar() {
-    const { wordbook, setVocaMode, vocaMode } = useContext(VocaListContext);
+    const { wordbook, viewMode, testMode, vocaMode } = useContext(VocaListContext);
 
   return (
     <VocaSidebarContainer>
@@ -122,7 +122,7 @@ function VocaSidebar() {
                 단어 {wordbook.wordCount} 개
             </div>
             <div>
-                <span className="material-icons-sharp" onClick={() => setVocaMode(VocaMode.EDIT)}>
+                <span className="material-icons-sharp">
                     event
                 </span>
                 {wordbook.createdAt&&<span>{ISOStringToDateString(wordbook.createdAt)}</span>}
@@ -154,10 +154,10 @@ function VocaSidebar() {
             <span>전체 단어 테스트 진행 후 틀린 단어만 모아서 한 번 더 외우기</span>
         </DefaultListElement>
         {vocaMode===VocaMode.VIEW&&
-            <ButtonWithHoverAnimation onClick={() => setVocaMode(VocaMode.TEST)}>테스트 시작</ButtonWithHoverAnimation>
+            <ButtonWithHoverAnimation onClick={testMode}>테스트 시작</ButtonWithHoverAnimation>
         }
         {vocaMode!==VocaMode.VIEW&&
-            <ReverseButtonWithHoverAnimation onClick={() => setVocaMode(VocaMode.VIEW)}>단어 학습으로 돌아가기</ReverseButtonWithHoverAnimation>
+            <ReverseButtonWithHoverAnimation onClick={viewMode}>단어 학습으로 돌아가기</ReverseButtonWithHoverAnimation>
         }
     </VocaSidebarContainer>
   );

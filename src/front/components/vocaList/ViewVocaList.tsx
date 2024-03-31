@@ -69,7 +69,7 @@ function FlippableMeaning({children, reversed, refresh}: {children: string, reve
 }
 
 function ViewVocaList() {
-  const { vocaList, setVocaMode } = useContext(VocaListContext);
+  const { vocaList, editMode } = useContext(VocaListContext);
   const [defaultVisible, setDefaultVisible] = useState(false);
   const [showCount, setShowCount] = useState(0);
   const [refresh, setRefresh] = useState({});
@@ -79,7 +79,7 @@ function ViewVocaList() {
     <VocaListContainer style={{marginLeft: 0}}>
       <Title>
         <span>단어 목록</span>
-        <ButtonContainingIcon onClick={() => setVocaMode(VocaMode.EDIT)}>수정</ButtonContainingIcon>
+        <ButtonContainingIcon onClick={editMode}>수정</ButtonContainingIcon>
       </Title>
       <div style={{display: 'flex', gap: '5px', marginBottom: '10px', justifyContent: 'center'}}>
         <SelectButton onClick={() => setShowCount(0)} $active={showCount===0}>All</SelectButton>

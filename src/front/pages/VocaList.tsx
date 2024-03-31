@@ -1,7 +1,6 @@
 import { MainContainer } from "@components";
 import VocaListContext from "@context/VocaListContext";
 import useVocaListData from "@hooks/useVocaListData";
-import { useState,useEffect } from "react";
 import { useParams,Navigate } from "react-router-dom";
 import { VocaMode } from "@utils/vocaModeEnum";
 import ViewVocaList from "@components/vocaList/ViewVocaList";
@@ -18,7 +17,7 @@ const VocaModeWithComponent = [
 
 function VocaList() {
   const { wordbookId } = useParams();
-  const { isLoading, vocaListError, wordbook, vocaList, setVocaList, vocaMode, setVocaMode } = useVocaListData(wordbookId!);
+  const { isLoading, vocaListError, wordbook, vocaList, setVocaList, vocaMode, editMode, viewMode, testMode } = useVocaListData(wordbookId!);
   if(vocaListError) {
     const errorConfig = ErrorConfigs[vocaListError.name];
     if(errorConfig)
@@ -27,7 +26,7 @@ function VocaList() {
   }
 
   return (
-    <VocaListContext.Provider value={{vocaList, setVocaList, wordbookId:wordbook.uuid, wordbook, vocaMode, setVocaMode}}>
+    <VocaListContext.Provider value={{vocaList, setVocaList, wordbookId:wordbook.uuid, wordbook, vocaMode, editMode, viewMode, testMode}}>
       <MainContainer $flexdirection="row">
         <VocaSidebar/>
         {isLoading && <div></div>}
