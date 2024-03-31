@@ -2,6 +2,8 @@ import { styled } from 'styled-components';
 import { VocaMode } from "@utils/vocaModeEnum";
 import { ISOStringToDateString } from '@utils';
 import { ButtonWithHoverAnimation, ReverseButtonWithHoverAnimation } from '@components';
+import VocaListContext from '@context/VocaListContext';
+import { useContext } from 'react';
 
 const VocaSidebarContainer = styled.div`
     display: flex;
@@ -52,10 +54,24 @@ const ChildListElement = styled.div`
 
 const WordbookName = styled.div`
     margin-bottom: 10px;
-    &>span:last-child {
-        font-size: 1.5rem;
-        font-weight: 600;
-        color: var(--main-color);
+    display: flex;
+    align-items: center;
+    &>div {
+        display: inline-flex;
+        width: 100%;
+        align-items: center;
+        border-bottom: 1px solid var(--main-color);
+        padding-left: 5px;
+        padding-bottom: 2px;
+        &>span:nth-child(1) {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--main-color);
+        }
+        &>span:nth-child(2) {
+            margin-left: auto;
+            cursor: pointer;
+        }
     }
     .material-icons-sharp {
         font-size: 1rem;
@@ -80,20 +96,23 @@ const WordbookInfo = styled.div`
 `;
 
 
-function VocaSidebar({vocaMode,setVocaMode,wordbook}:{
-    vocaMode: VocaMode,
-    setVocaMode: React.Dispatch<React.SetStateAction<VocaMode>>,
-    wordbook: {title: string, createdAt: string, wordCount: number}
-}) {
+function VocaSidebar() {
+    const { wordbook, setVocaMode, vocaMode } = useContext(VocaListContext);
+
   return (
     <VocaSidebarContainer>
         <WordbookName>
             <span className="material-icons-sharp">
                 menu_book
             </span>
-            <span>
-                {wordbook.title}
-            </span>
+            <div>
+                <span>
+                    {wordbook.title}
+                </span>
+                <span className="material-icons-sharp">
+                    edit
+                </span>
+            </div>
         </WordbookName>
         <WordbookInfo>
             <div>

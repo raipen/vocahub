@@ -68,8 +68,8 @@ function FlippableMeaning({children, reversed, refresh}: {children: string, reve
   );
 }
 
-function ViewVocaList({setVocaMode}: {setVocaMode: React.Dispatch<React.SetStateAction<VocaMode>>}) {
-  const { vocaList } = useContext(VocaListContext);
+function ViewVocaList() {
+  const { vocaList, setVocaMode } = useContext(VocaListContext);
   const [defaultVisible, setDefaultVisible] = useState(false);
   const [showCount, setShowCount] = useState(0);
   const [refresh, setRefresh] = useState({});

@@ -1,11 +1,14 @@
 import { createContext } from 'react';
-import { getVocaList } from "@utils/apis/voca";
+import useVocaListData from '@hooks/useVocaListData';
 
 const VocaListContext = createContext(
   {} as {
-    vocaList: Awaited<ReturnType<typeof getVocaList>>['voca'],
-    setVocaList: React.Dispatch<React.SetStateAction<Awaited<ReturnType<typeof getVocaList>>['voca']>>,
-    wordbookId: string
+    vocaList: ReturnType<typeof useVocaListData>['vocaList'],
+    setVocaList: ReturnType<typeof useVocaListData>['setVocaList'],
+    wordbookId: string,
+    wordbook: ReturnType<typeof useVocaListData>['wordbook'],
+    vocaMode: ReturnType<typeof useVocaListData>['vocaMode'],
+    setVocaMode: ReturnType<typeof useVocaListData>['setVocaMode']
   }
 );
 

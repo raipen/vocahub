@@ -31,8 +31,8 @@ const marking = (input: string[][], answer: {id:number,meaning: string[]}[]) => 
   return {detailMarking: detailMarking.map(({result}) => result), markingResult};
 }
 
-function TestVocaList({setVocaMode}: {setVocaMode: React.Dispatch<React.SetStateAction<VocaMode>>}) {
-  const { vocaList } = useContext(VocaListContext);
+function TestVocaList() {
+  const { vocaList, setVocaMode } = useContext(VocaListContext);
   const emptyVocaList = vocaList.map(voca => new Array(voca.meaning.length).fill(""));
   const [inputList, setInputList] = useState(emptyVocaList);
   const [result, setResult] = useState<{meaning: string[],correct: boolean}[][]|null>(null);

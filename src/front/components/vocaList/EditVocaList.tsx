@@ -1,4 +1,6 @@
 import { VocaMode } from "@utils/vocaModeEnum";
+import VocaListContext from '@context/VocaListContext';
+import { useContext } from 'react';
 import useEditVocaList from "@hooks/useEditVocaList";
 import { 
   VocaListElement,
@@ -40,7 +42,8 @@ function WordInputWithMenu({word, onChange, disabled, moveWordUp, moveWordDown, 
   );
 }
 
-function EditVocaList({setVocaMode}: {setVocaMode: React.Dispatch<React.SetStateAction<VocaMode>>}) {
+function EditVocaList() {
+  const { setVocaMode } = useContext(VocaListContext);
   const { vocaList, loadingSaveVocaList,
     onChangeWord, onChangeMeans, reset, save,
     deleteNewVoca, deleteMean,
