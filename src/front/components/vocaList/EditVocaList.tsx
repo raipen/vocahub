@@ -33,7 +33,7 @@ function WordInputWithMenu({word, onChange, disabled, moveWordUp, moveWordDown, 
     <div style={{display: 'flex', padding: '10px', alignItems: 'center'}}>
       <ActivatableIcon onClick={moveWordUp} className="material-icons-sharp" tabIndex={-1} disabled={disable}>arrow_upward</ActivatableIcon>
       <ActivatableIcon onClick={moveWordDown} className="material-icons-sharp" tabIndex={-1} disabled={disable}>arrow_downward</ActivatableIcon>
-      <MiniInput value={loadingDeleteVoca ? "삭제중" : word} onChange={onChange} disabled={disable}/>
+      <MiniInput value={loadingDeleteVoca ? "삭제중" : word} onChange={onChange} disabled={disable} placeholder="ex) apple"/>
       <WarningClickableIcon disabled={disable} onClick={deleteWord(fetchDeleteVoca)} className="material-icons-sharp" tabIndex={-1} style={{fontSize:"1.5rem"}}>delete_forever</WarningClickableIcon>
     </div>
   );
@@ -68,7 +68,7 @@ function EditVocaList() {
             <Meaning key={3*i+2}>
               {voca.meaning.map((m,j) =>(
                 <MeaningCount key={j}>
-                  <MiniInput value={m} onChange={onChangeMeans(i,j)} disabled={loadingSaveVocaList}/>
+                  <MiniInput value={m} onChange={onChangeMeans(i,j)} disabled={loadingSaveVocaList} placeholder={j===0?"ex) 사과":"ex) 뜻"+(j+1)}/>
                   <UnactivatableIcon onClick={deleteMean(i,j)} className="material-icons-sharp" tabIndex={-1}>remove_circle_outline</UnactivatableIcon>
                 </MeaningCount>
               ))}
