@@ -27,6 +27,7 @@ export default (wordbookId: string) => {
   useEffect(() => {
     if (data) {
       setWordbook({ ...data.wordbook, wordCount: data.voca.length });
+      setTitle(data.wordbook.title);
       setVocaList(data.voca);
       setIsLoading(false);
       if(data.voca.length > 0) setVocaMode(VocaMode.VIEW);

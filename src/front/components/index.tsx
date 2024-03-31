@@ -238,12 +238,17 @@ export const WordbookInfo = styled.div`
   ${FlexColumnLeftStart};
   font-size: 1rem;
   font-weight: 300;
+  max-width: calc(100% - 50px);
   color: var(--muted-text-color);
 `;
 
 export const WordbookName = styled.div`
   font-size: 1.5rem;
   font-weight: 600;
+  max-width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
   &>a:last-child {
     color: var(--main-color);
     &:hover {

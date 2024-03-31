@@ -26,6 +26,7 @@ function WordbookElement({ wordbook: { uuid, title, isHidden, createdAt, vocaCou
             menu_book
           </span>
           <Link to={`/vocalist/${uuid}`}>{title}</Link>
+          
         </WordbookName>
         <WordbookDetailInfo createdAt={createdAt} vocaCount={vocaCount} />
       </WordbookInfo>

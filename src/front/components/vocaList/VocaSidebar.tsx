@@ -58,7 +58,7 @@ const WordbookName = styled.div`
     align-items: center;
     &>div{
         display: flex;
-        width: 100%;
+        width: calc(100% - 16px);
         align-items: center;
         border-bottom: 1px solid var(--main-color);
         padding-left: 5px;
@@ -67,11 +67,15 @@ const WordbookName = styled.div`
             font-size: 1.5rem;
             font-weight: 600;
             color: var(--main-color);
+            width: 100%;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
         }
         &>span:nth-child(2) {
             margin-left: auto;
         }
-        &>span:nth-child(n+1) {
+        &>span:nth-child(n+2) {
             cursor: pointer;
             &:hover {
                 color: var(--main-color);
