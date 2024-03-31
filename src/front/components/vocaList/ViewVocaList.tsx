@@ -23,28 +23,20 @@ import {
 const handleWord = (
   id: number,
   fetchFunction: (id: number) => Promise<null>,
-  setVocaList: React.Dispatch<React.SetStateAction<Awaited<ReturnType<typeof getVocaList>>['voca']>>,
+  updateCheckCount: (id: number, callback: Function) => void,
   callback: (vocaCount: number) => number
 ) => async () => {
   await fetchFunction(id);
-  setVocaList((prev) => {
-    const newVocaList = prev.map(voca => {
-      if (voca.id === id) {
-        return { ...voca, checkCount: callback(voca.checkCount) };
-      }
-      return voca;
-    });
-    return newVocaList;
-  });
+  updateCheckCount(id, callback);
 }
 
 function CheckableWord({word,checkCount,id}: {word: string, checkCount: number, id: number}) {
   const [loadingIncrease, fetchIncrease]= useFetchUpdate(increaseCheckCount);
   const [loadingDecrease, fetchDecrease] = useFetchUpdate(decreaseCheckCount);
-  const { setVocaList } = useContext(VocaListContext);
+  const { updateCheckCount } = useContext(VocaListContext);
 
-  const handleIncrease = handleWord(id, fetchIncrease, setVocaList, (vocaCount) => vocaCount+1);
-  const handleDecrease = handleWord(id, fetchDecrease, setVocaList, (vocaCount) => vocaCount-1);
+  const handleIncrease = handleWord(id, fetchIncrease, updateCheckCount, (vocaCount) => vocaCount+1);
+  const handleDecrease = handleWord(id, fetchDecrease, updateCheckCount, (vocaCount) => vocaCount-1);
   return (
     <div style={{padding: '10px'}}>
       <span>{word}</span>

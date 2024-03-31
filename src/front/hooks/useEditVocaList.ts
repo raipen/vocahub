@@ -44,6 +44,7 @@ const useEditVocaList = () => {
       if(id !== null) {
         await fetchDeleteVoca(id);
         excludeVoca(id);
+        return setEditingVocaList(list=>list.filter((voca) => voca.id !== id));
       }
       setEditingVocaList(editingVocaList.filter((_, index) => index !== i));
     },

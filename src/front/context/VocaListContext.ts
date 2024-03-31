@@ -12,6 +12,7 @@ const VocaListContext = createContext(
     loadingSaveVocaList: ReturnType<typeof useVocaListData>['loadingSaveVocaList'],
     saveEditedVocaList: ReturnType<typeof useVocaListData>['saveEditedVocaList'],
     excludeVoca: ReturnType<typeof useVocaListData>['excludeVoca'],
+    updateCheckCount: ReturnType<typeof useVocaListData>['updateCheckCount']
   }
 );
 

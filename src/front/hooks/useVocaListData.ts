@@ -43,12 +43,24 @@ export default (wordbookId: string) => {
   }, [fetchSaveVocaList, wordbookId]);
 
   const excludeVoca = useCallback((id: number) => {
-    setVocaList(vocaList.filter(voca => voca.id !== id));
+    setVocaList(list => list.filter(voca => voca.id !== id));
     setWordbook({ ...wordbook, wordCount: wordbook.wordCount - 1 });
   } , [vocaList]);
 
+  const updateCheckCount = useCallback((id: number, callback: Function) => {
+    setVocaList((prev) => {
+      const newVocaList = prev.map(voca => {
+        if (voca.id === id) {
+          return { ...voca, checkCount: callback(voca.checkCount) };
+        }
+        return voca;
+      });
+      return newVocaList;
+    });
+  }, []);
+
   return useMemo(() => ({ isLoading, wordbook, vocaList,
-    vocaListError, vocaMode,  loadingSaveVocaList, saveEditedVocaList,
+    vocaListError, vocaMode,  loadingSaveVocaList, saveEditedVocaList, updateCheckCount,
     editMode, viewMode, testMode, excludeVoca }),
-    [isLoading, wordbook, vocaList, vocaListError, vocaMode, loadingSaveVocaList, saveEditedVocaList, editMode, viewMode, testMode]);
+    [isLoading, wordbook, vocaList, vocaListError, vocaMode, loadingSaveVocaList, saveEditedVocaList, updateCheckCount, editMode, viewMode, testMode]);
 }
