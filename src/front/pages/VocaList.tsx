@@ -17,7 +17,7 @@ const VocaModeWithComponent = [
 
 function VocaList() {
   const { wordbookId } = useParams();
-  const { isLoading, vocaListError, wordbook, vocaList, setVocaList, vocaMode, editMode, viewMode, testMode } = useVocaListData(wordbookId!);
+  const { isLoading, vocaListError, ...rest} = useVocaListData(wordbookId!);
   if(vocaListError) {
     const errorConfig = ErrorConfigs[vocaListError.name];
     if(errorConfig)
@@ -26,13 +26,13 @@ function VocaList() {
   }
 
   return (
-    <VocaListContext.Provider value={{vocaList, setVocaList, wordbookId:wordbook.uuid, wordbook, vocaMode, editMode, viewMode, testMode}}>
+    <VocaListContext.Provider value={rest}>
       <MainContainer $flexdirection="row">
         <VocaSidebar/>
         {isLoading && <div></div>}
         {!isLoading &&
           VocaModeWithComponent.map(([mode, Component], i) =>
-            vocaMode === mode && <Component key={i}/>
+            rest.vocaMode === mode && <Component key={i}/>
           )
         }
       </MainContainer>

@@ -1,17 +1,14 @@
 import { useState, useContext, useCallback, useMemo } from 'react';
 import VocaListContext from '@context/VocaListContext';
-import useFetchUpdate from '@hooks/useFetchUpdate';
-import { saveVocaList } from '@utils/apis/voca';
 
 type Voca = { word: string, meaning: string[], id: number | null };
 
 const useEditVocaList = () => {
-  const { vocaList, setVocaList, wordbookId, viewMode } = useContext(VocaListContext);
+  const { vocaList, loadingSaveVocaList, saveEditedVocaList, excludeVoca, viewMode } = useContext(VocaListContext);
   const newVocaList = vocaList.map(voca => ({ ...voca, meaning: [...voca.meaning, ''] })) as Voca[];
   newVocaList.push({ word: '', meaning: [''], id: null });
 
   const [editingVocaList, setEditingVocaList] = useState(newVocaList);
-  const [loadingSaveVocaList, fetchSaveVocaList] = useFetchUpdate(saveVocaList);
 
   const onChangeWord = useCallback((i: number) => (e: React.ChangeEvent<HTMLInputElement>) => {
     const newVocaList = [...editingVocaList];
@@ -37,14 +34,7 @@ const useEditVocaList = () => {
   }, [vocaList]);
 
   const save = async () => {
-    const removeEmptyList = editingVocaList.filter(voca => voca.word !== '').map(voca => ({...voca, meaning: voca.meaning.filter(m => m !== '')}));
-    if (removeEmptyList.some(voca => voca.meaning.length === 0)) {
-      alert('뜻이 없는 단어가 있습니다.');
-      return;
-    }
-    const newVocaList = await fetchSaveVocaList(wordbookId, removeEmptyList);
-    setVocaList(newVocaList);
-    viewMode();
+    await saveEditedVocaList(editingVocaList);
   };
 
   const deleteWord = useCallback(
@@ -53,11 +43,11 @@ const useEditVocaList = () => {
     async () => {
       if(id !== null) {
         await fetchDeleteVoca(id);
-        setVocaList(vocaList.filter(voca => voca.id !== id));
+        excludeVoca(id);
       }
       setEditingVocaList(editingVocaList.filter((_, index) => index !== i));
     },
-    [editingVocaList, setVocaList, vocaList]
+    [editingVocaList, vocaList]
   );
 
   const deleteMean = useCallback((i: number, j: number) => ()=> {
