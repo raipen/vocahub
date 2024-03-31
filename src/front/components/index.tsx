@@ -219,6 +219,7 @@ export const WordbookContainer = styled.div`
   margin-bottom: 10px;
   border-top: 1px solid var(--main-color);
   padding: 10px;
+  gap: 10px;
 `;
 
 export const AddWordbookContainer = styled(WordbookContainer)`
@@ -228,7 +229,10 @@ export const AddWordbookContainer = styled(WordbookContainer)`
 
 export const WordbookMenu = styled.div`
   ${FlexColumnCenter};
-  ${clickable};
+  &>span{
+    ${clickable};
+    font-size: 1.2rem;
+  }
   color: var(--muted-text-color);
   font-weight: 300;
   gap: 10px;
@@ -239,6 +243,7 @@ export const WordbookInfo = styled.div`
   font-size: 1rem;
   font-weight: 300;
   max-width: calc(100% - 50px);
+  flex: 1;
   color: var(--muted-text-color);
 `;
 
@@ -258,6 +263,7 @@ export const WordbookName = styled.div`
   }
   &>input{
     font-weight: 600;
+    width: calc(100% - 21px);
   }
   &>.material-icons-sharp{
     font-size: 1rem;

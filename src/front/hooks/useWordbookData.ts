@@ -27,9 +27,9 @@ export default () => {
     const {wordbookList, hiddenWordbookList} = wordbook;
 
     const onClickWordbookElement = useCallback(
-      <T>(fetchFunction: (args:T) => Promise<getWordbookListInterface['Reply']['200']>, args: T) =>
+      <T extends Array<any>>(fetchFunction: (...args:T) => Promise<getWordbookListInterface['Reply']['200']>, ...args: T) =>
       async () => {
-        const wordbook = await fetchFunction(args);
+        const wordbook = await fetchFunction(...args);
         const newProfile = await fetchGetProfile();
         setWordbook(wordbook);
         setProfile(newProfile);
