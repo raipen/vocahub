@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import WordbookListContext from '@context/WordbookListContext';
-import { Title, Expend } from './index';
+import { Title, Expend } from '../index';
 
 function HiddenWordbookTitle() {
     const {expend, expendOnClick} = useContext(WordbookListContext);

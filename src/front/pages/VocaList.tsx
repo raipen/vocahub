@@ -1,13 +1,12 @@
 import { MainContainer } from "@components";
 import VocaListContext from "@context/VocaListContext";
 import useVocaListData from "@hooks/useVocaListData";
-import { useState,useEffect } from "react";
 import { useParams,Navigate } from "react-router-dom";
 import { VocaMode } from "@utils/vocaModeEnum";
-import ViewVocaList from "@components/ViewVocaList";
-import EditVocaList from "@components/EditVocaList";
-import TestVocaList from "@components/TestVocaList";
-import VocaSidebar from "@components/VocaSidebar";
+import ViewVocaList from "@components/vocaList/ViewVocaList";
+import EditVocaList from "@components/vocaList/EditVocaList";
+import TestVocaList from "@components/vocaList/TestVocaList";
+import VocaSidebar from "@components/vocaList/VocaSidebar";
 import ErrorConfigs from "@errors/config";
 
 const VocaModeWithComponent = [
@@ -18,12 +17,7 @@ const VocaModeWithComponent = [
 
 function VocaList() {
   const { wordbookId } = useParams();
-  const { isLoading, wordbook, vocaList, setVocaList, vocaListError } = useVocaListData(wordbookId!);
-  const [ vocaMode, setVocaMode ] = useState(VocaMode.EDIT);
-  useEffect(() => {
-    if(vocaList.length > 0) setVocaMode(VocaMode.VIEW);
-    // eslint-disable-next-line
-  }, [isLoading]);
+  const { isLoading, vocaListError, ...rest} = useVocaListData(wordbookId!);
   if(vocaListError) {
     const errorConfig = ErrorConfigs[vocaListError.name];
     if(errorConfig)
@@ -32,13 +26,13 @@ function VocaList() {
   }
 
   return (
-    <VocaListContext.Provider value={{vocaList, setVocaList, wordbookId:wordbook.uuid}}>
+    <VocaListContext.Provider value={rest}>
       <MainContainer $flexdirection="row">
-        <VocaSidebar vocaMode={vocaMode} setVocaMode={setVocaMode} wordbook={{...wordbook, wordCount:vocaList.length}} />
+        <VocaSidebar/>
         {isLoading && <div></div>}
         {!isLoading &&
           VocaModeWithComponent.map(([mode, Component], i) =>
-            vocaMode === mode && <Component key={i} setVocaMode={setVocaMode} />
+            rest.vocaMode === mode && <Component key={i}/>
           )
         }
       </MainContainer>

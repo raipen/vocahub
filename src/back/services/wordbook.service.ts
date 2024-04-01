@@ -38,3 +38,15 @@ export async function showWordbook({userId, bookId}: WordbookDTO.showWordbookInt
     await WordbookRepo.showWordbook(userId, bookId);
     return getWrodbookList({userId});
 }
+
+export async function deleteWordbook({userId, bookId}: WordbookDTO.deleteWordbookInterface['Body'])
+: Promise<WordbookDTO.deleteWordbookInterface['Reply']['200']> {
+    await WordbookRepo.deleteWordbook(userId, bookId);
+    return getWrodbookList({userId});
+}
+
+export async function renameWordbook({userId, bookId, title}: WordbookDTO.renameWordbookInterface['Body'])
+: Promise<WordbookDTO.renameWordbookInterface['Reply']['200']> {
+    await WordbookRepo.renameWordbook(userId, bookId, title);
+    return getWrodbookList({userId});
+}

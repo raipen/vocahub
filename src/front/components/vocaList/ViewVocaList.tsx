@@ -18,33 +18,25 @@ import {
   FilpCard,
   MeaningHeader,
   SelectButton
-} from './index';
+} from '../index';
 
 const handleWord = (
   id: number,
   fetchFunction: (id: number) => Promise<null>,
-  setVocaList: React.Dispatch<React.SetStateAction<Awaited<ReturnType<typeof getVocaList>>['voca']>>,
+  updateCheckCount: (id: number, callback: Function) => void,
   callback: (vocaCount: number) => number
 ) => async () => {
   await fetchFunction(id);
-  setVocaList((prev) => {
-    const newVocaList = prev.map(voca => {
-      if (voca.id === id) {
-        return { ...voca, checkCount: callback(voca.checkCount) };
-      }
-      return voca;
-    });
-    return newVocaList;
-  });
+  updateCheckCount(id, callback);
 }
 
 function CheckableWord({word,checkCount,id}: {word: string, checkCount: number, id: number}) {
   const [loadingIncrease, fetchIncrease]= useFetchUpdate(increaseCheckCount);
   const [loadingDecrease, fetchDecrease] = useFetchUpdate(decreaseCheckCount);
-  const { setVocaList } = useContext(VocaListContext);
+  const { updateCheckCount } = useContext(VocaListContext);
 
-  const handleIncrease = handleWord(id, fetchIncrease, setVocaList, (vocaCount) => vocaCount+1);
-  const handleDecrease = handleWord(id, fetchDecrease, setVocaList, (vocaCount) => vocaCount-1);
+  const handleIncrease = handleWord(id, fetchIncrease, updateCheckCount, (vocaCount) => vocaCount+1);
+  const handleDecrease = handleWord(id, fetchDecrease, updateCheckCount, (vocaCount) => vocaCount-1);
   return (
     <div style={{padding: '10px'}}>
       <span>{word}</span>
@@ -68,8 +60,8 @@ function FlippableMeaning({children, reversed, refresh}: {children: string, reve
   );
 }
 
-function ViewVocaList({setVocaMode}: {setVocaMode: React.Dispatch<React.SetStateAction<VocaMode>>}) {
-  const { vocaList } = useContext(VocaListContext);
+function ViewVocaList() {
+  const { vocaList, editMode } = useContext(VocaListContext);
   const [defaultVisible, setDefaultVisible] = useState(false);
   const [showCount, setShowCount] = useState(0);
   const [refresh, setRefresh] = useState({});
@@ -79,7 +71,7 @@ function ViewVocaList({setVocaMode}: {setVocaMode: React.Dispatch<React.SetState
     <VocaListContainer style={{marginLeft: 0}}>
       <Title>
         <span>단어 목록</span>
-        <ButtonContainingIcon onClick={() => setVocaMode(VocaMode.EDIT)}>수정</ButtonContainingIcon>
+        <ButtonContainingIcon onClick={editMode}>수정</ButtonContainingIcon>
       </Title>
       <div style={{display: 'flex', gap: '5px', marginBottom: '10px', justifyContent: 'center'}}>
         <SelectButton onClick={() => setShowCount(0)} $active={showCount===0}>All</SelectButton>

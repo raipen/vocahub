@@ -51,6 +51,30 @@ const api: FastifyPluginAsync = async (server: FastifyInstance) => {
             reply.status(200).send(result);
         }
     );
+
+    server.delete<WordbookDTO.deleteWordbookInterface>(
+        '/',
+        {
+            schema: WordbookDTO.deleteWordbookSchema,
+            preValidation: checkUser
+        },
+        async (request, reply) => {
+            const result = await WordbookService.deleteWordbook(request.body);
+            reply.status(200).send(result);
+        }
+    );
+
+    server.patch<WordbookDTO.renameWordbookInterface>(
+        '/name',
+        {
+            schema: WordbookDTO.renameWordbookSchema,
+            preValidation: checkUser
+        },
+        async (request, reply) => {
+            const result = await WordbookService.renameWordbook(request.body);
+            reply.status(200).send(result);
+        }
+    );
 };
 
 export default api;

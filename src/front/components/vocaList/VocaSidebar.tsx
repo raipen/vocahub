@@ -1,7 +1,9 @@
 import { styled } from 'styled-components';
 import { VocaMode } from "@utils/vocaModeEnum";
 import { ISOStringToDateString } from '@utils';
-import { ButtonWithHoverAnimation, ReverseButtonWithHoverAnimation } from '@components';
+import { ButtonWithHoverAnimation, ReverseButtonWithHoverAnimation, Input,ButtonContainingIcon, ReverseButtonContainingIcon } from '@components';
+import VocaListContext from '@context/VocaListContext';
+import { useContext } from 'react';
 
 const VocaSidebarContainer = styled.div`
     display: flex;
@@ -52,10 +54,45 @@ const ChildListElement = styled.div`
 
 const WordbookName = styled.div`
     margin-bottom: 10px;
-    &>span:last-child {
-        font-size: 1.5rem;
-        font-weight: 600;
-        color: var(--main-color);
+    display: flex;
+    align-items: center;
+    &>div{
+        display: flex;
+        width: calc(100% - 16px);
+        align-items: center;
+        border-bottom: 1px solid var(--main-color);
+        padding-left: 5px;
+        padding-bottom: 2px;
+        &>span:nth-child(1) {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--main-color);
+            width: 100%;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+        &>span:nth-child(2) {
+            margin-left: auto;
+        }
+        &>span:nth-child(n+2) {
+            cursor: pointer;
+            &:hover {
+                color: var(--main-color);
+            }
+        }
+    }
+    &>form {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        &>input {
+            width: 100%;
+            flex: 1;
+        }
+        &>button {
+            padding: 5px 10px;
+        }
     }
     .material-icons-sharp {
         font-size: 1rem;
@@ -80,20 +117,43 @@ const WordbookInfo = styled.div`
 `;
 
 
-function VocaSidebar({vocaMode,setVocaMode,wordbook}:{
-    vocaMode: VocaMode,
-    setVocaMode: React.Dispatch<React.SetStateAction<VocaMode>>,
-    wordbook: {title: string, createdAt: string, wordCount: number}
-}) {
+function VocaSidebar() {
+    const { wordbook, viewMode, testMode, vocaMode, title, onChangeTitle,
+        loadingRenameWordbook, renameBook, loadingDeleteWordbook, removeBook,
+        isEditingWordbookName, startEditingWordbookName, cancelEditingWordbookName } = useContext(VocaListContext);
+
   return (
     <VocaSidebarContainer>
         <WordbookName>
             <span className="material-icons-sharp">
                 menu_book
             </span>
-            <span>
-                {wordbook.title}
-            </span>
+            {
+                !isEditingWordbookName&&
+                <div>
+                    <span>{loadingDeleteWordbook?"삭제중":wordbook.title}</span>
+                    <span className="material-icons-sharp" onClick={startEditingWordbookName}>
+                    edit
+                    </span>
+                    <span className="material-icons-sharp" onClick={removeBook}>
+                        delete
+                    </span>
+                </div>
+            }
+            {
+                isEditingWordbookName&&
+                <form onSubmit={e =>{ e.preventDefault(); renameBook();}}>
+                    <Input
+                        value={title}
+                        onChange={onChangeTitle}
+                        placeholder="단어장 이름"
+                        autoFocus
+                        disabled={loadingRenameWordbook}
+                    />
+                    <ButtonContainingIcon type="submit" disabled={loadingRenameWordbook}> 저장 </ButtonContainingIcon>
+                    <ReverseButtonContainingIcon type="button" onClick={cancelEditingWordbookName}> 취소 </ReverseButtonContainingIcon>
+                </form>
+            }
         </WordbookName>
         <WordbookInfo>
             <div>
@@ -103,7 +163,7 @@ function VocaSidebar({vocaMode,setVocaMode,wordbook}:{
                 단어 {wordbook.wordCount} 개
             </div>
             <div>
-                <span className="material-icons-sharp" onClick={() => setVocaMode(VocaMode.EDIT)}>
+                <span className="material-icons-sharp">
                     event
                 </span>
                 {wordbook.createdAt&&<span>{ISOStringToDateString(wordbook.createdAt)}</span>}
@@ -135,10 +195,10 @@ function VocaSidebar({vocaMode,setVocaMode,wordbook}:{
             <span>전체 단어 테스트 진행 후 틀린 단어만 모아서 한 번 더 외우기</span>
         </DefaultListElement>
         {vocaMode===VocaMode.VIEW&&
-            <ButtonWithHoverAnimation onClick={() => setVocaMode(VocaMode.TEST)}>테스트 시작</ButtonWithHoverAnimation>
+            <ButtonWithHoverAnimation onClick={testMode}>테스트 시작</ButtonWithHoverAnimation>
         }
         {vocaMode!==VocaMode.VIEW&&
-            <ReverseButtonWithHoverAnimation onClick={() => setVocaMode(VocaMode.VIEW)}>단어 학습으로 돌아가기</ReverseButtonWithHoverAnimation>
+            <ReverseButtonWithHoverAnimation onClick={viewMode}>단어 학습으로 돌아가기</ReverseButtonWithHoverAnimation>
         }
     </VocaSidebarContainer>
   );

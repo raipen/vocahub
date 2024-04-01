@@ -1,6 +1,4 @@
-import { VocaMode } from "@utils/vocaModeEnum";
 import VocaListContext from '@context/VocaListContext';
-import useFetchUpdate from '@hooks/useFetchUpdate';
 import { useContext,useState } from 'react';
 import { 
   VocaListElement,
@@ -13,7 +11,7 @@ import {
   MeaningWithAnswer,
   ButtonWithHoverAnimation,
   ReverseButtonWithHoverAnimation
-} from './index';
+} from '../index';
 
 const marking = (input: string[][], answer: {id:number,meaning: string[]}[]) => {
   const commaSeparatedAnswer = answer.map(a => ({...a,meaning:a.meaning.map(b=>b.split(',').map(c=>c.trim()))}));
@@ -31,8 +29,8 @@ const marking = (input: string[][], answer: {id:number,meaning: string[]}[]) => 
   return {detailMarking: detailMarking.map(({result}) => result), markingResult};
 }
 
-function TestVocaList({setVocaMode}: {setVocaMode: React.Dispatch<React.SetStateAction<VocaMode>>}) {
-  const { vocaList } = useContext(VocaListContext);
+function TestVocaList() {
+  const { vocaList, viewMode } = useContext(VocaListContext);
   const emptyVocaList = vocaList.map(voca => new Array(voca.meaning.length).fill(""));
   const [inputList, setInputList] = useState(emptyVocaList);
   const [result, setResult] = useState<{meaning: string[],correct: boolean}[][]|null>(null);
@@ -80,7 +78,7 @@ function TestVocaList({setVocaMode}: {setVocaMode: React.Dispatch<React.SetState
             {result.filter(voca => voca.every(m => m.correct)).length}/{vocaList.length}
           </div>}
       {result!==null&&
-        <ReverseButtonWithHoverAnimation onClick={()=>setVocaMode(VocaMode.VIEW)}>
+        <ReverseButtonWithHoverAnimation onClick={viewMode}>
           돌아가기
         </ReverseButtonWithHoverAnimation>}
     </VocaListContainer>
