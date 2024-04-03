@@ -59,6 +59,7 @@ NODE_ENV=production
 ```
 
 2. 배포 서버에 Docker 설치
+
 [https://docs.docker.com/engine/install/](https://docs.docker.com/engine/install/) 에서 OS에 맞는 Docker 및 Docker Compose 설치
 
 3. 배포 서버에 Docker Compose 파일 생성
@@ -81,6 +82,7 @@ docker-compose up -d
 ```
 
 5. 배포 서버에 Nginx 설치 및 설정
+
 더 쉽고 간편하게 SSL 인증서를 적용하기 위해 Nginx 사용
 ```bash
 sudo apt-get update
@@ -103,6 +105,7 @@ server {
 ```
 
 8. SSL 인증서 적용
+
 [https://certbot.eff.org/instructions?ws=nginx&os=ubuntufocal](https://certbot.eff.org/instructions?ws=nginx&os=ubuntufocal) 에서 OS와 Nginx 버전에 맞는 가이드를 참고해 SSL 인증서 적용
 
 7. Nginx 재시작
