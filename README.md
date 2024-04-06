@@ -42,6 +42,7 @@ DATABASE_URL="mysql://<username>:<password>@<host>:<port>/<database>"
 3. 라이브러리 설치 및 실행
 ```bash
 npm install
+npm run build #프론트엔드 빌드(최초 1회 이상 실행해주세요. src/fron/dist 폴더가 없으면 dev 실행 시 오류가 발생합니다.)
 npm run dev
 #localhost:8080에 백엔드가 실행되고, localhost:3000에 프론트엔드가 CSR로 실행됩니다.
 #프론트엔드에서 /api prefix로 요청 시 백엔드로 요청됩니다.
