@@ -5,7 +5,7 @@ chmod +x ./wait-for-it.sh
 echo "start node server"
 if [ "$NODE_ENV" = "production" ]; then
     echo "production mode"
-    npm run deploy:withoutShadow
+    npm run deploy
 else
     npm run prisma:generate
     npm run prisma:migrate:dev
